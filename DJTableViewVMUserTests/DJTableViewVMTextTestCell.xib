@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Eb8-3z-kJa" customClass="DJTableViewVMTextTestCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eb8-3z-kJa" id="JfS-lj-0uI">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJ6-g0-9oJ">
+                        <rect key="frame" x="58" y="8" width="254" height="83.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Q6r-FJ-dpi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_head.png" translatesAutoresizingMaskIntoConstraints="NO" id="44I-lg-6x4">
+                        <rect key="frame" x="8" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="8dl-dM-Rr9"/>
+                            <constraint firstAttribute="height" constant="40" id="VYS-GE-qQl"/>
+                            <constraint firstAttribute="width" constant="40" id="jEw-gM-f3h"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8dl-dM-Rr9"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="leadingMargin" secondItem="44I-lg-6x4" secondAttribute="leading" id="1I6-Qd-MwD"/>
+                    <constraint firstItem="UJ6-g0-9oJ" firstAttribute="leading" secondItem="JfS-lj-0uI" secondAttribute="leadingMargin" id="3eL-Ju-ElC"/>
+                    <constraint firstItem="44I-lg-6x4" firstAttribute="leading" secondItem="JfS-lj-0uI" secondAttribute="leadingMargin" constant="61" id="A7l-RK-zDN"/>
+                    <constraint firstItem="44I-lg-6x4" firstAttribute="bottom" secondItem="JfS-lj-0uI" secondAttribute="bottomMargin" id="CoR-l6-dIH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="UJ6-g0-9oJ" secondAttribute="bottom" id="Dy1-Fp-bcw"/>
+                    <constraint firstItem="44I-lg-6x4" firstAttribute="centerX" secondItem="JfS-lj-0uI" secondAttribute="centerX" id="I7n-Oc-IKa"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="UJ6-g0-9oJ" secondAttribute="bottom" id="Ndl-au-kRW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="44I-lg-6x4" secondAttribute="trailing" constant="80" id="bbc-9s-mlI"/>
+                    <constraint firstItem="UJ6-g0-9oJ" firstAttribute="leading" secondItem="44I-lg-6x4" secondAttribute="trailing" constant="10" id="eDB-iq-0Wa"/>
+                    <constraint firstItem="UJ6-g0-9oJ" firstAttribute="top" secondItem="JfS-lj-0uI" secondAttribute="topMargin" id="laR-E5-Y0o"/>
+                    <constraint firstItem="44I-lg-6x4" firstAttribute="top" secondItem="JfS-lj-0uI" secondAttribute="topMargin" constant="2" id="rsF-yc-0M6"/>
+                    <constraint firstItem="44I-lg-6x4" firstAttribute="top" secondItem="UJ6-g0-9oJ" secondAttribute="bottom" id="t46-2b-ynp"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="UJ6-g0-9oJ" secondAttribute="trailing" id="vz2-rQ-pTO"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="A7l-RK-zDN"/>
+                        <exclude reference="CoR-l6-dIH"/>
+                        <exclude reference="I7n-Oc-IKa"/>
+                        <exclude reference="bbc-9s-mlI"/>
+                        <exclude reference="t46-2b-ynp"/>
+                        <exclude reference="3eL-Ju-ElC"/>
+                        <exclude reference="Dy1-Fp-bcw"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nibTextLabel" destination="UJ6-g0-9oJ" id="JAj-Wg-kuM"/>
+            </connections>
+            <point key="canvasLocation" x="427" y="298"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="test_head.png" width="200" height="200"/>
+    </resources>
+</document>
