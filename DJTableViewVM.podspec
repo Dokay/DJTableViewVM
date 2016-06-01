@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.version      = "0.0.1"
   s.summary      = "DJTableViewVM is a ViewModel implementation for UITableView"
   s.description  = <<-DESC
-                   only for private use,DJCollectionViewVM is a ViewModel implementation for UICollectionView
+                   only for private use,DJTableViewVM is a ViewModel implementation for UICollectionView
                    DESC
 
   s.homepage     = "https://github.com/Dokay"
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.author             = { "Dokay" => "dokay.dou@gmail.com" }
   s.platform     = :ios, "6.0"
 
-  s.source       = { :git => "https://github.com/Dokay/DJCollectionViewVM.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/Dokay/DJTableViewVM.git", :tag => s.version.to_s }
 
   s.source_files  = "Classes", "DJTableViewVM/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
