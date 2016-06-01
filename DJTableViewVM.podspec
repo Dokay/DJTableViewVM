@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                    only for private use,DJCollectionViewVM is a ViewModel implementation for UICollectionView
                    DESC
 
-  s.homepage     = "http://douzhongxu.com"
+  s.homepage     = "https://github.com/Dokay"
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author             = { "Dokay" => "dokay.dou@gmail.com" }
@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/Dokay/DJCollectionViewVM.git", :tag => s.version.to_s }
 
-  s.source_files  = "Classes", "DJCollectionViewVM/Classes/**/*.{h,m}"
+  s.source_files  = "Classes", "DJTableViewVM/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "DJCollectionViewVM/Classes/**/*.h"
+  s.public_header_files = "DJTableViewVM/**/*.h"
 
   s.requires_arc = true
 
