@@ -42,7 +42,7 @@
 #pragma mark Cell life cycle
 - (void)cellDidLoad
 {
-    self.loaded = YES;
+    
 }
 
 - (void)cellWillAppear
@@ -58,20 +58,11 @@
     self.textLabel.textAlignment    = row.textAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
     self.imageView.highlightedImage = row.highlightedImage;
-    if (row.titleFont) {
-        self.textLabel.font = row.titleFont;
-    }
-    if (row.titleColor) {
-        self.textLabel.textColor = row.titleColor;
-    }
-    
-    if (row.detailTitleFont) {
-        self.detailTextLabel.font = row.detailTitleFont;
-    }
-    if (row.detailTitleColor) {
-        self.detailTextLabel.textColor = row.titleColor;
-    }
-    self.detailTextLabel.text = row.detailText;
+    self.textLabel.font             = row.titleFont;
+    self.textLabel.textColor        = row.titleColor;
+    self.detailTextLabel.font       = row.detailTitleFont;
+    self.detailTextLabel.textColor  = row.titleColor;
+    self.detailTextLabel.text       = row.detailText;
     
     if (row.separatorInset.top != CGFLOAT_MAX) {
         if ([self respondsToSelector:@selector(setSeparatorInset:)]) {

@@ -41,7 +41,6 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic) UIEdgeInsets separatorInset NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; // allows customization of the frame of cell separators
 @property (nonatomic, assign) NSTextAlignment titleTextAlignment;
 @property (nonatomic, strong) UIColor   *backgroundColor;
-@property (nonatomic, assign) NSInteger numberOfLines;
 @property (nonatomic, strong) UIColor   *titleColor;
 @property (nonatomic, strong) UIFont    *titleFont;
 @property (nonatomic, strong) UIColor   *detailTitleColor;
@@ -53,9 +52,9 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
 
 
-@property (copy, nonatomic) void (^selectionHandler)(id row);
-@property (copy, readwrite, nonatomic) BOOL (^moveHandler)(id item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, readwrite, nonatomic) void (^moveCompletionHandler)(id item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) void (^selectionHandler)(DJTableViewVMRow *row);
+@property (copy, nonatomic) BOOL (^moveHandler)(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) void (^moveCompletionHandler)(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
 
 + (instancetype)row;

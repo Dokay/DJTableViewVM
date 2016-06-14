@@ -138,6 +138,7 @@
             [self.delegate tableView:tableView willLoadCell:cell forRowAtIndexPath:indexPath];
         
         if (!cell.loaded) {
+            cell.loaded = YES;
             [cell cellDidLoad];
         }
         
