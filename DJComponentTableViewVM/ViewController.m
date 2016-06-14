@@ -12,7 +12,7 @@
 
 @interface ViewController ()
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *aDJTableViewVM;
 
 @end
@@ -21,14 +21,95 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view, typically from a nib.
+    [self.view addSubview:self.tableView];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableView);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tableView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|" options:0 metrics:nil views:views]];
     
-    [self testTextRowFrameLayout];
+    switch (self.type) {
+        case 0:
+        {
+            [self testTable];
+        }
+            break;
+        case 1:
+        {
+            [self testDefault];
+        }
+            break;
+        case 2:
+        {
+            [self testTextRowAutoLayoutWithNib];
+        }
+            break;
+        case 3:
+        {
+            [self testTextRowAutoLayoutWithOutNib];
+        }
+            break;
+        case 4:
+        {
+            [self testTextRowFrameLayout];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)testTable
+{
+    __weak ViewController *weakSelf = self;
+    DJTableViewVMRow *simpleRow = [DJTableViewVMRow new];
+    simpleRow.title = @"SimpleDemo";
+    simpleRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [simpleRow setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+        [rowVM deselectRowAnimated:YES];
+        ViewController *aViewController = [ViewController new];
+        aViewController.type = 1;
+        [weakSelf.navigationController pushViewController:aViewController animated:YES];
+    }];
+    
+    DJTableViewVMRow *autoLayoutWithNibRow = [DJTableViewVMRow new];
+    autoLayoutWithNibRow.title = @"AutoLayoutWithNibDemo";
+    autoLayoutWithNibRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [autoLayoutWithNibRow setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+        [rowVM deselectRowAnimated:YES];
+        ViewController *aViewController = [ViewController new];
+        aViewController.type = 2;
+        [weakSelf.navigationController pushViewController:aViewController animated:YES];
+    }];
+    
+    DJTableViewVMRow *autoLayoutWithOutNibNibRow = [DJTableViewVMRow new];
+    autoLayoutWithOutNibNibRow.title = @"AutoLayoutWithOutNibNibDemo";
+    autoLayoutWithOutNibNibRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [autoLayoutWithOutNibNibRow setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+        [rowVM deselectRowAnimated:YES];
+        ViewController *aViewController = [ViewController new];
+        aViewController.type = 3;
+        [weakSelf.navigationController pushViewController:aViewController animated:YES];
+    }];
+    
+    DJTableViewVMRow *frameLayoutRow = [DJTableViewVMRow new];
+    frameLayoutRow.title = @"FrameLayoutDemo";
+    frameLayoutRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [frameLayoutRow setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+        [rowVM deselectRowAnimated:YES];
+        ViewController *aViewController = [ViewController new];
+        aViewController.type = 4;
+        [weakSelf.navigationController pushViewController:aViewController animated:YES];
+    }];
+    
+    [self.aDJTableViewVM removeAllSections];
+    DJTableViewVMSection *contenteSection = [DJTableViewVMSection sectionWithHeaderHeight:0];
+    [self.aDJTableViewVM addSection:contenteSection];
+    [contenteSection addRow:simpleRow];
+    [contenteSection addRow:autoLayoutWithNibRow];
+    [contenteSection addRow:autoLayoutWithOutNibNibRow];
+    [contenteSection addRow:frameLayoutRow];
+    [self.tableView reloadData];
 }
 
 - (void)testTextRowAutoLayoutWithOutNib
@@ -43,8 +124,10 @@
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = @"gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985";
+            __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
+                [weakSelf testTable];
             }];
             [section addRow:row];
         }
@@ -64,8 +147,10 @@
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = @"gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985";
+            __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
+                [weakSelf testTable];
             }];
             [section addRow:row];
         }
@@ -85,8 +170,10 @@
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
             row.contentText = [NSString stringWithFormat:@"%d--%d gshghseghsughsugseuigseugseugseugseuigseghseeihsgeihgisehogishegoieshgosei",j,i];
+            __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
+                [weakSelf testTable];
             }];
             [section addRow:row];
         }
@@ -108,8 +195,10 @@
                 row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
             }
             row.title = [NSString stringWithFormat:@"%d--%d",j,i];
+            __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
+                [weakSelf testTable];
             }];
             [section addRow:row];
         }
@@ -124,6 +213,15 @@
         _aDJTableViewVM= [[DJTableViewVM alloc] initWithTableView:self.tableView];
     }
     return _aDJTableViewVM;
+}
+
+- (UITableView *)tableView
+{
+    if (_tableView == nil) {
+        _tableView = [UITableView new];
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _tableView;
 }
 
 @end

@@ -23,7 +23,7 @@
 
 - (id)init
 {
-    NSAssert(NO, @"换个别的吧");
+    NSAssert(NO, @"please use other init method instead");
     return nil;
 }
 
@@ -310,7 +310,7 @@
             SEL selector = @selector(sizeThatFits:);
             BOOL inherited = ![templateLayoutCell isMemberOfClass:UITableViewCell.class];
             BOOL overrided = [templateLayoutCell.class instanceMethodForSelector:selector] != [UITableViewCell instanceMethodForSelector:selector];
-            if (inherited && !overrided) {
+            if (!inherited || !overrided) {
                 NSAssert(NO, @"Customized cell must override '-sizeThatFits:' method if not using auto layout.");
             }
             fittingSize = [templateLayoutCell sizeThatFits:CGSizeMake(contentViewWidth, 0)];
@@ -331,13 +331,6 @@
         if (self.tableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
             fittingSize.height += 1.0 / [UIScreen mainScreen].scale;
         }
-        
-        //        if (row.hd_enforceFrameLayout) {
-        //            NSLog(@"height:%@",[NSString stringWithFormat:@"calculate using frame layout - %@", @(fittingSize.height)]);
-        //        } else {
-        //            NSLog(@"height:%@",[NSString stringWithFormat:@"calculate using auto layout - %@", @(fittingSize.height)]);
-        //        }
-        
         return fittingSize.height;
     }else{
         NSAssert(FALSE, @"hd_caculateHeightAuto is no ,please set it yes and implement cell height auto");

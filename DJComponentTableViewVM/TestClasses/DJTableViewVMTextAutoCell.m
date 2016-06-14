@@ -42,7 +42,7 @@
 {
     NSDictionary *views = NSDictionaryOfVariableBindings(_contentLabel);
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_contentLabel]|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_contentLabel]|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_contentLabel]-15-|" options:0 metrics:nil views:views]];
 }
 
 - (void)cellDidLoad
