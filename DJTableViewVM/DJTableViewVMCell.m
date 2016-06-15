@@ -61,7 +61,7 @@
     self.textLabel.font             = row.titleFont;
     self.textLabel.textColor        = row.titleColor;
     self.detailTextLabel.font       = row.detailTitleFont;
-    self.detailTextLabel.textColor  = row.titleColor;
+    self.detailTextLabel.textColor  = row.detailTitleColor;
     self.detailTextLabel.text       = row.detailText;
     
     if (row.separatorInset.top != CGFLOAT_MAX) {
