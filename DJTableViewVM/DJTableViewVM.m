@@ -179,8 +179,8 @@
     DJTableViewVMSection *destinationSection = [self.mutableSections objectAtIndex:destinationIndexPath.section];
     [destinationSection insertRow:rowVM atIndex:destinationIndexPath.row];
     
-    if (rowVM.moveCompletionHandler){
-        rowVM.moveCompletionHandler(rowVM, sourceIndexPath, destinationIndexPath);
+    if (rowVM.moveCellCompletionHandler){
+        rowVM.moveCellCompletionHandler(rowVM, sourceIndexPath, destinationIndexPath);
     }
 }
 
@@ -191,7 +191,7 @@
     }
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];
-    return rowVM.moveHandler != nil;
+    return rowVM.moveCellHandler != nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,7 +201,7 @@
         if (indexPath.row < [section.rows count]) {
             DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];
             if ([rowVM isKindOfClass:[DJTableViewVMRow class]]) {
-                return rowVM.editingStyle != UITableViewCellEditingStyleNone || rowVM.moveHandler;
+                return rowVM.editingStyle != UITableViewCellEditingStyleNone || rowVM.moveCellHandler;
             }
         }
     }

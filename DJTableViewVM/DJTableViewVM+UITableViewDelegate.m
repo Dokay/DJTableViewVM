@@ -315,8 +315,8 @@
     
     DJTableViewVMSection *sourceSection = [self.sections objectAtIndex:sourceIndexPath.section];
     DJTableViewVMRow *rowVM = [sourceSection.rows objectAtIndex:sourceIndexPath.row];
-    if (rowVM.moveHandler) {
-        BOOL allowed = rowVM.moveHandler(rowVM, sourceIndexPath, proposedDestinationIndexPath);
+    if (rowVM.moveCellHandler) {
+        BOOL allowed = rowVM.moveCellHandler(rowVM, sourceIndexPath, proposedDestinationIndexPath);
         if (!allowed){
             return sourceIndexPath;
         }

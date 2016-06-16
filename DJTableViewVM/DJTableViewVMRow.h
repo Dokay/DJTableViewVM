@@ -56,8 +56,8 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 #pragma mark - actions
 @property (copy, nonatomic) void (^selectionHandler)(id rowVM);
-@property (copy, nonatomic) BOOL (^moveHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, nonatomic) void (^moveCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) BOOL (^moveCellHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
 
 + (instancetype)row;
