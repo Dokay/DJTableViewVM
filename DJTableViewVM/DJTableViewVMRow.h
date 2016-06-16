@@ -52,9 +52,9 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
 
 
-@property (copy, nonatomic) void (^selectionHandler)(DJTableViewVMRow *row);
-@property (copy, nonatomic) BOOL (^moveHandler)(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, nonatomic) void (^moveCompletionHandler)(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) void (^selectionHandler)(id rowVM);
+@property (copy, nonatomic) BOOL (^moveHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (copy, nonatomic) void (^moveCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
 
 + (instancetype)row;
