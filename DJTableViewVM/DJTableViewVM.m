@@ -128,7 +128,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self hd_tableView:tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self dj_tableView:tableView cellForRowAtIndexPath:indexPath];
     
     if ([cell isKindOfClass:[DJTableViewVMCell class]] && [cell respondsToSelector:@selector(loaded)] && !cell.loaded) {
         cell.tableViewVM = self;
@@ -196,9 +196,14 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO:
-    if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(tableView: canEditRowAtIndexPath:)]) {
-        return [self.dataSource tableView:tableView canEditRowAtIndexPath:indexPath];
+    if (indexPath.section < [self.mutableSections count]) {
+        DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
+        if (indexPath.row < [section.rows count]) {
+            DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];
+            if ([rowVM isKindOfClass:[DJTableViewVMRow class]]) {
+                return rowVM.editingStyle != UITableViewCellEditingStyleNone || rowVM.moveHandler;
+            }
+        }
     }
     return NO;
 }
@@ -230,7 +235,7 @@
 }
 
 #pragma mark - caculate height
-- (UITableViewCell<DJTableViewVMCellDelegate> *)hd_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell<DJTableViewVMCellDelegate> *)dj_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
@@ -272,7 +277,7 @@
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.heightCaculateType == DJCellHeightCaculateAutoFrameLayout
         || row.heightCaculateType == DJCellHeightCaculateAutoLayout) {
-        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self hd_tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self dj_tableView:self.tableView cellForRowAtIndexPath:indexPath];
         
         // Manually calls to ensure consistent behavior with actual cells (that are displayed on screen).
         [templateLayoutCell prepareForReuse];
@@ -334,7 +339,7 @@
         }
         return fittingSize.height;
     }else{
-        NSAssert(FALSE, @"hd_caculateHeightAuto is no ,please set it yes and implement cell height auto");
+        NSAssert(FALSE, @"heightCaculateType is no ,please set it yes and implement cell height auto");
         return 0;
     }
 }

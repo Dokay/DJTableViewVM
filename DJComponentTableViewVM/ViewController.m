@@ -54,6 +54,12 @@
             [self testTextRowFrameLayout];
         }
             break;
+        case 5:
+        {
+            [self testMoveRow];
+            [self.tableView setEditing:YES animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -102,6 +108,16 @@
         [weakSelf.navigationController pushViewController:aViewController animated:YES];
     }];
     
+    DJTableViewVMRow *moveRow = [DJTableViewVMRow new];
+    moveRow.title = @"MoveRowDemo";
+    moveRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [moveRow setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+        [rowVM deselectRowAnimated:YES];
+        ViewController *aViewController = [ViewController new];
+        aViewController.type = 5;
+        [weakSelf.navigationController pushViewController:aViewController animated:YES];
+    }];
+    
     [self.aDJTableViewVM removeAllSections];
     DJTableViewVMSection *contenteSection = [DJTableViewVMSection sectionWithHeaderHeight:0];
     [self.aDJTableViewVM addSection:contenteSection];
@@ -109,6 +125,7 @@
     [contenteSection addRow:autoLayoutWithNibRow];
     [contenteSection addRow:autoLayoutWithOutNibNibRow];
     [contenteSection addRow:frameLayoutRow];
+    [contenteSection addRow:moveRow];
     [self.tableView reloadData];
 }
 
@@ -199,6 +216,32 @@
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
                 [weakSelf testTable];
+            }];
+            [section addRow:row];
+        }
+    }
+    [self.tableView reloadData];
+}
+
+- (void)testMoveRow
+{
+    [self.aDJTableViewVM removeAllSections];
+    
+    for (int j = 0; j < 20; j++) {
+        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"MoveRow"];
+        [self.aDJTableViewVM addSection:section];
+        for (int i  = 0; i < 6; i ++) {
+            DJTableViewVMRow *row = [DJTableViewVMRow new];
+            row.cellHeight = 70;
+            if (i == 0) {
+                row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+            }
+            row.title = [NSString stringWithFormat:@"%d--%d",j,i];
+            [row setMoveHandler:^BOOL(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
+                return YES;
+            }];
+            [row setMoveCompletionHandler:^(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
+                NSLog(@"Move Complete");
             }];
             [section addRow:row];
         }

@@ -55,7 +55,7 @@
     self.accessoryType   = row.accessoryType;
     self.accessoryView   = row.accessoryView;
     self.imageView.image = row.image;
-    self.textLabel.textAlignment    = row.textAlignment;
+    self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
     self.imageView.highlightedImage = row.highlightedImage;
     self.textLabel.font             = row.titleFont;
