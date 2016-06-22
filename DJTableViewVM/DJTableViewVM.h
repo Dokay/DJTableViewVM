@@ -24,14 +24,28 @@
 
 @protocol DJTableViewVMDataSource <UITableViewDataSource>
 
-
 @end
 
-@interface DJTableViewVM: NSObject <UITableViewDelegate, UITableViewDataSource>
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+@protocol DJTableViewDataSourcePrefetching <NSObject>
+- (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray *)indexPaths;
+
+- (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray *)indexPaths;
+@end
+#else
+@protocol DJTableViewDataSourcePrefetching <UITableViewDataSourcePrefetching>
+
+@end
+#endif
+
+
+
+@interface DJTableViewVM: NSObject <UITableViewDelegate, UITableViewDataSource,DJTableViewDataSourcePrefetching>
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) id<DJTableViewVMDelegate> delegate;
 @property (nonatomic, weak) id<DJTableViewVMDataSource> dataSource;
+@property (nonatomic, weak) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
 @property (nonatomic, strong) NSMutableDictionary *registeredClasses;
 @property (nonatomic, strong) NSArray *sections;
 

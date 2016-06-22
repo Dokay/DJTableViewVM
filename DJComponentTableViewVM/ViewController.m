@@ -60,6 +60,11 @@
             [self.tableView setEditing:YES animated:YES];
         }
             break;
+        case 6:
+        {
+            [self testPretch];
+        }
+            break;
         default:
             break;
     }
@@ -76,7 +81,9 @@
                                 @{@"title":@"FrameLayoutDemo",
                                   @"jumpID":@(4)},
                                 @{@"title":@"MoveRowDemo",
-                                  @"jumpID":@(5)},];
+                                  @"jumpID":@(5)},
+                                @{@"title":@"PretchDemo",
+                                  @"jumpID":@(6)},];
     
     __weak ViewController *weakSelf = self;
     
@@ -112,8 +119,8 @@
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];
             __weak ViewController *weakSelf = self;
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
             }];
             [section addRow:row];
@@ -135,8 +142,8 @@
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];;
             __weak ViewController *weakSelf = self;
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
             }];
             [section addRow:row];
@@ -158,8 +165,8 @@
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
             row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];;
             __weak ViewController *weakSelf = self;
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
             }];
             [section addRow:row];
@@ -183,8 +190,8 @@
             }
             row.title = [NSString stringWithFormat:@"%d--%d",j,i];
             __weak ViewController *weakSelf = self;
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
             }];
             [section addRow:row];
@@ -212,6 +219,37 @@
             }];
             [row setMoveCellCompletionHandler:^(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
                 NSLog(@"Move Complete");
+            }];
+            [section addRow:row];
+        }
+    }
+    [self.tableView reloadData];
+}
+
+- (void)testPretch
+{
+    [self.aDJTableViewVM removeAllSections];
+    
+    for (int j = 0; j < 20; j++) {
+        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"Default"];
+        [self.aDJTableViewVM addSection:section];
+        for (int i  = 0; i < 100; i ++) {
+            DJTableViewVMRow *row = [DJTableViewVMRow new];
+            row.cellHeight = 70;
+            if (i == 0) {
+                row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+            }
+            row.title = [NSString stringWithFormat:@"%d--%d",j,i];
+            __weak ViewController *weakSelf = self;
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
+                [weakSelf testTable];
+            }];
+            [row setPrefetchHander:^(DJTableViewVMRow *rowVM) {
+                NSLog(@"PrefetchHander->%d--%d",j,i);
+            }];
+            [row setPrefetchCancelHander:^(DJTableViewVMRow *rowVM) {
+                NSLog(@"PrefetchCancelHander->%d--%d",j,i);
             }];
             [section addRow:row];
         }

@@ -116,10 +116,10 @@
 		4E0528991C4F157700B9AAF5 /* DJTableViewVM */ = {
 			isa = PBXGroup;
 			children = (
-				4E05289A1C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.h */,
-				4E05289B1C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.m */,
 				4E05289C1C4F157700B9AAF5 /* DJTableViewVM+UITableViewDelegate.h */,
 				4E05289D1C4F157700B9AAF5 /* DJTableViewVM+UITableViewDelegate.m */,
+				4E05289A1C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.h */,
+				4E05289B1C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.m */,
 				4E05289E1C4F157700B9AAF5 /* DJTableViewVM.h */,
 				4E05289F1C4F157700B9AAF5 /* DJTableViewVM.m */,
 				4E0528A01C4F157700B9AAF5 /* DJTableViewVMCell.h */,

@@ -59,6 +59,9 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (copy, nonatomic) BOOL (^moveCellHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 @property (copy, nonatomic) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
+@property (nonatomic, copy) void(^prefetchHander)(id rowVM);
+@property (nonatomic, copy) void(^prefetchCancelHander)(id rowVM);
+
 
 + (instancetype)row;
 

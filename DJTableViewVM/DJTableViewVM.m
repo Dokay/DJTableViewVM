@@ -27,15 +27,6 @@
     return nil;
 }
 
-- (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate dataSource:(id<DJTableViewVMDataSource>)dataSource
-{
-    self = [self initWithTableView:tableView delegate:delegate];
-    if (self) {
-        self.dataSource = dataSource;
-    }
-    return self;
-}
-
 - (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate
 {
     self = [self initWithTableView:tableView];
@@ -52,13 +43,19 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+    //TODO:implement prefetch under ios 10
+#else
+     tableView.prefetchDataSource = self;
+#endif
+        
         self.tableView = tableView;
         
         self.mutableSections   = [[NSMutableArray alloc] init];
         self.registeredClasses = [[NSMutableDictionary alloc] init];
         self.registeredXIBs    = [[NSMutableDictionary alloc] init];
         
-        [self registerDefaultClasses];
+        [self registerDefaultCells];
     }
     return self;
 }
@@ -75,7 +72,7 @@
 }
 
 #pragma mark  - regist class name
-- (void)registerDefaultClasses
+- (void)registerDefaultCells
 {
     self[@"DJTableViewVMRow"] = @"DJTableViewVMCell";
 }
@@ -232,6 +229,29 @@
         [self.dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
     return 0;
+}
+
+#pragma mark - DJTableViewDataSourcePrefetching
+- (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    for (NSIndexPath *indexPath in indexPaths) {
+        DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+        DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+        if (rowVM.prefetchHander) {
+            rowVM.prefetchHander(rowVM);
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    for (NSIndexPath *indexPath in indexPaths) {
+        DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+        DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+        if (rowVM.prefetchCancelHander) {
+            rowVM.prefetchCancelHander(rowVM);
+        }
+    }
 }
 
 #pragma mark - caculate height
