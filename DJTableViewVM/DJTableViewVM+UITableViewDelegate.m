@@ -116,7 +116,12 @@
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     Class cellClass = [self.registeredClasses objectForKey:row.class];
-    CGFloat height = [cellClass heightWithRow:row tableViewVM:self];
+    CGFloat height = 0;
+    if (row.cellHeight == 0) {
+        height = [cellClass heightWithRow:row tableViewVM:self];
+    }else{
+        height = row.cellHeight;
+    }
     
     return height ? height : UITableViewAutomaticDimension;
 }
