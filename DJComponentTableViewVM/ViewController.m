@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DJTableViewVM.h"
 #import "DJTableViewVMTextTestRow.h"
+#import "DJAlertView.h"
 
 @interface ViewController ()
 
@@ -21,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // Do any additional setup after loading the view, typically from a nib.
     [self.view addSubview:self.tableView];
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableView);
@@ -65,6 +66,11 @@
             [self testPretch];
         }
             break;
+        case 7:
+        {
+            [self testDelete];
+        }
+            break;
         default:
             break;
     }
@@ -83,7 +89,9 @@
                                 @{@"title":@"MoveRowDemo",
                                   @"jumpID":@(5)},
                                 @{@"title":@"PretchDemo",
-                                  @"jumpID":@(6)},];
+                                  @"jumpID":@(6)},
+                                @{@"title":@"DeleteDemo",
+                                  @"jumpID":@(7)}];
     
     __weak ViewController *weakSelf = self;
     
@@ -254,6 +262,55 @@
             [section addRow:row];
         }
     }
+    [self.tableView reloadData];
+}
+
+- (void)testDelete
+{
+    [self.aDJTableViewVM removeAllSections];
+    
+    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"delete"];
+    [self.aDJTableViewVM addSection:section];
+    for (int i  = 0; i < 5; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        if (i == 0) {
+            row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+        }
+        row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleDelete;
+        [row setDeleteCellHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"delete->--%d",i);
+        }];
+        [section addRow:row];
+    }
+    
+    DJTableViewVMSection *completeSection = [DJTableViewVMSection sectionWithHeaderTitle:@"delete with complete bock"];
+    [self.aDJTableViewVM addSection:completeSection];
+    for (int i  = 0; i < 8; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        if (i == 0) {
+            row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+        }
+        row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleDelete;
+        [row setDeleteCellHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"delete->--%d",i);
+        }];
+        [row setDeleteCellCompleteHandler:^(DJTableViewVMRow *rowVM, void (^complete)()) {
+            NSLog(@"delete %d with complete",i);
+            DJAlertView *alertView = [[DJAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"Are you want to delete rowVM \r\n with ID:%d?",i] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+            [alertView showWithCompletion:^(DJAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    complete();
+                }
+            }];
+        }];
+        [completeSection addRow:row];
+    }
+    
+    
     [self.tableView reloadData];
 }
 

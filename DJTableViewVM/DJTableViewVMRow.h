@@ -26,28 +26,27 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 @interface DJTableViewVMRow : NSObject
 
-@property (weak, nonatomic  ) DJTableViewVMSection *section;
-
+@property (assign, nonatomic) CGFloat                       cellHeight;
 @property (assign, nonatomic) UITableViewCellStyle          style;
-@property (copy, nonatomic  ) NSString                      *cellIdentifier;
+@property (weak,   nonatomic) DJTableViewVMSection          *section;
+@property (strong, nonatomic) UIView                        *accessoryView;
+@property (copy,   nonatomic) NSString                      *cellIdentifier;
 @property (assign, nonatomic) UITableViewCellSelectionStyle selectionStyle;
 @property (assign, nonatomic) UITableViewCellAccessoryType  accessoryType;
-@property (strong, nonatomic) UIView  *accessoryView;
+@property (nonatomic, assign) UITableViewCellEditingStyle   editingStyle;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *detailText;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *highlightedImage;
-@property (nonatomic) UIEdgeInsets separatorInset NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR; // allows customization of the frame of cell separators
+@property (nonatomic, assign) NSTextAlignment textAlignment;
+@property (nonatomic, assign) UIEdgeInsets separatorInset;
 @property (nonatomic, assign) NSTextAlignment titleTextAlignment;
 @property (nonatomic, strong) UIColor   *backgroundColor;
-@property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
-
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) UIColor  *titleColor;
-@property (nonatomic, strong) UIFont   *titleFont;
-@property (nonatomic, strong) NSString *detailText;
-@property (nonatomic, strong) UIColor  *detailTitleColor;
-@property (nonatomic, strong) UIFont   *detailTitleFont;
-
-@property (assign, nonatomic) CGFloat cellHeight;
+@property (nonatomic, assign) NSInteger numberOfLines;
+@property (nonatomic, strong) UIColor   *titleColor;
+@property (nonatomic, strong) UIFont    *titleFont;
+@property (nonatomic, strong) UIColor   *detailTitleColor;
+@property (nonatomic, strong) UIFont    *detailTitleFont;
 @property (nonatomic, strong) NSObject  *paramObject;
 
 @property (nonatomic, assign) DJCellSeparatorLineType separatorLineType;
@@ -62,6 +61,8 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy) void(^prefetchHander)(id rowVM);
 @property (nonatomic, copy) void(^prefetchCancelHander)(id rowVM);
 
+@property (nonatomic, copy) void(^deleteCellHandler)(id rowVM);
+@property (nonatomic, copy) void(^deleteCellCompleteHandler)(id rowVM,void(^complete)());
 
 + (instancetype)row;
 

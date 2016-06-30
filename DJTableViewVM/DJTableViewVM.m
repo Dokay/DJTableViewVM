@@ -207,9 +207,29 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO:
-    if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
-        [self.dataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        DJTableViewVMSection *sectionVM = [self.mutableSections objectAtIndex:indexPath.section];
+        DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+        void(^completeBlock)() = ^{
+            [sectionVM removeRowAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            for (NSInteger i = indexPath.row; i < sectionVM.rows.count; i++) {
+                DJTableViewVMRow *afterDeleteRowVM = [sectionVM.rows objectAtIndex:i];
+                id<DJTableViewVMCellDelegate> cell = (id<DJTableViewVMCellDelegate>)[tableView cellForRowAtIndexPath:afterDeleteRowVM.indexPath];
+                cell.rowIndex--;
+            }
+        };
+        if (rowVM.deleteCellCompleteHandler) {
+            rowVM.deleteCellCompleteHandler(rowVM,completeBlock);
+        } else {
+            if (rowVM.deleteCellHandler){
+                rowVM.deleteCellHandler(rowVM);
+                completeBlock();
+            }
+        }
+    }else{
+        
     }
 }
 
@@ -378,8 +398,9 @@
 
 - (void)addSectionsFromArray:(NSArray *)array
 {
-    for (DJTableViewVMSection *section in array)
+    for (DJTableViewVMSection *section in array){
         section.tableViewVM = self;
+    }
     [self.mutableSections addObjectsFromArray:array];
 }
 

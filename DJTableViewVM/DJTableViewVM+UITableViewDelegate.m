@@ -276,8 +276,9 @@
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:editingStyleForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
     }
-    
-    return UITableViewCellEditingStyleNone;
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+    return rowVM.editingStyle;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
