@@ -281,6 +281,16 @@
     return rowVM.editingStyle;
 }
 
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]){
+        return [self.delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+    return rowVM.editActions;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)]){

@@ -26,13 +26,14 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 @interface DJTableViewVMRow : NSObject
 
-@property (assign, nonatomic) CGFloat                       cellHeight;
-@property (assign, nonatomic) UITableViewCellStyle          style;
-@property (weak,   nonatomic) DJTableViewVMSection          *section;
-@property (strong, nonatomic) UIView                        *accessoryView;
-@property (copy,   nonatomic) NSString                      *cellIdentifier;
-@property (assign, nonatomic) UITableViewCellSelectionStyle selectionStyle;
-@property (assign, nonatomic) UITableViewCellAccessoryType  accessoryType;
+@property (nonatomic,   weak) DJTableViewVMSection *section;
+@property (nonatomic, assign) CGFloat  cellHeight;
+@property (nonatomic, strong) UIView   *accessoryView;
+@property (nonatomic,   copy) NSString *cellIdentifier;
+@property (nonatomic,   copy) NSArray  *editActions NS_AVAILABLE_IOS(8_0);
+@property (nonatomic, assign) UITableViewCellStyle style;
+@property (nonatomic, assign) UITableViewCellSelectionStyle selectionStyle;
+@property (nonatomic, assign) UITableViewCellAccessoryType  accessoryType;
 @property (nonatomic, assign) UITableViewCellEditingStyle   editingStyle;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *detailText;

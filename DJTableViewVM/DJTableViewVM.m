@@ -198,7 +198,9 @@
         if (indexPath.row < [section.rows count]) {
             DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];
             if ([rowVM isKindOfClass:[DJTableViewVMRow class]]) {
-                return rowVM.editingStyle != UITableViewCellEditingStyleNone || rowVM.moveCellHandler;
+                return rowVM.editingStyle != UITableViewCellEditingStyleNone
+                || rowVM.moveCellHandler
+                || rowVM.editActions.count > 0;
             }
         }
     }

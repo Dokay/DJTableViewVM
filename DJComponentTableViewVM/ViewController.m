@@ -20,6 +20,7 @@
 
 @implementation ViewController
 
+#pragma mark - life
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -71,11 +72,17 @@
             [self testDelete];
         }
             break;
+        case 8:
+        {
+            [self testEditActions];
+        }
+            break;
         default:
             break;
     }
 }
 
+#pragma mark - tests
 - (void)testTable
 {
     NSArray *testDataSource = @[@{@"title":@"SimpleDemo",
@@ -91,7 +98,9 @@
                                 @{@"title":@"PretchDemo",
                                   @"jumpID":@(6)},
                                 @{@"title":@"DeleteDemo",
-                                  @"jumpID":@(7)}];
+                                  @"jumpID":@(7)},
+                                @{@"title":@"EditAction",
+                                  @"jumpID":@(8)}];
     
     __weak ViewController *weakSelf = self;
     
@@ -309,9 +318,36 @@
         }];
         [completeSection addRow:row];
     }
-    
-    
     [self.tableView reloadData];
+}
+
+- (void)testEditActions
+{
+    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"EditActions"];
+    [self.aDJTableViewVM addSection:section];
+    for (int i  = 0; i < 10; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        if (i == 0) {
+            row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+        }
+        row.title = [NSString stringWithFormat:@"EditActions--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleDelete;
+        if (([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)) {
+            UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"action 1" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                NSLog(@"action 1");
+            }];
+            action1.backgroundColor = [UIColor orangeColor];
+            
+            UITableViewRowAction *action2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"action 2" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                NSLog(@"action 2");
+            }];
+            action2.backgroundColor = [UIColor purpleColor];
+            row.editActions = @[action1,action2];
+        }
+        
+        [section addRow:row];
+    }
 }
 
 #pragma mark - getter
