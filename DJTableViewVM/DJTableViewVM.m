@@ -23,7 +23,7 @@
 
 - (id)init
 {
-    NSAssert(NO, @"please use other init method instead");
+    NSAssert(NO, @"please use other init methods instead");
     return nil;
 }
 
@@ -209,9 +209,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DJTableViewVMSection *sectionVM = [self.mutableSections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        DJTableViewVMSection *sectionVM = [self.mutableSections objectAtIndex:indexPath.section];
-        DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
         void(^completeBlock)() = ^{
             [sectionVM removeRowAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -230,8 +230,10 @@
                 completeBlock();
             }
         }
-    }else{
-        
+    }else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        if (rowVM.insertCellHandler) {
+            rowVM.insertCellHandler(rowVM);
+        }
     }
 }
 

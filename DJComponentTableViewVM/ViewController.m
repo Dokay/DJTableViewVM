@@ -77,6 +77,12 @@
             [self testEditActions];
         }
             break;
+        case 9:
+        {
+            [self testInsert];
+            [self.tableView setEditing:YES animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -100,7 +106,9 @@
                                 @{@"title":@"DeleteDemo",
                                   @"jumpID":@(7)},
                                 @{@"title":@"EditAction",
-                                  @"jumpID":@(8)}];
+                                  @"jumpID":@(8)},
+                                @{@"title":@"InsertDemo",
+                                  @"jumpID":@(9)}];
     
     __weak ViewController *weakSelf = self;
     
@@ -348,6 +356,26 @@
         
         [section addRow:row];
     }
+}
+
+- (void)testInsert
+{
+    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"Insert"];
+    [self.aDJTableViewVM addSection:section];
+    for (int i  = 0; i < 5; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        if (i == 0) {
+            row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+        }
+        row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleInsert;
+        [row setInsertCellHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"tap insert");
+        }];
+        [section addRow:row];
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - getter

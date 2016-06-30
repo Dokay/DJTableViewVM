@@ -51,13 +51,13 @@
     
     self.selectionStyle  = row.selectionStyle;
     self.backgroundColor = row.backgroundColor;
-    self.textLabel.text  = row.title;
     self.accessoryType   = row.accessoryType;
     self.accessoryView   = row.accessoryView;
     self.imageView.image = row.image;
+    self.imageView.highlightedImage = row.highlightedImage;
     self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
-    self.imageView.highlightedImage = row.highlightedImage;
+    self.textLabel.text             = row.title;
     self.textLabel.font             = row.titleFont;
     self.textLabel.textColor        = row.titleColor;
     self.detailTextLabel.font       = row.detailTitleFont;

@@ -58,7 +58,7 @@
 /**
  *  cacultate height auto
  *
- *  @param indexPath positon of Cell
+ *  @param indexPath of Cell
  *
  *  @return height of cell
  */

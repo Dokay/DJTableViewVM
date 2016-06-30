@@ -43,7 +43,6 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
 @property (nonatomic, assign) NSTextAlignment titleTextAlignment;
 @property (nonatomic, strong) UIColor   *backgroundColor;
-@property (nonatomic, assign) NSInteger numberOfLines;
 @property (nonatomic, strong) UIColor   *titleColor;
 @property (nonatomic, strong) UIFont    *titleFont;
 @property (nonatomic, strong) UIColor   *detailTitleColor;
@@ -63,7 +62,8 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy) void(^prefetchCancelHander)(id rowVM);
 
 @property (nonatomic, copy) void(^deleteCellHandler)(id rowVM);
-@property (nonatomic, copy) void(^deleteCellCompleteHandler)(id rowVM,void(^complete)());
+@property (nonatomic, copy) void(^deleteCellCompleteHandler)(id rowVM,void(^completion)());
+@property (nonatomic, copy) void(^insertCellHandler)(id rowVM);
 
 + (instancetype)row;
 
