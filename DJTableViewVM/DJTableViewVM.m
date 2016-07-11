@@ -10,12 +10,14 @@
 #import "DJTableViewVMCell.h"
 #import "DJTableViewVM+UIScrollViewDelegate.h"
 #import "DJTableViewVM+UITableViewDelegate.h"
+#import "DJPrefetchManager.h"
 
 @interface DJTableViewVM()
 
 @property (strong, nonatomic) NSMutableDictionary *registeredXIBs;
 @property (strong, nonatomic) NSMutableArray *mutableSections;
-
+@property (nonatomic, strong) DJPrefetchManager *prefetchManager;
+@property (nonatomic, assign) BOOL bPreetchEnabled;
 
 @end
 
@@ -42,15 +44,8 @@
     if (self){
         tableView.delegate = self;
         tableView.dataSource = self;
-        
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-    //TODO:implement prefetch under ios 10
-#else
-     tableView.prefetchDataSource = self;
-#endif
-        
         self.tableView = tableView;
-        
+
         self.mutableSections   = [[NSMutableArray alloc] init];
         self.registeredClasses = [[NSMutableDictionary alloc] init];
         self.registeredXIBs    = [[NSMutableDictionary alloc] init];
@@ -111,6 +106,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    [self checkPrefetchEnabled];
     return self.mutableSections.count;
 }
 
@@ -388,6 +384,19 @@
     }
 }
 
+- (void)checkPrefetchEnabled
+{
+    for (DJTableViewVMSection *sectionVM in self.sections) {
+        for (DJTableViewVMRow *rowVM in sectionVM.rows) {
+            if (rowVM.prefetchHander || rowVM.prefetchCancelHander) {
+                self.bPreetchEnabled = YES;
+                return;
+            }
+        }
+    }
+    self.bPreetchEnabled = NO;
+}
+
 #pragma mark - sections manage
 - (NSArray *)sections
 {
@@ -432,6 +441,48 @@
 - (void)removeSectionAtIndex:(NSUInteger)index
 {
     [self.mutableSections removeObjectAtIndex:index];
+}
+
+#pragma mark - setter
+- (void)setBPreetchEnabled:(BOOL)bPreetchEnabled
+{
+    _bPreetchEnabled = bPreetchEnabled;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+        self.prefetchManager.bPreetchEnabled = bPreetchEnabled;
+#else
+    if (bPreetchEnabled) {
+        tableView.prefetchDataSource = self;
+    }else{
+        tableView.prefetchDataSource = nil;
+    }
+#endif
+}
+
+#pragma mark - getter
+- (DJPrefetchManager *)prefetchManager
+{
+    if (_prefetchManager == nil) {
+        _prefetchManager = [[DJPrefetchManager alloc] initWithScrollView:self.tableView];
+        __weak DJTableViewVM *weakSelf = self;
+        [_prefetchManager setPrefetchCompletion:^(NSArray *addedArray, NSArray *cancelArray) {
+            for (NSIndexPath *indexPath in addedArray) {
+                DJTableViewVMSection *sectionVM = [weakSelf.sections objectAtIndex:indexPath.section];
+                DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+                if (rowVM.prefetchHander) {
+                    rowVM.prefetchHander(rowVM);
+                }
+            }
+            
+            for (NSIndexPath *indexPath in cancelArray) {
+                DJTableViewVMSection *sectionVM = [weakSelf.sections objectAtIndex:indexPath.section];
+                DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+                if (rowVM.prefetchCancelHander) {
+                    rowVM.prefetchCancelHander(rowVM);
+                }
+            }
+        }];
+    }
+    return _prefetchManager;
 }
 
 @end

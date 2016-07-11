@@ -64,7 +64,7 @@
             break;
         case 6:
         {
-            [self testPretch];
+            [self testPrefetch];
         }
             break;
         case 7:
@@ -101,7 +101,7 @@
                                   @"jumpID":@(4)},
                                 @{@"title":@"MoveRowDemo",
                                   @"jumpID":@(5)},
-                                @{@"title":@"PretchDemo",
+                                @{@"title":@"PrefetchDemo",
                                   @"jumpID":@(6)},
                                 @{@"title":@"DeleteDemo",
                                   @"jumpID":@(7)},
@@ -251,7 +251,7 @@
     [self.tableView reloadData];
 }
 
-- (void)testPretch
+- (void)testPrefetch
 {
     [self.aDJTableViewVM removeAllSections];
     
