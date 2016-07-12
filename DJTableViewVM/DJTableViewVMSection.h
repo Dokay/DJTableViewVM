@@ -16,8 +16,9 @@
 @property (strong, readonly, nonatomic) NSArray *rows;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UIView *footerView;
-@property (copy, nonatomic) NSString *headerTitle;
-@property (copy, nonatomic) NSString *footerTitle;
+@property (nonatomic, copy) NSString *headerTitle;
+@property (nonatomic, copy) NSString *footerTitle;
+@property (nonatomic, copy) NSString *sectionIndexTitle;
 @property (assign, readonly, nonatomic) NSUInteger index;
 @property (weak, nonatomic) DJTableViewVM *tableViewVM;
 

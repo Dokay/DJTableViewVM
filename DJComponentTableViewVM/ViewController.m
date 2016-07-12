@@ -83,6 +83,11 @@
             [self.tableView setEditing:YES animated:YES];
         }
             break;
+        case 10:
+        {
+            [self testIndexTitle];
+        }
+            break;
         default:
             break;
     }
@@ -108,7 +113,9 @@
                                 @{@"title":@"EditAction",
                                   @"jumpID":@(8)},
                                 @{@"title":@"InsertDemo",
-                                  @"jumpID":@(9)}];
+                                  @"jumpID":@(9)},
+                                @{@"title":@"IndexTitle",
+                                  @"jumpID":@(10)},];
     
     __weak ViewController *weakSelf = self;
     
@@ -375,6 +382,27 @@
         }];
         [section addRow:row];
     }
+    [self.tableView reloadData];
+}
+
+- (void)testIndexTitle
+{
+    NSArray *sectionTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M",
+                               @"N", @"O", @"P", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+    
+    [self.aDJTableViewVM removeAllSections];
+    for (NSString *sectionTitle in sectionTitles) {
+        DJTableViewVMSection *sectionVM = [DJTableViewVMSection sectionWithHeaderTitle:sectionTitle];
+        sectionVM.sectionIndexTitle = sectionTitle; // assign index title
+        [self.aDJTableViewVM addSection:sectionVM];
+        for (NSInteger i = 0 ; i < 6; i ++) {
+            DJTableViewVMRow *row = [DJTableViewVMRow new];
+            row.cellHeight = 70;
+            row.title = [NSString stringWithFormat:@"Cell--%ld",(long)i];
+            [sectionVM addRow:row];
+        }
+    }
+    
     [self.tableView reloadData];
 }
 

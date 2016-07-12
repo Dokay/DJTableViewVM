@@ -235,20 +235,46 @@
 
 - (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView __TVOS_PROHIBITED
 {
-    //TODO:
     if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
         [self.dataSource sectionIndexTitlesForTableView:tableView];
     }
+    
+    BOOL bIndexTitle = NO;
+    for (DJTableViewVMSection *sectionVM in self.sections) {
+        if (sectionVM.sectionIndexTitle.length > 0) {
+            bIndexTitle = YES;
+            break;
+        }
+    }
+    if (bIndexTitle) {
+        NSMutableArray *titlesArray = [NSMutableArray new];
+        for (DJTableViewVMSection *sectionVM in self.sections) {
+            if (sectionVM.sectionIndexTitle.length > 0) {
+                [titlesArray addObject:sectionVM.sectionIndexTitle];
+            }else{
+                [titlesArray addObject:@""];
+            }
+        }
+        return titlesArray;
+    }
+    
     return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index __TVOS_PROHIBITED
 {
-    //TODO:
     if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
         [self.dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
-    return 0;
+    
+    for (DJTableViewVMSection *sectionVM in self.sections) {
+        if (sectionVM.sectionIndexTitle.length > 0
+            && [sectionVM.sectionIndexTitle isEqualToString:title]) {
+            return sectionVM.index;
+        }
+    }
+    
+    return index;
 }
 
 #pragma mark - DJTableViewDataSourcePrefetching
