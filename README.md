@@ -6,11 +6,12 @@ __DJTableViewVM is a light ViewModel implementation for UITableView.__
 * less code and more flexible to implement a UITableView;
 * dynamic cell height;
 * easy to control cell bottom line;
+* prefetch for iOS 7.0+;
 
 ## Requirements
 * Xcode 7 or higher
 * Apple LLVM compiler
-* iOS 6.0 or higher
+* iOS 7.0 or higher
 * ARC
 
 ## Demo
@@ -28,7 +29,7 @@ pod 'DJTableViewVM'
 ```
 
 ## Quickstart
-* sample code
+* Sample code
 ```objc
 - (void)testTextRowFrameLayout
 {
@@ -41,7 +42,7 @@ pod 'DJTableViewVM'
         for (int i  = 0; i < 100; i ++) {
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
-            row.contentText = [NSString stringWithFormat:@"%d--%d this is test row",j,i];
+            row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowFrameLayout",i,j];
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
             }];
@@ -64,7 +65,7 @@ pod 'DJTableViewVM'
             if (i == 0) {
                 row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
             }
-            row.title = [NSString stringWithFormat:@"%d--%d",j,i];
+            row.title = [NSString stringWithFormat:@"%d-Default-%d",j,i];
             [row setSelectionHandler:^(DJTableViewVMRow *roff) {
                 [roff deselectRowAnimated:YES];
             }];
@@ -80,24 +81,31 @@ pod 'DJTableViewVM'
   <tr><th colspan="2" style="text-align:center;">Key Classes</th></tr>
   <tr>
     <td>DJTableViewVM</td>
-    <td>The ViewModel class, which has implemented UITableViewDelegate & UITableViewDataSource. Each ViewModel has multiple <tt>DJTableViewVMSection</tt> sections.</td>
+    <td>The ViewModel for <tt>UITableView</tt>, which has implemented UITableViewDelegate & UITableViewDataSource. It has multiple <tt>DJTableViewVMSection</tt> sections.</td>
   </tr>
   <tr>
     <td>DJTableViewVMSection</td>
-    <td>Represents sections in <tt>DJTableViewVM</tt>, each section has multiple <tt>DJTableViewVMRow</tt> rows.</td>
+    <td>The ViewModel for sections in <tt>DJTableViewVM</tt>, each section has multiple <tt>DJTableViewVMRow</tt> rows.</td>
   </tr>
   <tr>
     <td>DJTableViewVMRow</td>
-    <td><tt>DJTableViewVMRow</tt> is the root class of most <tt>DJTableViewVM</tt> row hierarchies.<br />
-    Through <tt>DJTableViewVMRow</tt>, rows inherit a basic interface that communicates with <tt>DJTableViewVM</tt> and <tt>DJTableViewVM</tt>.</td>
+    <td>The ViewModel for rows in sections,it is the root class of all <tt>DJTableViewVM</tt> row hierarchies.<br />
+        You should subclass <tt>DJTableViewVMRow</tt> to obtain cell characteristics specific to your application's needs.
+        Through <tt>DJTableViewVMRow</tt>, rows inherit a basic interface that communicates with <tt>DJTableViewVM</tt> and <tt>DJTableViewVMSection</tt>.</td>
   </tr>
   <tr>
     <td>DJTableViewVMCell</td>
-    <td>The <tt>DJTableViewVMCell</tt> class defines the attributes and behavior of the cells that appear in <tt>UITableView</tt> objects.
-     You should subclass <tt>DJTableViewVMCell</tt> to obtain cell characteristics and behavior specific to your application's needs.
-     By default, <tt>DJTableViewVMCell</tt> is being mapped with <tt>DJTableViewVMRow</tt>.</td>
+    <td>The View for DJTableViewVMRow(ViewModel),it defines the attributes and behavior of the cells that appear in <tt>UITableView</tt> objects.
+        You should subclass <tt>DJTableViewVMCell</tt> to obtain cell characteristics and behavior specific to your application's needs.
+        By default, it is being mapped with <tt>DJTableViewVMRow</tt>.</td>
   </tr>
 </table>
+
+* For exsist cells in your project
+    1.If the super class of your cell is UITableViewCell ,just change it to DJTableViewVMCell.
+    2.If tht super class of your cell is your custom class ,you need to implement the protocol DJTableViewVMCellDelegate or change it to DJTableViewVMCell.
+
+    
 
 ## Contact
 
@@ -105,7 +113,7 @@ Dokay Dou
 
 - https://github.com/Dokay
 - http://www.douzhongxu.com
-- dokay.dou@gmail.com
+- dokay_dou@163.com
 
 ## License
 

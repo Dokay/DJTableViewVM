@@ -149,7 +149,7 @@
         for (int i  = 0; i < 100; i ++) {
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
-            row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];
+            row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowAutoLayoutWithOutNib",i,j];
             __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
@@ -172,7 +172,7 @@
         for (int i  = 0; i < 100; i ++) {
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
-            row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];;
+            row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowAutoLayoutWithNib",i,j];;
             __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
@@ -195,7 +195,7 @@
         for (int i  = 0; i < 100; i ++) {
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
-            row.contentText = [NSString stringWithFormat:@"%d---%d,gshegsehgseghhsiughesiugh49egh94egh4e9gh9urghrdughdugh98t4h98hte498hte489the498the5985",i,j];;
+            row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowFrameLayout",i,j];
             __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
@@ -220,7 +220,7 @@
             if (i == 0) {
                 row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
             }
-            row.title = [NSString stringWithFormat:@"%d--%d",j,i];
+            row.title = [NSString stringWithFormat:@"%d-Default-%d",j,i];
             __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
@@ -393,7 +393,7 @@
     [self.aDJTableViewVM removeAllSections];
     for (NSString *sectionTitle in sectionTitles) {
         DJTableViewVMSection *sectionVM = [DJTableViewVMSection sectionWithHeaderTitle:sectionTitle];
-        sectionVM.sectionIndexTitle = sectionTitle; // assign index title
+        sectionVM.sectionIndexTitle = sectionTitle;
         [self.aDJTableViewVM addSection:sectionVM];
         for (NSInteger i = 0 ; i < 6; i ++) {
             DJTableViewVMRow *row = [DJTableViewVMRow new];
