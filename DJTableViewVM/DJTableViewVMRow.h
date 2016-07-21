@@ -54,9 +54,10 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
 
 #pragma mark - actions
-@property (copy, nonatomic) void (^selectionHandler)(id rowVM);
-@property (copy, nonatomic) BOOL (^moveCellHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, nonatomic) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (nonatomic, copy) void (^selectionHandler)(id rowVM);
+@property (nonatomic, copy) void (^accessoryButtonTapHandler)(id rowVM);
+@property (nonatomic, copy) BOOL (^moveCellHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
+@property (nonatomic, copy) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
 @property (nonatomic, copy) void(^prefetchHander)(id rowVM);
 @property (nonatomic, copy) void(^prefetchCancelHander)(id rowVM);
@@ -64,6 +65,10 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy) void(^deleteCellHandler)(id rowVM);
 @property (nonatomic, copy) void(^deleteCellCompleteHandler)(id rowVM,void(^completion)());
 @property (nonatomic, copy) void(^insertCellHandler)(id rowVM);
+
+@property (copy, readwrite, nonatomic) void (^cutHandler)(id rowVM);
+@property (copy, readwrite, nonatomic) void (^copyHandler)(id rowVM);
+@property (copy, readwrite, nonatomic) void (^pasteHandler)(id rowVM);
 
 + (instancetype)row;
 

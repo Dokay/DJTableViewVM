@@ -74,7 +74,7 @@
             break;
         case 8:
         {
-            [self testEditActions];
+            [self testSlideActions];
         }
             break;
         case 9:
@@ -86,6 +86,11 @@
         case 10:
         {
             [self testIndexTitle];
+        }
+            break;
+        case 11:
+        {
+            [self testLongTapActions];
         }
             break;
         default:
@@ -110,12 +115,14 @@
                                   @"jumpID":@(6)},
                                 @{@"title":@"DeleteDemo",
                                   @"jumpID":@(7)},
-                                @{@"title":@"EditAction",
+                                @{@"title":@"SlideAction",
                                   @"jumpID":@(8)},
                                 @{@"title":@"InsertDemo",
                                   @"jumpID":@(9)},
                                 @{@"title":@"IndexTitle",
-                                  @"jumpID":@(10)},];
+                                  @"jumpID":@(10)},
+                                @{@"title":@"LongTapActions",
+                                  @"jumpID":@(11)},];
     
     __weak ViewController *weakSelf = self;
     
@@ -336,7 +343,7 @@
     [self.tableView reloadData];
 }
 
-- (void)testEditActions
+- (void)testSlideActions
 {
     DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"EditActions"];
     [self.aDJTableViewVM addSection:section];
@@ -404,6 +411,28 @@
     }
     
     [self.tableView reloadData];
+}
+
+- (void)testLongTapActions
+{
+    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"LongTapActions"];
+    [self.aDJTableViewVM addSection:section];
+    for (int i  = 0; i < 5; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        row.title = [NSString stringWithFormat:@"LongTapActions--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleInsert;
+        [row setCopyHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"tap copy with row:%ld",rowVM.indexPath.row);
+        }];
+        [row setCutHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"tap cut with row:%ld",rowVM.indexPath.row);
+        }];
+        [row setPasteHandler:^(DJTableViewVMRow *rowVM) {
+            NSLog(@"tap paste with row:%ld",rowVM.indexPath.row);
+        }];
+        [section addRow:row];
+    }
 }
 
 #pragma mark - getter

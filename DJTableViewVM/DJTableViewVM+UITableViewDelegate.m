@@ -23,7 +23,7 @@
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.cellHeight == 0 || row.dj_caculateHeightForceRefresh) {
         if (row.heightCaculateType == DJCellHeightCaculateDefault) {
-            Class cellClass = [self.registeredClasses objectForKey:row.class];
+            Class cellClass = [self objectAtKeyedSubscript:(id<NSCopying>)row.class];
             row.cellHeight = [cellClass heightWithRow:row tableViewVM:self];
         }else{
             row.cellHeight = [self heightWithAutoLayoutCellWithIndexPath:indexPath];
@@ -115,7 +115,7 @@
     }
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
-    Class cellClass = [self.registeredClasses objectForKey:row.class];
+    Class cellClass = [self objectAtKeyedSubscript:(id<NSCopying>)row.class];
     CGFloat height = 0;
     if (row.cellHeight == 0) {
         height = [cellClass heightWithRow:row tableViewVM:self];
@@ -219,6 +219,14 @@
 {
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]){
         [self.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+    }
+    DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
+    if ([row respondsToSelector:@selector(setSelectionHandler:)]){
+        DJTableViewVMRow *actionRow = (DJTableViewVMRow *)row;
+        if (actionRow.accessoryButtonTapHandler) {
+            actionRow.accessoryButtonTapHandler(actionRow);
+        }
     }
 }
 
@@ -356,7 +364,9 @@
         return [self.delegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
     }
     
-    return NO;
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+    return (rowVM.copyHandler || rowVM.pasteHandler);
 }
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
@@ -364,7 +374,17 @@
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:canPerformAction:forRowAtIndexPath:withSender:)]){
         return [self.delegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
-    
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+    if (rowVM.copyHandler && action == @selector(copy:)){
+        return YES;
+    }
+    if (rowVM.pasteHandler && action == @selector(paste:)){
+        return YES;
+    }
+    if (rowVM.cutHandler && action == @selector(cut:)){
+        return YES;
+    }
     return NO;
 }
 
@@ -372,6 +392,19 @@
 {
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]){
         [self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
+    }
+    
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
+    
+    if (action == @selector(copy:) && rowVM.copyHandler) {
+        rowVM.copyHandler(rowVM);
+    }
+    if (action == @selector(paste:) && rowVM.pasteHandler) {
+        rowVM.pasteHandler(rowVM);
+    }
+    if (action == @selector(cut:) && rowVM.cutHandler) {
+        rowVM.cutHandler(rowVM);
     }
 }
 

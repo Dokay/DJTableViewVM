@@ -105,7 +105,11 @@ pod 'DJTableViewVM'
     1.If the super class of your cell is UITableViewCell ,just change it to DJTableViewVMCell.
     2.If tht super class of your cell is your custom class ,you need to implement the protocol DJTableViewVMCellDelegate or change it to DJTableViewVMCell.
 
+
+##UICollectionView
     
+ViewModel for UICollectionView: [DJCollectionViewVM](http://github.com/Dokay/DJCollectionViewVM)
+
 
 ## Contact
 

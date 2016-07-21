@@ -14,6 +14,7 @@
 
 @interface DJTableViewVM()
 
+@property (nonatomic, strong) NSMutableDictionary *registeredClasses;
 @property (strong, nonatomic) NSMutableDictionary *registeredXIBs;
 @property (strong, nonatomic) NSMutableArray *mutableSections;
 @property (nonatomic, strong) DJPrefetchManager *prefetchManager;
@@ -63,7 +64,7 @@
 
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
 {
-    [self registerClass:(NSString *)key forCellWithReuseIdentifier:obj];
+    [self registerRowClass:(NSString *)key forCellClass:obj];
 }
 
 #pragma mark  - regist class name
@@ -72,27 +73,26 @@
     self[@"DJTableViewVMRow"] = @"DJTableViewVMCell";
 }
 
-- (void)registerClass:(NSString *)rowClass forCellWithReuseIdentifier:(NSString *)identifier
+- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass
 {
-    [self registerClass:rowClass forCellWithReuseIdentifier:identifier bundle:nil];
+    [self registerRowClass:rowClass forCellClass:cellClass bundle:nil];
 }
 
-- (void)registerClass:(NSString *)rowClass forCellWithReuseIdentifier:(NSString *)identifier bundle:(NSBundle *)bundle
+- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass bundle:(NSBundle *)bundle
 {
     NSAssert(NSClassFromString(rowClass), ([NSString stringWithFormat:@"Row class '%@' does not exist.", rowClass]));
-    NSAssert(NSClassFromString(identifier), ([NSString stringWithFormat:@"Cell class '%@' does not exist.", identifier]));
-    self.registeredClasses[(id <NSCopying>)NSClassFromString(rowClass)] = NSClassFromString(identifier);
+    NSAssert(NSClassFromString(cellClass), ([NSString stringWithFormat:@"Cell class '%@' does not exist.", cellClass]));
+    self.registeredClasses[(id <NSCopying>)NSClassFromString(rowClass)] = NSClassFromString(cellClass);
     
-    if (!bundle)
-    {
+    if (!bundle){
         bundle = [NSBundle mainBundle];
     }
     
-    if ([bundle pathForResource:identifier ofType:@"nib"]) {
-        self.registeredXIBs[identifier] = rowClass;
-        [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:bundle] forCellReuseIdentifier:rowClass];
+    if ([bundle pathForResource:cellClass ofType:@"nib"]) {
+        self.registeredXIBs[cellClass] = rowClass;
+        [self.tableView registerNib:[UINib nibWithNibName:cellClass bundle:bundle] forCellReuseIdentifier:rowClass];
     }else{
-        [self.tableView registerClass:NSClassFromString(identifier) forCellReuseIdentifier:identifier];
+        [self.tableView registerClass:NSClassFromString(cellClass) forCellReuseIdentifier:cellClass];
     }
 }
 

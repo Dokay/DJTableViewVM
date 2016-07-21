@@ -46,14 +46,13 @@
 @property (nonatomic, weak) id<DJTableViewVMDelegate> delegate;
 @property (nonatomic, weak) id<DJTableViewVMDataSource> dataSource;
 @property (nonatomic, weak) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
-@property (nonatomic, strong) NSMutableDictionary *registeredClasses;
 @property (nonatomic, strong) NSArray *sections;
 
 - (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate;
 - (id)initWithTableView:(UITableView *)tableView;
 
-- (void)registerClass:(NSString *)rowClass forCellWithReuseIdentifier:(NSString *)identifier;
-- (void)registerClass:(NSString *)rowClass forCellWithReuseIdentifier:(NSString *)identifier bundle:(NSBundle *)bundle;
+- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass;
+- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass bundle:(NSBundle *)bundle;
 
 /**
  *  cacultate height auto
