@@ -18,8 +18,6 @@
     if (!self)
         return nil;
     self.cellHeight = 0;
-    self.selectionStyle = UITableViewCellSelectionStyleBlue;
-    self.backgroundColor = [UIColor whiteColor];
     self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
     
     return self;

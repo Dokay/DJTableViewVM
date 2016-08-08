@@ -36,11 +36,21 @@
     DJTableViewVMRow *row = self.rowVM;
     
     self.selectionStyle  = row.selectionStyle;
-    self.backgroundColor = row.backgroundColor;
     self.accessoryType   = row.accessoryType;
-    self.accessoryView   = row.accessoryView;
-    self.imageView.image = row.image;
-    self.imageView.highlightedImage = row.highlightedImage;
+    
+    if (row.backgroundColor) {
+        self.backgroundColor = row.backgroundColor;
+    }
+    if (row.accessoryView) {
+        self.accessoryView   = row.accessoryView;
+    }
+    if (row.image) {
+        self.imageView.image = row.image;
+    }
+    if (row.highlightedImage) {
+        self.imageView.highlightedImage = row.highlightedImage;
+    }
+    
     self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
     self.textLabel.text             = row.title;
