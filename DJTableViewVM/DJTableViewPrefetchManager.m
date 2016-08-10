@@ -1,19 +1,19 @@
 //
-//  DJPrefetchManager.m
+//  DJTableViewPrefetchManager.m
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 16/7/7.
 //  Copyright © 2016年 dj226. All rights reserved.
 //
 
-#import "DJPrefetchManager.h"
+#import "DJTableViewPrefetchManager.h"
 
 typedef NS_ENUM(NSInteger,DJPrefetchScrollDirection) {
     DJPrefetchScrollDirectionVertical,
     DJPrefetchScrollDirectionHorizontal
 };
 
-@interface DJPrefetchManager()
+@interface DJTableViewPrefetchManager()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger,DJPrefetchScrollDirection) {
 
 @end
 
-@implementation DJPrefetchManager
+@implementation DJTableViewPrefetchManager
 
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView
 {

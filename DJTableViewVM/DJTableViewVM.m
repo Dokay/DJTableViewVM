@@ -10,14 +10,14 @@
 #import "DJTableViewVMCell.h"
 #import "DJTableViewVM+UIScrollViewDelegate.h"
 #import "DJTableViewVM+UITableViewDelegate.h"
-#import "DJPrefetchManager.h"
+#import "DJTableViewPrefetchManager.h"
 
 @interface DJTableViewVM()
 
 @property (nonatomic, strong) NSMutableDictionary *registeredClasses;
 @property (strong, nonatomic) NSMutableDictionary *registeredXIBs;
 @property (strong, nonatomic) NSMutableArray *mutableSections;
-@property (nonatomic, strong) DJPrefetchManager *prefetchManager;
+@property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
 @property (nonatomic, assign) BOOL bPreetchEnabled;
 
 @end
@@ -473,22 +473,23 @@
 - (void)setBPreetchEnabled:(BOOL)bPreetchEnabled
 {
     _bPreetchEnabled = bPreetchEnabled;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-        self.prefetchManager.bPreetchEnabled = bPreetchEnabled;
-#else
-    if (bPreetchEnabled) {
-        tableView.prefetchDataSource = self;
+    
+    if ([self.tableView respondsToSelector:@selector(setPrefetchDataSource:)]) {
+        if (bPreetchEnabled) {
+            [self.tableView performSelector:@selector(setPrefetchDataSource:) withObject:self];
+        }else{
+            [self.tableView performSelector:@selector(setPrefetchDataSource:) withObject:nil];
+        }
     }else{
-        tableView.prefetchDataSource = nil;
+        self.prefetchManager.bPreetchEnabled = bPreetchEnabled;
     }
-#endif
 }
 
 #pragma mark - getter
-- (DJPrefetchManager *)prefetchManager
+- (DJTableViewPrefetchManager *)prefetchManager
 {
     if (_prefetchManager == nil) {
-        _prefetchManager = [[DJPrefetchManager alloc] initWithScrollView:self.tableView];
+        _prefetchManager = [[DJTableViewPrefetchManager alloc] initWithScrollView:self.tableView];
         __weak DJTableViewVM *weakSelf = self;
         [_prefetchManager setPrefetchCompletion:^(NSArray *addedArray, NSArray *cancelArray) {
             for (NSIndexPath *indexPath in addedArray) {
