@@ -81,6 +81,13 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    [self refreshCurrentSeparatorLine];
+}
+
+#pragma mark - private method
+- (void)refreshCurrentSeparatorLine
+{
     if ([self.rowVM isKindOfClass:[DJTableViewVMRow class]]) {
         switch (self.rowVM.separatorLineType) {
             case DJCellSeparatorLineDefault:
@@ -90,12 +97,12 @@
                 break;
             case DJCellSeparatorLineHide:
             {
-                self.separatorLineView.hidden = YES;
+                self.separatorLineView.alpha = 0.0f;
             }
                 break;
             case DJCellSeparatorLineShow:
             {
-                self.separatorLineView.hidden = NO;
+                self.separatorLineView.alpha = 1.0f;
             }
                 break;
             default:
@@ -103,8 +110,6 @@
         }
     }
 }
-
-#pragma mark - private method
 
 #pragma mark - getter
 - (UIView *)separatorLineView
