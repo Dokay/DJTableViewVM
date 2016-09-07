@@ -15,8 +15,9 @@
 @interface DJTableViewVM()
 
 @property (nonatomic, strong) NSMutableDictionary *registeredClasses;
-@property (strong, nonatomic) NSMutableDictionary *registeredXIBs;
-@property (strong, nonatomic) NSMutableArray *mutableSections;
+@property (nonatomic, strong) NSMutableDictionary *registeredXIBs;
+@property (nonatomic, strong) NSMutableDictionary *resuableCaculateCells;
+@property (nonatomic, strong) NSMutableArray *mutableSections;
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
 @property (nonatomic, assign) BOOL bPreetchEnabled;
 
@@ -47,9 +48,10 @@
         tableView.dataSource = self;
         self.tableView = tableView;
 
-        self.mutableSections   = [[NSMutableArray alloc] init];
-        self.registeredClasses = [[NSMutableDictionary alloc] init];
-        self.registeredXIBs    = [[NSMutableDictionary alloc] init];
+        self.mutableSections       = [[NSMutableArray alloc] init];
+        self.registeredClasses     = [[NSMutableDictionary alloc] init];
+        self.registeredXIBs        = [[NSMutableDictionary alloc] init];
+        self.resuableCaculateCells = [[NSMutableDictionary alloc] init];
         
         [self registerDefaultCells];
     }
@@ -121,7 +123,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self dj_tableView:tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self dj_tableView:tableView cellForRowAtIndexPath:indexPath forCaculateHeight:NO];
     
     if ([cell isKindOfClass:[DJTableViewVMCell class]] && [cell respondsToSelector:@selector(loaded)] && !cell.loaded) {
         cell.tableViewVM = self;
@@ -301,7 +303,7 @@
 }
 
 #pragma mark - caculate height
-- (UITableViewCell<DJTableViewVMCellDelegate> *)dj_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell<DJTableViewVMCellDelegate> *)dj_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCaculateHeight:(BOOL)forCaculateHeight
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
@@ -323,9 +325,23 @@
         cellIdentifier = row.cellIdentifier;
     }
     
-    UITableViewCell<DJTableViewVMCellDelegate> *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[cellClass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+    UITableViewCell<DJTableViewVMCellDelegate> *cell;
+    if (forCaculateHeight == NO) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[cellClass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+        }
+    }else{
+        //cell with dequeueReusableCellWithIdentifier: is not resuable.
+        cell = [self.resuableCaculateCells objectForKey:cellIdentifier];
+        if (cell == nil) {
+            if (self.registeredXIBs[NSStringFromClass(cellClass)]) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(cellClass) owner:nil options:nil] lastObject];
+            }else{
+                cell = [[cellClass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+            }
+            [self.resuableCaculateCells setObject:cell forKey:cellIdentifier];
+        }
     }
     
     cell.rowIndex = indexPath.row;
@@ -343,7 +359,7 @@
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.heightCaculateType == DJCellHeightCaculateAutoFrameLayout
         || row.heightCaculateType == DJCellHeightCaculateAutoLayout) {
-        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self dj_tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self dj_tableView:self.tableView cellForRowAtIndexPath:indexPath forCaculateHeight:YES];
         
         // Manually calls to ensure consistent behavior with actual cells (that are displayed on screen).
         [templateLayoutCell prepareForReuse];
