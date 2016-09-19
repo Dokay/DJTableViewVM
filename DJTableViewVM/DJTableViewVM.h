@@ -42,11 +42,22 @@
 
 @interface DJTableViewVM: NSObject <UITableViewDelegate, UITableViewDataSource,DJTableViewDataSourcePrefetching>
 
-@property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, weak, readonly) UITableView *tableView;
 @property (nonatomic, weak) id<DJTableViewVMDelegate> delegate;
 @property (nonatomic, weak) id<DJTableViewVMDataSource> dataSource;
 @property (nonatomic, weak) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
 @property (nonatomic, strong) NSArray *sections;
+@property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
+@property (nonatomic, assign) CGFloat sectionHeaderHeight;   // will return the default value if unset
+@property (nonatomic, assign) CGFloat sectionFooterHeight;   // will return the default value if unset
+@property (nonatomic, assign) CGFloat estimatedRowHeight;
+@property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight;
+@property (nonatomic, assign) CGFloat estimatedSectionFooterHeight;
+@property (nonatomic, assign) UIEdgeInsets separatorInset;
+@property (nonatomic, strong) UIColor *separatorColor;
+@property (nonatomic, strong) UIView *tableHeaderView;
+@property (nonatomic, strong) UIView *tableFooterView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 - (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate;
 - (id)initWithTableView:(UITableView *)tableView;

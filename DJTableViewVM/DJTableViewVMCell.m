@@ -7,6 +7,7 @@
 //
 
 #import "DJTableViewVMCell.h"
+#import "DJTableViewVM.h"
 
 @interface DJTableViewVMCell()
 
@@ -21,7 +22,7 @@
     if ([row isKindOfClass:[DJTableViewVMRow class]] && row.cellHeight > 0){
         return row.cellHeight;
     }else{
-        return 44.0f;
+        return tableViewVM.rowHeight > 0.0f ? tableViewVM.rowHeight : 44.0f;
     }
 }
 

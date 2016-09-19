@@ -41,28 +41,28 @@
     if (self.sections.count <= sectionIndex) {
         return UITableViewAutomaticDimension;
     }
-    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     
+    if (self.sectionHeaderHeight > 0.0f) {
+        return self.sectionHeaderHeight;
+    }
+    
+    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.headerView) {
         return section.headerView.frame.size.height;
     } else if (section.headerTitle.length) {
-        if (!UITableViewStyleGrouped) {
-            return 22;
-        }else{
-            CGFloat headerHeight = 0;
-            CGFloat headerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
-            
-            CGSize headerRect = CGSizeMake(headerWidth,DBL_MAX);
-            
-            CGRect headerFrame = [section.headerTitle boundingRectWithSize:headerRect
-                                                                   options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                                attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] }
-                                                                   context:nil];
-            
-            headerHeight = headerFrame.size.height;
-            
-            return headerHeight + 20.0f;
-        }
+        CGFloat headerHeight = 0;
+        CGFloat headerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
+        
+        CGSize headerRect = CGSizeMake(headerWidth,DBL_MAX);
+        
+        CGRect headerFrame = [section.headerTitle boundingRectWithSize:headerRect
+                                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                            attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] }
+                                                               context:nil];
+        
+        headerHeight = headerFrame.size.height;
+        
+        return headerHeight + 20.0f;
     }
     
     return UITableViewAutomaticDimension;
@@ -77,28 +77,29 @@
     if (self.sections.count <= sectionIndex) {
         return UITableViewAutomaticDimension;
     }
-    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     
+    if (self.sectionFooterHeight > 0.0f) {
+        return self.sectionFooterHeight;
+    }
+    
+    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.footerView) {
         return section.footerView.frame.size.height;
     } else if (section.footerTitle.length) {
-        if (!UITableViewStyleGrouped) {
-            return 22;
-        } else {
-            CGFloat footerHeight = 0;
-            CGFloat footerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
-            
-            CGSize footerRect = CGSizeMake(footerWidth, DBL_MAX);
-            
-            CGRect footerFrame = [section.footerTitle boundingRectWithSize:footerRect
-                                                                   options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                                attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote] }
-                                                                   context:nil];
-            
-            footerHeight = footerFrame.size.height;
-            
-            return footerHeight + 10.0f;
-        }
+        
+        CGFloat footerHeight = 0;
+        CGFloat footerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
+        
+        CGSize footerRect = CGSizeMake(footerWidth, DBL_MAX);
+        
+        CGRect footerFrame = [section.footerTitle boundingRectWithSize:footerRect
+                                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                            attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote] }
+                                                               context:nil];
+        
+        footerHeight = footerFrame.size.height;
+        
+        return footerHeight + 10.0f;
     }
     
     return UITableViewAutomaticDimension;
@@ -113,6 +114,11 @@
     if (self.sections.count <= indexPath.section) {
         return UITableViewAutomaticDimension;
     }
+    
+    if (self.estimatedRowHeight > 0.0f) {
+        return self.estimatedRowHeight;
+    }
+    
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     Class cellClass = [self objectAtKeyedSubscript:(id<NSCopying>)row.class];
@@ -124,6 +130,32 @@
     }
     
     return height ? height : UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+{
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]){
+        return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
+    }
+    
+    if (self.estimatedSectionHeaderHeight > 0.0f) {
+        return self.estimatedSectionHeaderHeight;
+    }
+    
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+{
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]){
+        return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
+    }
+    
+    if (self.estimatedSectionFooterHeight > 0.0f) {
+        return self.estimatedSectionFooterHeight;
+    }
+    
+    return UITableViewAutomaticDimension;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex

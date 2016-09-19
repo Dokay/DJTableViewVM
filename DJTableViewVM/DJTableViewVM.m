@@ -21,9 +21,12 @@
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
 @property (nonatomic, assign) BOOL bPreetchEnabled;
 
+@property (nonatomic, weak) UITableView *tableView;
+
 @end
 
 @implementation DJTableViewVM
+@synthesize tableView = _tableView;
 
 - (id)init
 {
@@ -143,6 +146,8 @@
     }
     
     [cell cellWillAppear];
+    
+    NSAssert(cell, @"cell for cellForRowAtIndexPath: (section:%ld row:%ld) is null,make sure you have resisted it corectly.",indexPath.section,indexPath.row);
     
     return cell;
 }
