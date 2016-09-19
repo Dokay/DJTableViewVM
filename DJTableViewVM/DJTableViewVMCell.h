@@ -13,10 +13,10 @@
 
 @protocol DJTableViewVMCellDelegate <NSObject>
 
-@property (weak, nonatomic  ) UITableView           *parentTableView;
-@property (weak, nonatomic  ) DJTableViewVM *tableViewVM;
-@property (weak, nonatomic  ) DJTableViewVMSection *section;
-@property (strong, nonatomic) DJTableViewVMRow     *rowVM;
+@property (weak, nonatomic, nullable) UITableView *parentTableView;
+@property (weak, nonatomic, nullable) DJTableViewVM *tableViewVM;
+@property (weak, nonatomic, nullable) DJTableViewVMSection *section;
+@property (strong, nonatomic, nonnull) DJTableViewVMRow *rowVM;
 @property (assign, nonatomic) NSInteger rowIndex;
 @property (assign, nonatomic) NSInteger sectionIndex;
 @property (nonatomic, assign) BOOL loaded;
@@ -26,21 +26,21 @@
 - (void)cellDidDisappear;
 
 @optional
-+ (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;
++ (CGFloat)heightWithRow:(nonnull DJTableViewVMRow *)row tableViewVM:(nonnull DJTableViewVM *)tableViewVM;
 
 @end
 
 @interface DJTableViewVMCell : UITableViewCell<DJTableViewVMCellDelegate>
 
-@property (weak, nonatomic  ) UITableView           *parentTableView;
-@property (weak, nonatomic  ) DJTableViewVM *tableViewVM;
-@property (weak, nonatomic  ) DJTableViewVMSection *section;
-@property (strong, nonatomic) DJTableViewVMRow     *rowVM;
+@property (weak, nonatomic, nullable) UITableView *parentTableView;
+@property (weak, nonatomic, nullable) DJTableViewVM *tableViewVM;
+@property (weak, nonatomic, nullable) DJTableViewVMSection *section;
+@property (strong, nonatomic, nonnull) DJTableViewVMRow *rowVM;
 @property (assign, nonatomic) NSInteger rowIndex;
 @property (assign, nonatomic) NSInteger sectionIndex;
 @property (nonatomic, assign) BOOL loaded;
 
-+ (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;
++ (CGFloat)heightWithRow:(nonnull DJTableViewVMRow *)row tableViewVM:(nonnull DJTableViewVM *)tableViewVM;
 
 - (void)cellDidLoad;
 - (void)cellWillAppear;

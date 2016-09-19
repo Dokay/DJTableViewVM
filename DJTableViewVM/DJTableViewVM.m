@@ -27,6 +27,7 @@
 
 @implementation DJTableViewVM
 @synthesize tableView = _tableView;
+@dynamic rowHeight,sectionHeaderHeight,sectionFooterHeight,estimatedRowHeight,estimatedSectionHeaderHeight,estimatedSectionFooterHeight,separatorInset,separatorColor,tableHeaderView,tableFooterView,backgroundView;
 
 - (id)init
 {

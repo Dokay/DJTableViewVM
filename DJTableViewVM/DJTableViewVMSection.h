@@ -13,31 +13,31 @@
 
 @interface DJTableViewVMSection : NSObject
 
-@property (strong, readonly, nonatomic) NSArray *rows;
-@property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) UIView *footerView;
-@property (nonatomic, copy) NSString *headerTitle;
-@property (nonatomic, copy) NSString *footerTitle;
-@property (nonatomic, copy) NSString *sectionIndexTitle;
+@property (strong, readonly, nonatomic, nullable) NSArray *rows;
+@property (strong, nonatomic, nullable) UIView *headerView;
+@property (strong, nonatomic, nullable) UIView *footerView;
+@property (nonatomic, copy, nullable) NSString *headerTitle;
+@property (nonatomic, copy, nullable) NSString *footerTitle;
+@property (nonatomic, copy, nullable) NSString *sectionIndexTitle;
 @property (assign, readonly, nonatomic) NSUInteger index;
-@property (weak, nonatomic) DJTableViewVM *tableViewVM;
+@property (weak, nonatomic, nullable) DJTableViewVM *tableViewVM;
 
-+ (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle;
-+ (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle footerTitle:(NSString *)footerTitle;
-+ (instancetype)sectionWithHeaderView:(UIView *)headerView;
-+ (instancetype)sectionWithHeaderView:(UIView *)headerView footerView:(UIView *)footerView;
-+ (instancetype)sectionWithHeaderHeight:(CGFloat)fheight andFooterHeight:(CGFloat)fheight;
-+ (instancetype)sectionWithHeaderHeight:(CGFloat)fheight;
++ (nonnull instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle;
++ (nonnull instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
++ (nonnull instancetype)sectionWithHeaderView:(nullable UIView *)headerView;
++ (nonnull instancetype)sectionWithHeaderView:(nullable UIView *)headerView footerView:(nullable UIView *)footerView;
++ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)fheight andFooterHeight:(CGFloat)fheight;
++ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)fheight;
 
-- (id)initWithHeaderTitle:(NSString *)headerTitle;
-- (id)initWithHeaderView:(UIView *)headerView;
-- (id)initWithHeaderView:(UIView *)headerView footerView:(UIView *)footerView;
-- (id)initWithHeaderTitle:(NSString *)headerTitle footerTitle:(NSString *)footerTitle;
+- (nonnull id)initWithHeaderTitle:(nullable NSString *)headerTitle;
+- (nonnull id)initWithHeaderView:(nullable UIView *)headerView;
+- (nonnull id)initWithHeaderView:(nullable UIView *)headerView footerView:(nullable UIView *)footerView;
+- (nonnull id)initWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
 
-- (void)addRow:(id)row;
-- (void)addRowsFromArray:(NSArray *)array;
-- (void)insertRow:(id)row atIndex:(NSUInteger)index;
-- (void)removeRow:(id)row;
+- (void)addRow:(nonnull id)row;
+- (void)addRowsFromArray:(nullable NSArray *)array;
+- (void)insertRow:(nonnull id)row atIndex:(NSUInteger)index;
+- (void)removeRow:(nonnull id)row;
 - (void)removeRowAtIndex:(NSUInteger)index;
 - (void)removeAllRows;
 

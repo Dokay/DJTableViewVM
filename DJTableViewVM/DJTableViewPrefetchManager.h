@@ -11,9 +11,9 @@
 
 @interface DJTableViewPrefetchManager : NSObject
 
-- (instancetype)initWithScrollView:(UIScrollView *)scrollView;
+- (nonnull instancetype)initWithScrollView:(nonnull UIScrollView *)scrollView;
 
-@property (nonatomic, copy) void(^prefetchCompletion)(NSArray *added,NSArray *removed);
+@property (nonatomic, copy, nullable) void(^prefetchCompletion)(NSArray * _Nullable added,NSArray * _Nullable removed);
 @property (nonatomic, assign) BOOL bPreetchEnabled;
 
 @end

@@ -14,9 +14,9 @@
 @protocol DJTableViewVMDelegate <UITableViewDelegate>
 
 @optional
-- (void)tableView:(UITableView *)tableView willLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(nonnull UITableView *)tableView willLoadCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
-- (void)tableView:(UITableView *)tableView didLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(nonnull UITableView *)tableView didLoadCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
 //- (void)tableView:(UITableView *)tableView cellWillAppear:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -28,9 +28,9 @@
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 @protocol DJTableViewDataSourcePrefetching <NSObject>
-- (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray *)indexPaths;
+- (void)tableView:(nonnull UITableView *)tableView prefetchRowsAtIndexPaths:(nullable NSArray *)indexPaths;
 
-- (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray *)indexPaths;
+- (void)tableView:(nonnull UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(nullable NSArray *)indexPaths;
 @end
 #else
 @protocol DJTableViewDataSourcePrefetching <UITableViewDataSourcePrefetching>
@@ -42,11 +42,11 @@
 
 @interface DJTableViewVM: NSObject <UITableViewDelegate, UITableViewDataSource,DJTableViewDataSourcePrefetching>
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
-@property (nonatomic, weak) id<DJTableViewVMDelegate> delegate;
-@property (nonatomic, weak) id<DJTableViewVMDataSource> dataSource;
-@property (nonatomic, weak) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
-@property (nonatomic, strong) NSArray *sections;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
+@property (nonatomic, weak, nullable) id<DJTableViewVMDelegate> delegate;
+@property (nonatomic, weak, nullable) id<DJTableViewVMDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
+@property (nonatomic, strong, readonly, nullable) NSArray *sections;
 @property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
 @property (nonatomic, assign) CGFloat sectionHeaderHeight;   // will return the default value if unset
 @property (nonatomic, assign) CGFloat sectionFooterHeight;   // will return the default value if unset
@@ -54,16 +54,16 @@
 @property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight;
 @property (nonatomic, assign) CGFloat estimatedSectionFooterHeight;
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
-@property (nonatomic, strong) UIColor *separatorColor;
-@property (nonatomic, strong) UIView *tableHeaderView;
-@property (nonatomic, strong) UIView *tableFooterView;
-@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong, nullable) UIColor *separatorColor;
+@property (nonatomic, strong, nullable) UIView *tableHeaderView;
+@property (nonatomic, strong, nullable) UIView *tableFooterView;
+@property (nonatomic, strong, nullable) UIView *backgroundView;
 
-- (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate;
-- (id)initWithTableView:(UITableView *)tableView;
+- (nonnull id)initWithTableView:(nonnull UITableView *)tableView delegate:(nullable id<DJTableViewVMDelegate>)delegate;
+- (nonnull id)initWithTableView:(nonnull UITableView *)tableView;
 
-- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass;
-- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass bundle:(NSBundle *)bundle;
+- (void)registerRowClass:(nonnull NSString *)rowClass forCellClass:(nonnull NSString *)cellClass;
+- (void)registerRowClass:(nonnull NSString *)rowClass forCellClass:(nonnull NSString *)cellClass bundle:(nullable NSBundle *)bundle;
 
 /**
  *  cacultate height auto
@@ -72,18 +72,18 @@
  *
  *  @return height of cell
  */
-- (CGFloat)heightWithAutoLayoutCellWithIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)heightWithAutoLayoutCellWithIndexPath:(nonnull NSIndexPath *)indexPath;
 
 #pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id <NSCopying>)key;
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (nonnull id)objectAtKeyedSubscript:(nonnull id <NSCopying>)key;
+- (void)setObject:(nonnull id)obj forKeyedSubscript:(nonnull id <NSCopying>)key;
 
-- (void)addSection:(DJTableViewVMSection *)section;
-- (void)addSectionsFromArray:(NSArray *)array;
-- (void)insertSection:(DJTableViewVMSection *)section atIndex:(NSUInteger)index;
-- (void)removeSection:(DJTableViewVMSection *)section;
+- (void)addSection:(nonnull DJTableViewVMSection *)section;
+- (void)addSectionsFromArray:(nonnull NSArray *)array;
+- (void)insertSection:(nonnull DJTableViewVMSection *)section atIndex:(NSUInteger)index;
+- (void)removeSection:(nonnull DJTableViewVMSection *)section;
 - (void)removeSectionAtIndex:(NSUInteger)index;
-- (void)removeSectionsInArray:(NSArray *)otherArray;
+- (void)removeSectionsInArray:(nonnull NSArray *)otherArray;
 - (void)removeAllSections;
 
 @end
