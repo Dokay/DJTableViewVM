@@ -132,31 +132,31 @@
     return height ? height : UITableViewAutomaticDimension;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
-{
-    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]){
-        return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
-    }
-    
-    if (self.estimatedSectionHeaderHeight > 0.0f) {
-        return self.estimatedSectionHeaderHeight;
-    }
-    
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
-{
-    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]){
-        return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
-    }
-    
-    if (self.estimatedSectionFooterHeight > 0.0f) {
-        return self.estimatedSectionFooterHeight;
-    }
-    
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+//{
+//    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]){
+//        return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
+//    }
+//    
+//    if (self.estimatedSectionHeaderHeight > 0.0f) {
+//        return self.estimatedSectionHeaderHeight;
+//    }
+//    
+//    return UITableViewAutomaticDimension;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+//{
+//    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]){
+//        return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
+//    }
+//    
+//    if (self.estimatedSectionFooterHeight > 0.0f) {
+//        return self.estimatedSectionFooterHeight;
+//    }
+//    
+//    return UITableViewAutomaticDimension;
+//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
 {
