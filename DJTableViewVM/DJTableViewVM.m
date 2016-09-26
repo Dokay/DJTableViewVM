@@ -373,6 +373,7 @@
         // Customize and provide content for our template cell.
         if (templateLayoutCell) {
             if (!templateLayoutCell.loaded) {
+                templateLayoutCell.loaded = YES; 
                 [templateLayoutCell cellDidLoad];
             }
             [templateLayoutCell cellWillAppear];
