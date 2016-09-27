@@ -48,11 +48,11 @@
 @property (nonatomic, weak, nullable) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
 @property (nonatomic, strong, readonly, nullable) NSArray *sections;
 @property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
-@property (nonatomic, assign) CGFloat sectionHeaderHeight;   // will return the default value if unset
-@property (nonatomic, assign) CGFloat sectionFooterHeight;   // will return the default value if unset
+@property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");   // will return the default value if unset
+@property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight instead");   // will return the default value if unset
 @property (nonatomic, assign) CGFloat estimatedRowHeight;
-@property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight;
-@property (nonatomic, assign) CGFloat estimatedSectionFooterHeight;
+@property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight __deprecated_msg("estimatedSectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");
+@property (nonatomic, assign) CGFloat estimatedSectionFooterHeight __deprecated_msg("estimatedSectionFooterHeight deprecated. Use sectionWithFooterHeight instead");
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
 @property (nonatomic, strong, nullable) UIColor *separatorColor;
 @property (nonatomic, strong, nullable) UIView *tableHeaderView;

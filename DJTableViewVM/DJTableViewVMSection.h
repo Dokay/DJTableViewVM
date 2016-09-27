@@ -25,9 +25,11 @@
 + (nonnull instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle;
 + (nonnull instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
 + (nonnull instancetype)sectionWithHeaderView:(nullable UIView *)headerView;
++ (nonnull instancetype)sectionWithFooterView:(nullable UIView *)footerView;
 + (nonnull instancetype)sectionWithHeaderView:(nullable UIView *)headerView footerView:(nullable UIView *)footerView;
-+ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)fheight andFooterHeight:(CGFloat)fheight;
-+ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)fheight;
++ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)height andFooterHeight:(CGFloat)height;
++ (nonnull instancetype)sectionWithHeaderHeight:(CGFloat)height;
++ (nonnull instancetype)sectionWithFooterHeight:(CGFloat)height;
 
 - (nonnull id)initWithHeaderTitle:(nullable NSString *)headerTitle;
 - (nonnull id)initWithHeaderView:(nullable UIView *)headerView;

@@ -33,6 +33,11 @@
     return [[self alloc] initWithHeaderView:headerView footerView:nil];
 }
 
++ (instancetype)sectionWithFooterView:(UIView *)footerView
+{
+    return [[self alloc] initWithHeaderView:nil footerView:footerView];
+}
+
 + (instancetype)sectionWithHeaderView:(UIView *)headerView footerView:(UIView *)footerView
 {
     return [[self alloc] initWithHeaderView:headerView footerView:footerView];
@@ -46,12 +51,12 @@
 + (instancetype)sectionWithHeaderHeight:(CGFloat)hheight andFooterHeight:(CGFloat)fheight
 {
     UIView *headerView = nil;
-    if (hheight>0) {
+    if (hheight > 0) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, hheight)];
         [headerView setBackgroundColor:[UIColor clearColor]];
     }
     UIView *footerView = nil;
-    if (fheight>0) {
+    if (fheight > 0) {
         footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, fheight)];
         [footerView setBackgroundColor:[UIColor clearColor]];
     }
@@ -61,11 +66,21 @@
 + (instancetype)sectionWithHeaderHeight:(CGFloat)hheight
 {
     UIView *headerView = nil;
-    if (hheight>0) {
+    if (hheight > 0) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, hheight)];
         [headerView setBackgroundColor:[UIColor clearColor]];
     }
     return [[self class] sectionWithHeaderView:headerView];
+}
+
++ (instancetype)sectionWithFooterHeight:(CGFloat)fheight
+{
+    UIView *footerView = nil;
+    if (fheight > 0) {
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, fheight)];
+        [footerView setBackgroundColor:[UIColor clearColor]];
+    }
+    return [[self class] sectionWithFooterView:footerView];
 }
 
 - (id)initWithHeaderTitle:(NSString *)headerTitle footerTitle:(NSString *)footerTitle

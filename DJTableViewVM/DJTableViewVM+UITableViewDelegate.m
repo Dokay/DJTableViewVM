@@ -42,9 +42,10 @@
         return UITableViewAutomaticDimension;
     }
     
-    if (self.sectionHeaderHeight > 0.0f) {
-        return self.sectionHeaderHeight;
-    }
+//UITableView init in Xib has default height 28
+//    if (self.sectionHeaderHeight > 0.0f) {
+//        return self.sectionHeaderHeight;
+//    }
     
     DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.headerView) {
@@ -78,9 +79,10 @@
         return UITableViewAutomaticDimension;
     }
     
-    if (self.sectionFooterHeight > 0.0f) {
-        return self.sectionFooterHeight;
-    }
+//UITableView init in Xib has default height 28
+//    if (self.sectionFooterHeight > 0.0f) {
+//        return self.sectionFooterHeight;
+//    }
     
     DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.footerView) {
