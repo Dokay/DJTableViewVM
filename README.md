@@ -1,9 +1,17 @@
-# DJTableViewVM
+DJTableViewVM
+==========
 
-__DJTableViewVM is a light ViewModel implementation for UITableView.__
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
+![Pod version](https://img.shields.io/cocoapods/v/DJTableViewVM.svg?style=flat)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform info](https://img.shields.io/cocoapods/p/DJTableViewVM.svg?style=flat)](http://cocoadocs.org/docsets/YTKNetwork)
 
-##Features
-* less code and more flexible to implement a UITableView;
+## What
+
+__DJTableViewVM is a lightweight ViewModel implementation for UITableView.__
+
+## Features
+* less code and more flexible to show data with UITableView;
 * dynamic cell height;
 * easy to control cell bottom line;
 * prefetch for iOS 7.0+;
@@ -27,6 +35,12 @@ Edit your Podfile and add DJTableViewVM:
 ``` bash
 pod 'DJTableViewVM'
 ```
+###  Carthage
+Edit your Cartfile and add DJTableViewVM:
+
+``` bash
+github "Dokay/DJTableViewVM"
+```
 
 ## Quickstart
 * Sample code
@@ -43,31 +57,8 @@ pod 'DJTableViewVM'
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
             row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowFrameLayout",i,j];
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
-            }];
-            [section addRow:row];
-        }
-    }
-    [self.tableView reloadData];
-}
-
-- (void)testDefault
-{
-    [self.aDJTableViewVM removeAllSections];
-    
-    for (int j = 0; j < 20; j++) {
-        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"Default"];
-        [self.aDJTableViewVM addSection:section];
-        for (int i  = 0; i < 100; i ++) {
-            DJTableViewVMRow *row = [DJTableViewVMRow new];
-            row.cellHeight = 70;
-            if (i == 0) {
-                row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
-            }
-            row.title = [NSString stringWithFormat:@"%d-Default-%d",j,i];
-            [row setSelectionHandler:^(DJTableViewVMRow *roff) {
-                [roff deselectRowAnimated:YES];
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+                [rowVM deselectRowAnimated:YES];
             }];
             [section addRow:row];
         }
@@ -101,10 +92,7 @@ pod 'DJTableViewVM'
   </tr>
 </table>
 
-* For exsist cells in your project
-    1.If the super class of your cell is UITableViewCell ,just change it to DJTableViewVMCell.
-    2.If tht super class of your cell is your custom class ,you need to implement the protocol DJTableViewVMCellDelegate or change it to DJTableViewVMCell.
-
+* For exsist cells in your project<br />1.If the super class of your cell is UITableViewCell ,just change it to DJTableViewVMCell.<br />2.If tht super class of your cell is your custom class ,you need to implement the protocol DJTableViewVMCellDelegate or change it to DJTableViewVMCell.<br />
 
 ##UICollectionView
     
