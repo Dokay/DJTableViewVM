@@ -57,62 +57,15 @@
         self.registeredXIBs         = [[NSMutableDictionary alloc] init];
         self.resuableCalculateCells = [[NSMutableDictionary alloc] init];
         
-        [self registerDefaultCells];
+        [self p_registerDefaultCells];
     }
     return self;
-}
-
-#pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id <NSCopying>)key
-{
-    return [self.registeredClasses objectForKey:key];
-}
-
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
-{
-    [self registerRowClass:(NSString *)key forCellClass:obj];
-}
-
-#pragma mark  - regist class name
-- (void)registerDefaultCells
-{
-    self[@"DJTableViewVMRow"] = @"DJTableViewVMCell";
-}
-
-- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass
-{
-    [self registerRowClass:rowClass forCellClass:cellClass bundle:nil];
-}
-
-- (void)registerRowClass:(NSString *)rowClass forCellClass:(NSString *)cellClass bundle:(NSBundle *)bundle
-{
-    NSAssert(NSClassFromString(rowClass), ([NSString stringWithFormat:@"Row class '%@' does not exist.", rowClass]));
-    NSAssert(NSClassFromString(cellClass), ([NSString stringWithFormat:@"Cell class '%@' does not exist.", cellClass]));
-    self.registeredClasses[(id <NSCopying>)NSClassFromString(rowClass)] = NSClassFromString(cellClass);
-    
-    if (!bundle){
-        bundle = [NSBundle mainBundle];
-    }
-    
-    if ([bundle pathForResource:cellClass ofType:@"nib"]) {
-        self.registeredXIBs[cellClass] = rowClass;
-        [self.tableView registerNib:[UINib nibWithNibName:cellClass bundle:bundle] forCellReuseIdentifier:rowClass];
-    }else{
-        [self.tableView registerClass:NSClassFromString(cellClass) forCellReuseIdentifier:cellClass];
-    }
-}
-
-- (Class)classForCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
-    NSObject *row = [section.rows objectAtIndex:indexPath.row];
-    return [self.registeredClasses objectForKey:row.class];
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [self checkPrefetchEnabled];
+    [self p_checkPrefetchEnabled];
     return self.mutableSections.count;
 }
 
@@ -127,28 +80,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self dj_tableView:tableView cellForRowAtIndexPath:indexPath forCalculateHeight:NO];
+    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self p_tableView:tableView cellForRowAtIndexPath:indexPath forCalculateHeight:NO];
     
     if ([cell isKindOfClass:[DJTableViewVMCell class]] && [cell respondsToSelector:@selector(loaded)] && !cell.loaded) {
         cell.tableViewVM = self;
         
-        // DJTableViewVMDelegate
-        if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:willLoadCell:forRowAtIndexPath:)])
-            [self.delegate tableView:tableView willLoadCell:cell forRowAtIndexPath:indexPath];
-        
         if (!cell.loaded) {
+            if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellWillLoad:forRowAtIndexPath:)]){
+                [self.delegate tableView:tableView cellWillLoad:cell forRowAtIndexPath:indexPath];
+            }
+            
             cell.loaded = YES;
             [cell cellDidLoad];
+            
+            if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellDidLoad:forRowAtIndexPath:)]){
+                [self.delegate tableView:tableView cellDidLoad:cell forRowAtIndexPath:indexPath];
+            }
         }
-        
-        // DJTableViewVMDelegate
-        if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:didLoadCell:forRowAtIndexPath:)])
-            [self.delegate tableView:tableView didLoadCell:cell forRowAtIndexPath:indexPath];
+    }
+    
+    if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellWillAppear:forRowAtIndexPath:)]){
+        [self.delegate tableView:tableView cellWillAppear:cell forRowAtIndexPath:indexPath];
     }
     
     [cell cellWillAppear];
     
-    NSAssert(cell, @"cell for cellForRowAtIndexPath: (section:%ld row:%ld) is null,make sure you have resisted it corectly.",indexPath.section,indexPath.row);
+    if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellDidAppear:forRowAtIndexPath:)]){
+        [self.delegate tableView:tableView cellDidAppear:cell forRowAtIndexPath:indexPath];
+    }
     
     return cell;
 }
@@ -309,63 +268,13 @@
 }
 
 #pragma mark - caculate height
-- (UITableViewCell<DJTableViewVMCellDelegate> *)dj_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCalculateHeight:(BOOL)forCaculateHeight
-{
-    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
-    DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
-    
-    UITableViewCellStyle cellStyle = UITableViewCellStyleDefault;
-    if ([row isKindOfClass:[DJTableViewVMRow class]])
-    {
-        cellStyle = ((DJTableViewVMRow *)row).style;
-    }
-    NSString *cellIdentifier = [NSString stringWithFormat:@"DJTableViewVMDefaultIdentifier_%@_%li", [row class], (long) cellStyle];
-    
-    Class cellClass = [self classForCellAtIndexPath:indexPath];
-    
-    if (self.registeredXIBs[NSStringFromClass(cellClass)]) {
-        cellIdentifier = self.registeredXIBs[NSStringFromClass(cellClass)];
-    }
-    
-    if ([row respondsToSelector:@selector(cellIdentifier)] && row.cellIdentifier) {
-        cellIdentifier = row.cellIdentifier;
-    }
-    
-    UITableViewCell<DJTableViewVMCellDelegate> *cell;
-    if (forCaculateHeight == NO) {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[cellClass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
-        }
-    }else{
-        //cell with dequeueReusableCellWithIdentifier: is not resuable.
-        cell = [self.resuableCalculateCells objectForKey:cellIdentifier];
-        if (cell == nil) {
-            if (self.registeredXIBs[NSStringFromClass(cellClass)]) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(cellClass) owner:nil options:nil] lastObject];
-            }else{
-                cell = [[cellClass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
-            }
-            [self.resuableCalculateCells setObject:cell forKey:cellIdentifier];
-        }
-    }
-    
-    cell.rowIndex = indexPath.row;
-    cell.sectionIndex = indexPath.section;
-    cell.parentTableView = tableView;
-    cell.section = section;
-    cell.rowVM = row;
-    
-    return cell;
-}
-
 - (CGFloat)heightWithAutoLayoutCellWithIndexPath:(NSIndexPath *)indexPath
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.heightCaculateType == DJCellHeightCaculateAutoFrameLayout
         || row.heightCaculateType == DJCellHeightCaculateAutoLayout) {
-        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self dj_tableView:self.tableView cellForRowAtIndexPath:indexPath forCalculateHeight:YES];
+        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self p_tableView:self.tableView cellForRowAtIndexPath:indexPath forCalculateHeight:YES];
         
         // Manually calls to ensure consistent behavior with actual cells (that are displayed on screen).
         [templateLayoutCell prepareForReuse];
@@ -373,7 +282,7 @@
         // Customize and provide content for our template cell.
         if (templateLayoutCell) {
             if (!templateLayoutCell.loaded) {
-                templateLayoutCell.loaded = YES; 
+                templateLayoutCell.loaded = YES;
                 [templateLayoutCell cellDidLoad];
             }
             [templateLayoutCell cellWillAppear];
@@ -433,7 +342,112 @@
     }
 }
 
-- (void)checkPrefetchEnabled
+#pragma mark - implement dictionary key value style
+- (id)objectAtKeyedSubscript:(id <NSCopying>)key
+{
+    return [self.registeredClasses objectForKey:key];
+}
+
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
+{
+    [self p_registerRowClass:(NSString *)key forCellClass:obj];
+}
+
+#pragma mark  - regist class name
+- (void)p_registerDefaultCells
+{
+    self[@"DJTableViewVMRow"] = @"DJTableViewVMCell";
+}
+
+- (void)p_registerRowClass:(id)rowClass forCellClass:(id)cellClass
+{
+    [self p_registerRowClass:rowClass forCellClass:cellClass bundle:nil];
+}
+
+- (void)p_registerRowClass:(id)rowClass forCellClass:(id)cellClass bundle:(NSBundle *)bundle
+{
+    Class _rowClass = [rowClass isKindOfClass:[NSString class]] ? NSClassFromString(rowClass) : rowClass;
+    Class _cellClass = [cellClass isKindOfClass:[NSString class]] ? NSClassFromString(cellClass) : cellClass;
+    
+    NSAssert(_rowClass, ([NSString stringWithFormat:@"Row class '%@' does not exist.", rowClass]));
+    NSAssert(_cellClass, ([NSString stringWithFormat:@"Cell class '%@' does not exist.", cellClass]));
+    
+    NSString *rowClassString = NSStringFromClass(_rowClass);
+    NSString *cellClassString = NSStringFromClass(_cellClass);
+    
+    self.registeredClasses[rowClassString] = cellClassString;
+    
+    if (!bundle){
+        bundle = [NSBundle mainBundle];
+    }
+    
+    if ([bundle pathForResource:cellClassString ofType:@"nib"]) {
+        self.registeredXIBs[cellClassString] = rowClassString;
+        [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:rowClassString];
+    }else{
+        [self.tableView registerClass:NSClassFromString(cellClass) forCellReuseIdentifier:cellClass];
+    }
+}
+
+- (NSString *)p_classNameForCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
+    NSObject *row = [section.rows objectAtIndex:indexPath.row];
+    return [self.registeredClasses objectForKey:NSStringFromClass(row.class)];
+}
+
+- (UITableViewCell<DJTableViewVMCellDelegate> *)p_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCalculateHeight:(BOOL)forCaculateHeight
+{
+    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
+    
+    UITableViewCellStyle cellStyle = UITableViewCellStyleDefault;
+    if ([row isKindOfClass:[DJTableViewVMRow class]])
+    {
+        cellStyle = ((DJTableViewVMRow *)row).style;
+    }
+    NSString *cellIdentifier = [NSString stringWithFormat:@"DJTableViewVMDefaultIdentifier_%@_%li", [row class], (long) cellStyle];
+    NSString *cellClassName = [self p_classNameForCellAtIndexPath:indexPath];
+    
+    if (self.registeredXIBs[cellClassName]) {
+        cellIdentifier = self.registeredXIBs[cellClassName];
+    }
+    
+    if ([row respondsToSelector:@selector(cellIdentifier)] && row.cellIdentifier) {
+        cellIdentifier = row.cellIdentifier;
+    }
+    
+    UITableViewCell<DJTableViewVMCellDelegate> *cell;
+    if (forCaculateHeight == NO) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+        }
+    }else{
+        //cell with dequeueReusableCellWithIdentifier: is not resuable.
+        cell = [self.resuableCalculateCells objectForKey:cellIdentifier];
+        if (cell == nil) {
+            if (self.registeredXIBs[cellClassName]) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:cellClassName owner:nil options:nil] lastObject];
+            }else{
+                cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+            }
+            [self.resuableCalculateCells setObject:cell forKey:cellIdentifier];
+        }
+    }
+    
+    cell.rowIndex = indexPath.row;
+    cell.sectionIndex = indexPath.section;
+    cell.parentTableView = tableView;
+    cell.section = section;
+    cell.rowVM = row;
+    
+    NSAssert(cell, @"cellForRowAtIndexPath: (section:%@ row:%@) is nil,make sure you have resisted it corectly.",@(indexPath.section),@(indexPath.row));
+    
+    return cell;
+}
+
+- (void)p_checkPrefetchEnabled
 {
     for (DJTableViewVMSection *sectionVM in self.sections) {
         for (DJTableViewVMRow *rowVM in sectionVM.rows) {

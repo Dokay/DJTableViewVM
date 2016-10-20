@@ -23,8 +23,8 @@
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.cellHeight == 0 || row.dj_caculateHeightForceRefresh) {
         if (row.heightCaculateType == DJCellHeightCaculateDefault) {
-            Class cellClass = [self objectAtKeyedSubscript:(id<NSCopying>)row.class];
-            row.cellHeight = [cellClass heightWithRow:row tableViewVM:self];
+            NSString *cellClassName = [self objectAtKeyedSubscript:NSStringFromClass(row.class)];
+            row.cellHeight = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];
         }else{
             row.cellHeight = [self heightWithAutoLayoutCellWithIndexPath:indexPath];
         }
@@ -123,10 +123,10 @@
     
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
-    Class cellClass = [self objectAtKeyedSubscript:(id<NSCopying>)row.class];
+    NSString *cellClassName = [self objectAtKeyedSubscript:NSStringFromClass(row.class)];
     CGFloat height = 0;
     if (row.cellHeight == 0) {
-        height = [cellClass heightWithRow:row tableViewVM:self];
+        height = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];
     }else{
         height = row.cellHeight;
     }

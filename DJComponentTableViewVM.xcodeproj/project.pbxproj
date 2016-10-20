@@ -493,7 +493,7 @@
 				INFOPLIST_FILE = DJComponentTableViewVM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hengda.DJComponentTableViewVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dj226.DJComponentTableViewVM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -505,7 +505,7 @@
 				INFOPLIST_FILE = DJComponentTableViewVM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hengda.DJComponentTableViewVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dj226.DJComponentTableViewVM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -586,6 +586,7 @@
 				4E81CF451DB75D4500C8A458 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

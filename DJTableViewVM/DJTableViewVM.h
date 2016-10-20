@@ -14,11 +14,13 @@
 @protocol DJTableViewVMDelegate <UITableViewDelegate>
 
 @optional
-- (void)tableView:(nonnull UITableView *)tableView willLoadCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (void)tableView:(nonnull UITableView *)tableView cellWillLoad:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
-- (void)tableView:(nonnull UITableView *)tableView didLoadCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (void)tableView:(nonnull UITableView *)tableView cellDidLoad:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
-//- (void)tableView:(UITableView *)tableView cellWillAppear:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(nonnull UITableView *)tableView cellWillAppear:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+
+- (void)tableView:(nonnull UITableView *)tableView cellDidAppear:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
 @end
 
@@ -46,24 +48,23 @@
 @property (nonatomic, weak, nullable) id<DJTableViewVMDelegate> delegate;
 @property (nonatomic, weak, nullable) id<DJTableViewVMDataSource> dataSource;
 @property (nonatomic, weak, nullable) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
+
 @property (nonatomic, strong, readonly, nullable) NSArray *sections;
+@property (nonatomic, strong, nullable) UIColor *separatorColor;
+@property (nonatomic, strong, nullable) UIView *tableHeaderView;
+@property (nonatomic, strong, nullable) UIView *tableFooterView;
+@property (nonatomic, strong, nullable) UIView *backgroundView;
 @property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
+@property (nonatomic, assign) UIEdgeInsets separatorInset;
+
 @property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");   // will return the default value if unset
 @property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight instead");   // will return the default value if unset
 @property (nonatomic, assign) CGFloat estimatedRowHeight;
 @property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight __deprecated_msg("estimatedSectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");
 @property (nonatomic, assign) CGFloat estimatedSectionFooterHeight __deprecated_msg("estimatedSectionFooterHeight deprecated. Use sectionWithFooterHeight instead");
-@property (nonatomic, assign) UIEdgeInsets separatorInset;
-@property (nonatomic, strong, nullable) UIColor *separatorColor;
-@property (nonatomic, strong, nullable) UIView *tableHeaderView;
-@property (nonatomic, strong, nullable) UIView *tableFooterView;
-@property (nonatomic, strong, nullable) UIView *backgroundView;
 
 - (nonnull id)initWithTableView:(nonnull UITableView *)tableView delegate:(nullable id<DJTableViewVMDelegate>)delegate;
 - (nonnull id)initWithTableView:(nonnull UITableView *)tableView;
-
-- (void)registerRowClass:(nonnull NSString *)rowClass forCellClass:(nonnull NSString *)cellClass;
-- (void)registerRowClass:(nonnull NSString *)rowClass forCellClass:(nonnull NSString *)cellClass bundle:(nullable NSBundle *)bundle;
 
 /**
  *  cacultate height auto

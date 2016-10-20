@@ -30,24 +30,28 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, strong, nullable) UIView   *accessoryView;
 @property (nonatomic,   copy, nullable) NSString *cellIdentifier;
 @property (nonatomic,   copy, nullable) NSArray  *editActions NS_AVAILABLE_IOS(8_0);
-@property (nonatomic, strong, nullable) NSString *title;
-@property (nonatomic, strong, nullable) NSString *detailText;
+
 @property (nonatomic, strong, nullable) UIImage *image;
 @property (nonatomic, strong, nullable) UIImage *highlightedImage;
 @property (nonatomic, strong, nullable) UIColor   *backgroundColor;
-@property (nonatomic, strong, nullable) UIColor   *titleColor;
-@property (nonatomic, strong, nullable) UIFont    *titleFont;
-@property (nonatomic, strong, nullable) UIColor   *detailTitleColor;
-@property (nonatomic, strong, nullable) UIFont    *detailTitleFont;
-@property (nonatomic, strong, nullable) NSObject  *paramObject;
+
+@property (nonatomic, strong, nullable) NSString *title;
+@property (nonatomic, strong, nullable) UIColor  *titleColor;
+@property (nonatomic, strong, nullable) UIFont   *titleFont;
+@property (nonatomic, assign) NSTextAlignment titleTextAlignment;
+
+@property (nonatomic, strong, nullable) NSString *detailText;
+@property (nonatomic, strong, nullable) UIColor  *detailTitleColor;
+@property (nonatomic, strong, nullable) UIFont   *detailTitleFont;
+
+@property (nonatomic, strong, nullable) NSObject *paramObject;
+
 @property (nonatomic, assign) CGFloat  cellHeight;
 @property (nonatomic, assign) UITableViewCellStyle style;
 @property (nonatomic, assign) UITableViewCellSelectionStyle selectionStyle;
 @property (nonatomic, assign) UITableViewCellAccessoryType  accessoryType;
 @property (nonatomic, assign) UITableViewCellEditingStyle   editingStyle;
-@property (nonatomic, assign) NSTextAlignment textAlignment;
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
-@property (nonatomic, assign) NSTextAlignment titleTextAlignment;
 
 @property (nonatomic, assign) DJCellSeparatorLineType separatorLineType;
 @property (nonatomic, assign) DJCellHeightCaculateType heightCaculateType;

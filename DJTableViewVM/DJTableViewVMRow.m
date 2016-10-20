@@ -19,6 +19,7 @@
         return nil;
     self.cellHeight = 0;
     self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
     
     return self;
 }
