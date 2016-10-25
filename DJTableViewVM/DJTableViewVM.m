@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSMutableDictionary *resuableCalculateCells;
 @property (nonatomic, strong) NSMutableArray *mutableSections;
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
-@property (nonatomic, assign) BOOL bPreetchEnabled;
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -65,7 +64,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [self p_checkPrefetchEnabled];
+//    [self p_checkPrefetchEnabled];
     return self.mutableSections.count;
 }
 
@@ -90,7 +89,6 @@
                 [self.delegate tableView:tableView cellWillLoad:cell forRowAtIndexPath:indexPath];
             }
             
-            cell.loaded = YES;
             [cell cellDidLoad];
             
             if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellDidLoad:forRowAtIndexPath:)]){
@@ -282,7 +280,6 @@
         // Customize and provide content for our template cell.
         if (templateLayoutCell) {
             if (!templateLayoutCell.loaded) {
-                templateLayoutCell.loaded = YES;
                 [templateLayoutCell cellDidLoad];
             }
             [templateLayoutCell cellWillAppear];
@@ -447,18 +444,18 @@
     return cell;
 }
 
-- (void)p_checkPrefetchEnabled
-{
-    for (DJTableViewVMSection *sectionVM in self.sections) {
-        for (DJTableViewVMRow *rowVM in sectionVM.rows) {
-            if (rowVM.prefetchHander || rowVM.prefetchCancelHander) {
-                self.bPreetchEnabled = YES;
-                return;
-            }
-        }
-    }
-    self.bPreetchEnabled = NO;
-}
+//- (void)p_checkPrefetchEnabled
+//{
+//    for (DJTableViewVMSection *sectionVM in self.sections) {
+//        for (DJTableViewVMRow *rowVM in sectionVM.rows) {
+//            if (rowVM.prefetchHander || rowVM.prefetchCancelHander) {
+//                self.bPreetchEnabled = YES;
+//                return;
+//            }
+//        }
+//    }
+//    self.bPreetchEnabled = NO;
+//}
 
 #pragma mark - sections manage
 - (NSArray *)sections
@@ -507,18 +504,17 @@
 }
 
 #pragma mark - setter
-- (void)setBPreetchEnabled:(BOOL)bPreetchEnabled
+- (void)setPrefetchingEnabled:(BOOL)prefetchingEnabled
 {
-    _bPreetchEnabled = bPreetchEnabled;
-    
+    _prefetchingEnabled = prefetchingEnabled;
     if ([self.tableView respondsToSelector:@selector(setPrefetchDataSource:)]) {
-        if (bPreetchEnabled) {
+        if (prefetchingEnabled) {
             [self.tableView performSelector:@selector(setPrefetchDataSource:) withObject:self];
         }else{
             [self.tableView performSelector:@selector(setPrefetchDataSource:) withObject:nil];
         }
     }else{
-        self.prefetchManager.bPreetchEnabled = bPreetchEnabled;
+        self.prefetchManager.bPreetchEnabled = prefetchingEnabled;
     }
 }
 

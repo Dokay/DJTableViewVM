@@ -275,6 +275,8 @@ static const NSString *kConstContent = @"There are moments in life when you miss
 {
     [self.aDJTableViewVM removeAllSections];
     
+    self.aDJTableViewVM.prefetchingEnabled = YES;
+    
     for (int j = 0; j < 20; j++) {
         DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"Default"];
         [self.aDJTableViewVM addSection:section];

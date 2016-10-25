@@ -29,7 +29,7 @@
 #pragma mark Cell life cycle
 - (void)cellDidLoad
 {
-    
+    self.loaded = YES;
 }
 
 - (void)cellWillAppear

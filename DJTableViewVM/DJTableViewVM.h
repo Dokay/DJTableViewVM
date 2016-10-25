@@ -56,6 +56,7 @@
 @property (nonatomic, strong, nullable) UIView *backgroundView;
 @property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
+@property (nonatomic, assign) BOOL prefetchingEnabled;
 
 @property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");   // will return the default value if unset
 @property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight instead");   // will return the default value if unset
