@@ -26,7 +26,7 @@
             NSString *cellClassName = [self objectAtKeyedSubscript:NSStringFromClass(row.class)];
             row.cellHeight = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];
         }else{
-            row.cellHeight = [self heightWithAutoLayoutCellWithIndexPath:indexPath];
+            row.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
         }
     }
     return row.cellHeight;

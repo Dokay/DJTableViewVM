@@ -12,9 +12,10 @@ __DJTableViewVM is a lightweight ViewModel implementation for UITableView.__
 
 ## Features
 * less code and more flexible to show data with UITableView;
-* dynamic cell height;
 * easy to control cell bottom line;
-* prefetch for iOS 7.0+;
+* prefetch for iOS under iOS 10;
+* cell height dynamic caculate;
+* cell height pre caculate.
 
 ## Requirements
 * Xcode 7 or higher

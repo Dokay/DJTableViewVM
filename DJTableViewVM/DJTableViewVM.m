@@ -11,6 +11,7 @@
 #import "DJTableViewVM+UIScrollViewDelegate.h"
 #import "DJTableViewVM+UITableViewDelegate.h"
 #import "DJTableViewPrefetchManager.h"
+#import "DJLazyTaskManager.h"
 
 @interface DJTableViewVM()
 
@@ -18,7 +19,9 @@
 @property (nonatomic, strong) NSMutableDictionary *registeredXIBs;
 @property (nonatomic, strong) NSMutableDictionary *resuableCalculateCells;
 @property (nonatomic, strong) NSMutableArray *mutableSections;
+
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
+@property (nonatomic, strong) DJLazyTaskManager *lazyTaskManager;
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -56,6 +59,8 @@
         self.registeredXIBs         = [[NSMutableDictionary alloc] init];
         self.resuableCalculateCells = [[NSMutableDictionary alloc] init];
         
+        self.lazyTaskManager = [[DJLazyTaskManager alloc] init];
+        
         [self p_registerDefaultCells];
     }
     return self;
@@ -64,7 +69,6 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    [self p_checkPrefetchEnabled];
     return self.mutableSections.count;
 }
 
@@ -105,6 +109,12 @@
     
     if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellDidAppear:forRowAtIndexPath:)]){
         [self.delegate tableView:tableView cellDidAppear:cell forRowAtIndexPath:indexPath];
+    }
+    
+    if (self.preCaculateHeightEnable) {
+        if (self.lazyTaskManager.state == DJLazyTaskManagerStateDefault) {
+            [self p_startPreCaculateHeight];
+        }
     }
     
     return cell;
@@ -265,8 +275,8 @@
     }
 }
 
-#pragma mark - caculate height
-- (CGFloat)heightWithAutoLayoutCellWithIndexPath:(NSIndexPath *)indexPath
+#pragma mark - public methods
+- (CGFloat)heightWithAutoLayoutCellForIndexPath:(NSIndexPath *)indexPath
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
@@ -336,6 +346,15 @@
     }else{
         NSAssert(FALSE, @"heightCaculateType is no ,please set it yes and implement cell height auto");
         return 0;
+    }
+}
+
+- (void)reloadData
+{
+    [self.tableView reloadData];
+    
+    if (self.preCaculateHeightEnable) {
+        [self p_startPreCaculateHeight];
     }
 }
 
@@ -444,18 +463,41 @@
     return cell;
 }
 
-//- (void)p_checkPrefetchEnabled
-//{
-//    for (DJTableViewVMSection *sectionVM in self.sections) {
-//        for (DJTableViewVMRow *rowVM in sectionVM.rows) {
-//            if (rowVM.prefetchHander || rowVM.prefetchCancelHander) {
-//                self.bPreetchEnabled = YES;
-//                return;
-//            }
-//        }
-//    }
-//    self.bPreetchEnabled = NO;
-//}
+#pragma mark - cell height preCache
+- (void)p_startPreCaculateHeight
+{
+    if (!self.preCaculateHeightEnable) {
+        return;
+    }
+    
+    [self.lazyTaskManager stop];
+    
+    [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection *  _Nonnull sectionVM, NSUInteger section_idx, BOOL * _Nonnull section_stop) {
+        [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
+            if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row_idx inSection:section_idx];
+                [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:indexPath];
+            }
+        }];
+    }];
+    
+    [self.lazyTaskManager start];
+}
+
+- (void)p_preLoadForIndexPath:(NSIndexPath *)indexPath
+{
+    DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
+    if (section.rows.count > indexPath.row) {
+        DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];
+        //maybe has caculated in normal scrolling
+        if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
+            rowVM.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
+            NSLog(@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath);
+        }else{
+            NSLog(@"no need caculate");
+        }
+    }
+}
 
 #pragma mark - sections manage
 - (NSArray *)sections
@@ -515,6 +557,16 @@
         }
     }else{
         self.prefetchManager.bPreetchEnabled = prefetchingEnabled;
+    }
+}
+
+- (void)setHeightPreCaculateEnable:(BOOL)heightPreCaculateEnable
+{
+    _preCaculateHeightEnable = heightPreCaculateEnable;
+    if (_preCaculateHeightEnable) {
+        [self p_startPreCaculateHeight];
+    }else{
+        [self.lazyTaskManager stop];
     }
 }
 

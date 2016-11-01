@@ -41,6 +41,8 @@
 		4E81CF521DB75E2600C8A458 /* DJTableViewVM+UITableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E05289D1C4F157700B9AAF5 /* DJTableViewVM+UITableViewDelegate.m */; };
 		4E81CF531DB75E2600C8A458 /* DJTableViewVM+UIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E05289B1C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.m */; };
 		4E81CF541DB75E2600C8A458 /* DJTableViewVM+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E44431F1D8FF1D3009A9BFB /* DJTableViewVM+Properties.m */; };
+		4ED1B0F01DC884260005F6E3 /* DJLazyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B0EF1DC884260005F6E3 /* DJLazyTaskManager.m */; };
+		4ED1B0F11DC886F40005F6E3 /* DJLazyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B0EF1DC884260005F6E3 /* DJLazyTaskManager.m */; };
 		4ED9F9031D24F8030035D288 /* DJAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9F9021D24F8030035D288 /* DJAlertView.m */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +109,8 @@
 		4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DJTableViewVMFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E81CF3E1DB75D4400C8A458 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMFrameWork.h; sourceTree = "<group>"; };
+		4ED1B0EE1DC884260005F6E3 /* DJLazyTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLazyTaskManager.h; sourceTree = "<group>"; };
+		4ED1B0EF1DC884260005F6E3 /* DJLazyTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLazyTaskManager.m; sourceTree = "<group>"; };
 		4ED9F9011D24F8030035D288 /* DJAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAlertView.h; sourceTree = "<group>"; };
 		4ED9F9021D24F8030035D288 /* DJAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJAlertView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +189,8 @@
 				4E0528A31C4F157700B9AAF5 /* DJTableViewVMRow.m */,
 				4E0528A41C4F157700B9AAF5 /* DJTableViewVMSection.h */,
 				4E0528A51C4F157700B9AAF5 /* DJTableViewVMSection.m */,
+				4ED1B0EE1DC884260005F6E3 /* DJLazyTaskManager.h */,
+				4ED1B0EF1DC884260005F6E3 /* DJLazyTaskManager.m */,
 				4E4AA6DB1D33A87500B75E1E /* DJTableViewPrefetchManager.h */,
 				4E4AA6DC1D33A87500B75E1E /* DJTableViewPrefetchManager.m */,
 				4E05289C1C4F157700B9AAF5 /* DJTableViewVM+UITableViewDelegate.h */,
@@ -302,6 +308,7 @@
 					};
 					4E81CF391DB75D4400C8A458 = {
 						CreatedOnToolsVersion = 7.3.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -361,6 +368,7 @@
 				4E3AED1F1D0FE219000F801F /* DJTableViewVMTextFrameCell.m in Sources */,
 				4E006D871C4CB59F005664D3 /* ViewController.m in Sources */,
 				4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */,
+				4ED1B0F01DC884260005F6E3 /* DJLazyTaskManager.m in Sources */,
 				4E006D841C4CB59F005664D3 /* AppDelegate.m in Sources */,
 				4E0528B01C4F157700B9AAF5 /* DJTableViewVM+UIScrollViewDelegate.m in Sources */,
 				4E006D811C4CB59F005664D3 /* main.m in Sources */,
@@ -373,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ED1B0F11DC886F40005F6E3 /* DJLazyTaskManager.m in Sources */,
 				4E81CF4D1DB75E2600C8A458 /* DJTableViewVM.m in Sources */,
 				4E81CF4E1DB75E2600C8A458 /* DJTableViewVMCell.m in Sources */,
 				4E81CF4F1DB75E2600C8A458 /* DJTableViewVMRow.m in Sources */,
@@ -514,8 +523,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = XVEP6G79H7;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -538,8 +550,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -144,7 +144,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         [contenteSection addRow:testRowVM];
     }
     
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testTextRowAutoLayoutWithOutNib
@@ -169,13 +169,14 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testTextRowAutoLayoutWithNib
 {
     self.aDJTableViewVM[@"DJTableViewVMTextTestRow"] = @"DJTableViewVMTextTestCell";
     [self.aDJTableViewVM removeAllSections];
+    self.aDJTableViewVM.preCaculateHeightEnable = YES;
     
     for (int j = 0; j < 20; j++) {
         DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"AutoLayoutWithNib"];
@@ -194,7 +195,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testTextRowFrameLayout
@@ -217,7 +218,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testDefault
@@ -242,7 +243,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testMoveRow
@@ -268,7 +269,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testPrefetch
@@ -301,7 +302,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             [section addRow:row];
         }
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testDelete
@@ -348,7 +349,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         }];
         [completeSection addRow:row];
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testSlideActions
@@ -397,7 +398,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         }];
         [section addRow:row];
     }
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testIndexTitle
@@ -418,7 +419,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         }
     }
     
-    [self.tableView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 
 - (void)testLongTapActions
