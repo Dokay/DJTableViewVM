@@ -492,9 +492,9 @@
         //maybe has caculated in normal scrolling
         if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
             rowVM.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
-            NSLog(@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath);
+//            NSLog(@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath);
         }else{
-            NSLog(@"no need caculate");
+//            NSLog(@"no need caculate");
         }
     }
 }
