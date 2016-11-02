@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+#ifndef __IPHONE_10_0
 @protocol DJTableViewDataSourcePrefetching <NSObject>
 - (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(nullable NSArray *)indexPaths;
 

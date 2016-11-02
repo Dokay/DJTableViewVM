@@ -12,6 +12,7 @@
 #import "DJTableViewVM+UITableViewDelegate.h"
 #import "DJTableViewPrefetchManager.h"
 #import "DJLazyTaskManager.h"
+#import "NSObject+DJLog.h"
 
 @interface DJTableViewVM()
 
@@ -64,6 +65,11 @@
         [self p_registerDefaultCells];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self dj_debugLog:[NSString stringWithFormat:@"%@ dealloc",[self class]]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -492,9 +498,9 @@
         //maybe has caculated in normal scrolling
         if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
             rowVM.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
-//            NSLog(@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath);
+            [self dj_debugLog:[NSString stringWithFormat:@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath]];
         }else{
-//            NSLog(@"no need caculate");
+            [self dj_debugLog:@"no need caculate"];
         }
     }
 }

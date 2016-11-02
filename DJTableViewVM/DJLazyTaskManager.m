@@ -7,6 +7,7 @@
 //
 
 #import "DJLazyTaskManager.h"
+#import "NSObject+DJLog.h"
 
 #define DJMainThreadAssert() NSAssert([[NSThread currentThread] isMainThread], @"This method must be called on the main thread!");
 
@@ -63,10 +64,10 @@
     return self;
 }
 
-//- (void)dealloc
-//{
-//    NSLog(@"%@ dealloc",[self class]);
-//}
+- (void)dealloc
+{
+    [self dj_debugLog:[NSString stringWithFormat:@"%@ dealloc",[self class]]];
+}
 
 - (void)addLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param
 {
