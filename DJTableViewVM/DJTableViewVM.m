@@ -464,7 +464,10 @@
     cell.section = section;
     cell.rowVM = row;
     
-    NSAssert(cell, @"cellForRowAtIndexPath: (section:%@ row:%@) is nil,make sure you have resisted it corectly.",@(indexPath.section),@(indexPath.row));
+    if (cell == nil) {
+        NSString *crashReason = [NSString stringWithFormat:@"cellForRowAtIndexPath: (section:%@ row:%@) returns nil,make sure you have resisted %@ corectly.",@(indexPath.section),@(indexPath.row),row.class];
+        @throw([NSException exceptionWithName: @"DJTableViewVM Exception" reason:crashReason userInfo:nil]);
+    }
     
     return cell;
 }
