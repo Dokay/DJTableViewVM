@@ -88,8 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)heightWithAutoLayoutCellForIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id <NSCopying>)key;
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (id)objectAtKeyedSubscript:(id)key;
+- (void)setObject:(id)obj forKeyedSubscript:(id)key;
 
 - (void)addSection:(DJTableViewVMSection *)section;
 - (void)addSectionsFromArray:(NSArray *)array;

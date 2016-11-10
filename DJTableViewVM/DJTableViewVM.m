@@ -365,14 +365,14 @@
 }
 
 #pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id <NSCopying>)key
+- (id)objectAtKeyedSubscript:(id)key
 {
     return [self.registeredClasses objectForKey:key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
+- (void)setObject:(id)obj forKeyedSubscript:(id)key
 {
-    [self p_registerRowClass:(NSString *)key forCellClass:obj];
+    [self p_registerRowClass:key forCellClass:obj];
 }
 
 #pragma mark  - regist class name
@@ -407,7 +407,7 @@
         self.registeredXIBs[cellClassString] = rowClassString;
         [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:rowClassString];
     }else{
-        [self.tableView registerClass:NSClassFromString(cellClass) forCellReuseIdentifier:cellClass];
+        [self.tableView registerClass:_cellClass forCellReuseIdentifier:rowClassString];
     }
 }
 

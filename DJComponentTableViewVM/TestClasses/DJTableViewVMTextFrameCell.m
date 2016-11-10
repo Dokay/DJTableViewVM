@@ -48,7 +48,7 @@
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
     totalHeight += [self.contentLabel sizeThatFits:size].height;
-    totalHeight += 10; // margins
+    totalHeight += 20; // margins
     return CGSizeMake(size.width, totalHeight);
 }
 
