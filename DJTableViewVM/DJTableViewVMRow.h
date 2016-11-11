@@ -10,6 +10,8 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger,DJCellSeparatorLineType){
     DJCellSeparatorLineDefault,
     DJCellSeparatorLineShow,
@@ -58,30 +60,32 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
 
 #pragma mark - actions
-@property (nonatomic, copy, nullable) void (^selectionHandler)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) void (^accessoryButtonTapHandler)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) BOOL (^moveCellHandler)(_Nonnull id rowVM,  NSIndexPath * _Nonnull sourceIndexPath, NSIndexPath * _Nonnull destinationIndexPath);
-@property (nonatomic, copy, nullable) void (^moveCellCompletionHandler)(_Nonnull id rowVM, NSIndexPath * _Nonnull sourceIndexPath, NSIndexPath * _Nonnull destinationIndexPath);
+@property (nonatomic, copy, nullable) void (^selectionHandler)(id rowVM);
+@property (nonatomic, copy, nullable) void (^accessoryButtonTapHandler)(id rowVM);
+@property (nonatomic, copy, nullable) BOOL (^moveCellHandler)(id rowVM,  NSIndexPath * sourceIndexPath, NSIndexPath * destinationIndexPath);
+@property (nonatomic, copy, nullable) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath * sourceIndexPath, NSIndexPath * destinationIndexPath);
 
-@property (nonatomic, copy, nullable) void(^prefetchHander)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) void(^prefetchCancelHander)(_Nonnull id rowVM);
+@property (nonatomic, copy, nullable) void(^prefetchHander)(id rowVM);
+@property (nonatomic, copy, nullable) void(^prefetchCancelHander)(id rowVM);
 
-@property (nonatomic, copy, nullable) void(^deleteCellHandler)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(_Nonnull id rowVM,  void(^ _Nonnull completion)());
-@property (nonatomic, copy, nullable) void(^insertCellHandler)(_Nonnull id rowVM);
+@property (nonatomic, copy, nullable) void(^deleteCellHandler)(id rowVM);
+@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(id rowVM,  void(^ completion)());
+@property (nonatomic, copy, nullable) void(^insertCellHandler)(id rowVM);
 
-@property (nonatomic, copy, nullable) void (^cutHandler)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) void (^copyHandler)(_Nonnull id rowVM);
-@property (nonatomic, copy, nullable) void (^pasteHandler)(_Nonnull id rowVM);
+@property (nonatomic, copy, nullable) void (^cutHandler)(id rowVM);
+@property (nonatomic, copy, nullable) void (^copyHandler)(id rowVM);
+@property (nonatomic, copy, nullable) void (^pasteHandler)(id rowVM);
 
-+ (_Nonnull instancetype)row;
++ (instancetype)row;
 
-- (NSIndexPath * _Nonnull)indexPath;
+- (NSIndexPath *)indexPath;
 - (void)selectRowAnimated:(BOOL)animated;
 - (void)selectRowAnimated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
 - (void)deselectRowAnimated:(BOOL)animated;
 - (void)reloadRowWithAnimation:(UITableViewRowAnimation)animation;
 - (void)deleteRowWithAnimation:(UITableViewRowAnimation)animation;
+
+NS_ASSUME_NONNULL_END
 
 
 @end

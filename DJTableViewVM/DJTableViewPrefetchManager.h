@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DJTableViewPrefetchManager : NSObject
 
-- (nonnull instancetype)initWithScrollView:(nonnull UIScrollView *)scrollView;
+- (instancetype)initWithScrollView:(UIScrollView *)scrollView;
 
 @property (nonatomic, copy, nullable) void(^prefetchCompletion)(NSArray * _Nullable added,NSArray * _Nullable removed);
 @property (nonatomic, assign) BOOL bPreetchEnabled;
 
 @end
+
+NS_ASSUME_NONNULL_END
