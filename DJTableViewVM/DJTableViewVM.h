@@ -11,6 +11,8 @@
 #import "DJTableViewVMRow.h"
 @import UIKit;
 
+#define DJTableViewRegister(DJTableViewVMInstance,RowVMClassName,CellClassName) [DJTableViewVMInstance setObject:NSStringFromClass([CellClassName class]) forKeyedSubscript:NSStringFromClass([RowVMClassName class])];
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol DJTableViewVMDelegate <UITableViewDelegate>
@@ -88,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)heightWithAutoLayoutCellForIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id)key;
-- (void)setObject:(id)obj forKeyedSubscript:(id)key;
+- (id)objectAtKeyedSubscript:(id<NSCopying>)key;
+- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
 - (void)addSection:(DJTableViewVMSection *)section;
 - (void)addSectionsFromArray:(NSArray *)array;

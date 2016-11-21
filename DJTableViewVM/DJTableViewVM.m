@@ -365,12 +365,12 @@
 }
 
 #pragma mark - implement dictionary key value style
-- (id)objectAtKeyedSubscript:(id)key
+- (id)objectAtKeyedSubscript:(id<NSCopying>)key
 {
     return [self.registeredClasses objectForKey:key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
+- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key
 {
     [self p_registerRowClass:key forCellClass:obj];
 }

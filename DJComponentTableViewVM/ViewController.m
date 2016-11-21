@@ -151,7 +151,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
 
 - (void)testTextRowAutoLayoutWithOutNib
 {
-    self.aDJTableViewVM[[DJTableViewVMTextTestRow class]] = [DJTableViewVMTextAutoCell class];
+    DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextAutoCell);
     
     [self.aDJTableViewVM removeAllSections];
     
@@ -177,7 +177,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
 
 - (void)testTextRowAutoLayoutWithNib
 {
-    self.aDJTableViewVM[[DJTableViewVMTextTestRow class]] = [DJTableViewVMTextTestCell class];
+    DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextTestCell);
     
     [self.aDJTableViewVM removeAllSections];
     self.aDJTableViewVM.preCaculateHeightEnable = YES;
@@ -204,7 +204,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
 
 - (void)testTextRowFrameLayout
 {
-    self.aDJTableViewVM[[DJTableViewVMTextTestRow class]] = [DJTableViewVMTextFrameCell class];
+    DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextFrameCell);
     
     [self.aDJTableViewVM removeAllSections];
     
