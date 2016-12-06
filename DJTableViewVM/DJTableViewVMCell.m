@@ -116,6 +116,7 @@
 - (UIView *)separatorLineView
 {
     if (_separatorLineView == nil) {
+        //unsafe method to get SeparatorView.
         for (UIView *subview in self.contentView.superview.subviews) {
             if ([NSStringFromClass(subview.class) hasSuffix:@"SeparatorView"]) {
                 _separatorLineView = subview;
