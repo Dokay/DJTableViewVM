@@ -1,15 +1,15 @@
 //
-//  NSObject+DJLog.h
+//  DJLog.h
 //  DJComponentTableViewVM
 //
-//  Created by Dokay on 16/11/2.
+//  Created by Dokay on 16/12/8.
 //  Copyright © 2016年 dj226. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (DJLog)
+@interface DJLog : NSObject
 
-- (void)dj_debugLog:(NSString *)message;
++ (void)dj_debugLog:(NSString *)message;
 
 @end

@@ -10,7 +10,7 @@
 #import "DJTableViewVMCell.h"
 #import "DJTableViewVMSection.h"
 #import "DJTableViewVMRow.h"
-#import "NSObject+DJLog.h"
+#import "DJLog.h"
 
 @implementation DJTableViewVM(UITableViewDelegate)
 
@@ -28,7 +28,7 @@
             row.cellHeight = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];
         }else{
             row.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
-            [self dj_debugLog:[NSString stringWithFormat:@"auto caculate cell(position:%@) height:%f",indexPath,row.cellHeight]];
+            [DJLog dj_debugLog:[NSString stringWithFormat:@"auto caculate cell(position:%@) height:%f",indexPath,row.cellHeight]];
         }
     }
     return row.cellHeight;
