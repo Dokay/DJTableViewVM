@@ -565,7 +565,7 @@
             [self.tableView performSelector:@selector(setPrefetchDataSource:) withObject:nil];
         }
     }else{
-        self.prefetchManager.bPreetchEnabled = prefetchingEnabled;
+        self.prefetchManager.bPrefetchEnabled = prefetchingEnabled;
     }
 }
 

@@ -28,7 +28,6 @@
 		4E4AA6DD1D33A87500B75E1E /* DJTableViewPrefetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4AA6DC1D33A87500B75E1E /* DJTableViewPrefetchManager.m */; };
 		4E8092FC1DF921DB0053876B /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8092FB1DF921DB0053876B /* DJLog.m */; };
 		4E8092FD1DF922980053876B /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8092FB1DF921DB0053876B /* DJLog.m */; };
-		4E81CF411DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */; };
 		4E81CF431DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E81CF481DB75DF900C8A458 /* DJTableViewVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E05289E1C4F157700B9AAF5 /* DJTableViewVM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E81CF491DB75DF900C8A458 /* DJTableViewVMCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E0528A01C4F157700B9AAF5 /* DJTableViewVMCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,16 +46,6 @@
 		4ED1B0F11DC886F40005F6E3 /* DJLazyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B0EF1DC884260005F6E3 /* DJLazyTaskManager.m */; };
 		4ED9F9031D24F8030035D288 /* DJAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9F9021D24F8030035D288 /* DJAlertView.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4E81CF3F1DB75D4400C8A458 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E006D741C4CB59F005664D3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4E81CF391DB75D4400C8A458;
-			remoteInfo = DJTableViewVMFrameWork;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4E81CF421DB75D4400C8A458 /* Embed Frameworks */ = {
@@ -124,7 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E81CF411DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +262,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4E81CF401DB75D4400C8A458 /* PBXTargetDependency */,
 			);
 			name = DJComponentTableViewVM;
 			productName = DJComponentTableViewVM;
@@ -403,14 +390,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4E81CF401DB75D4400C8A458 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4E81CF391DB75D4400C8A458 /* DJTableViewVMFrameWork */;
-			targetProxy = 4E81CF3F1DB75D4400C8A458 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4E006D8D1C4CB59F005664D3 /* LaunchScreen.storyboard */ = {

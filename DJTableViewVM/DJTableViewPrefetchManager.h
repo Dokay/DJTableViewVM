@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView;
 
 @property (nonatomic, copy, nullable) void(^prefetchCompletion)(NSArray * _Nullable added,NSArray * _Nullable removed);
-@property (nonatomic, assign) BOOL bPreetchEnabled;
+@property (nonatomic, assign) BOOL bPrefetchEnabled;
 
 @end
 
