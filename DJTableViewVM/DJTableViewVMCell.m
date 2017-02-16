@@ -62,14 +62,11 @@
             [self setPreservesSuperviewLayoutMargins:NO];
         }
     }
-    
-    self.indentationWidth = 10;
-    self.indentationLevel = 10;
 }
 
 - (void)cellDidDisappear
 {
-    
+    //to be overwrite
 }
 
 - (void)layoutSubviews
@@ -77,6 +74,7 @@
     [super layoutSubviews];
     
     [self refreshCurrentSeparatorLine];
+    [self refreshIndentationWidth];
 }
 
 #pragma mark - private method
@@ -102,6 +100,17 @@
             default:
                 break;
         }
+    }
+}
+
+- (void)refreshIndentationWidth
+{
+    float indentSize = self.rowVM.indentationLevel * self.rowVM.indentationWidth;
+    
+    if (indentSize > 0) {
+        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+            view.frame = CGRectMake(view.frame.origin.x+indentSize,view.frame.origin.y,view.frame.size.width,view.frame.size.height);
+        }];
     }
 }
 

@@ -46,6 +46,9 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, strong, nullable) UIColor  *detailTitleColor;
 @property (nonatomic, strong, nullable) UIFont   *detailTitleFont;
 
+@property (nonatomic, assign) CGFloat indentationWidth;
+@property (nonatomic, assign) CGFloat indentationLevel;
+
 @property (nonatomic, strong, nullable) NSObject *paramObject;
 
 @property (nonatomic, assign) CGFloat  cellHeight;
