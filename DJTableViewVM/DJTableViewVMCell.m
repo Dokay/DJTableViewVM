@@ -38,20 +38,10 @@
     
     self.selectionStyle  = row.selectionStyle;
     self.accessoryType   = row.accessoryType;
-    
-    if (row.backgroundColor) {
-        self.backgroundColor = row.backgroundColor;
-    }
-    if (row.accessoryView) {
-        self.accessoryView   = row.accessoryView;
-    }
-    if (row.image) {
-        self.imageView.image = row.image;
-    }
-    if (row.highlightedImage) {
-        self.imageView.highlightedImage = row.highlightedImage;
-    }
-    
+    self.backgroundColor = row.backgroundColor;
+    self.accessoryView   = row.accessoryView;
+    self.imageView.image = row.image;
+    self.imageView.highlightedImage = row.highlightedImage;
     self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
     self.textLabel.text             = row.title;
@@ -72,6 +62,9 @@
             [self setPreservesSuperviewLayoutMargins:NO];
         }
     }
+    
+    self.indentationWidth = 10;
+    self.indentationLevel = 10;
 }
 
 - (void)cellDidDisappear
@@ -93,7 +86,7 @@
         switch (self.rowVM.separatorLineType) {
             case DJCellSeparatorLineDefault:
             {
-                
+                _separatorLineView.alpha = 1.0f;//line maybe has changed
             }
                 break;
             case DJCellSeparatorLineHide:
@@ -116,7 +109,7 @@
 - (UIView *)separatorLineView
 {
     if (_separatorLineView == nil) {
-        //unsafe method to get SeparatorView.
+        //unsafe method to get SeparatorView.apple may change class name for _UITableViewCellSeparatorView
         for (UIView *subview in self.contentView.superview.subviews) {
             if ([NSStringFromClass(subview.class) hasSuffix:@"SeparatorView"]) {
                 _separatorLineView = subview;

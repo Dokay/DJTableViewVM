@@ -137,6 +137,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         DJTableViewVMRow *testRowVM = [DJTableViewVMRow new];
         testRowVM.title = [testDic valueForKey:@"title"];
         testRowVM.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        testRowVM.separatorLineType = DJCellSeparatorLineHide;
         [testRowVM setSelectionHandler:^(DJTableViewVMRow *rowVM) {
             [rowVM deselectRowAnimated:YES];
             ViewController *aViewController = [ViewController new];
