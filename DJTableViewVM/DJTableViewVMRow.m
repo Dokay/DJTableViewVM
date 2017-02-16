@@ -20,6 +20,8 @@
     self.cellHeight = 0;
     self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
     self.selectionStyle = UITableViewCellSelectionStyleGray;
+    self.indentationLevel = 0;
+    self.indentationWidth = 10;
     
     return self;
 }
