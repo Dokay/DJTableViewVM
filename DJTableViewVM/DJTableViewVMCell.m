@@ -41,6 +41,8 @@
     self.backgroundColor = row.backgroundColor;
     self.accessoryView   = row.accessoryView;
     self.imageView.image = row.image;
+    self.indentationLevel = row.indentationLevel;
+    self.indentationWidth = row.indentationWidth;
     self.imageView.highlightedImage = row.highlightedImage;
     self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
@@ -105,7 +107,7 @@
 
 - (void)refreshIndentationWidth
 {
-    float indentSize = self.rowVM.indentationLevel * self.rowVM.indentationWidth;
+    float indentSize = self.indentationLevel * self.indentationWidth;
     
     if (indentSize > 0) {
         [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
