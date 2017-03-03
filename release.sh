@@ -6,7 +6,7 @@ git -C . pull --rebase
 
 echo "push begin"
 git -C . push --tags
-git -C . push --all
+git -C . push
 
 echo "push to cocoapods trunk..."
 
