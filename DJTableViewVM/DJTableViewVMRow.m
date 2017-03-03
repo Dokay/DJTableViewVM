@@ -25,8 +25,9 @@
     self.indentationWidth = 10;
     self.titleColor = [UIColor blackColor];
     self.titleFont = [UIFont systemFontOfSize:17];
-
     self.backgroundColor = [UIColor whiteColor];
+    self.indentationLevel = 0;
+    self.indentationWidth = 10;
     
     return self;
 }
