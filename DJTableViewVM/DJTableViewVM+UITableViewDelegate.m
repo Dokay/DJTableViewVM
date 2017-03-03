@@ -17,10 +17,6 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return 0;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
     }
@@ -115,10 +111,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return 0;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
     }
@@ -198,10 +190,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]){
         [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
@@ -265,10 +253,6 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]){
         [self.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
     }
@@ -333,10 +317,6 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return UITableViewCellEditingStyleNone;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:editingStyleForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
     }
@@ -347,10 +327,6 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return nil;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
     }
@@ -393,10 +369,6 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-    if ([self checkAvaliableForIndexPath:sourceIndexPath] == NO) {
-        return proposedDestinationIndexPath;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]){
         return [self.delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
     }
@@ -424,9 +396,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return NO;
-    }
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:shouldShowMenuForRowAtIndexPath:)]){
         return [self.delegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
     }
@@ -438,10 +407,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return NO;
-    }
-    
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:canPerformAction:forRowAtIndexPath:withSender:)]){
         return [self.delegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
@@ -461,9 +426,6 @@
 
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    if ([self checkAvaliableForIndexPath:indexPath] == NO) {
-        return;
-    }
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]){
         [self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
@@ -482,17 +444,5 @@
     }
 }
 
-#pragma mark - private methods
-- (BOOL)checkAvaliableForIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.sections.count > indexPath.section) {
-        DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:indexPath.section];
-        if (sectionVM.rows.count > indexPath.row) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}
 
 @end

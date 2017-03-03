@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DJTableViewVMSection.h"
 #import "DJTableViewVMRow.h"
+
 @import UIKit;
 
 #define DJTableViewRegister(DJTableViewVMInstance,RowVMClassName,CellClassName) [DJTableViewVMInstance setObject:NSStringFromClass([CellClassName class]) forKeyedSubscript:NSStringFromClass([RowVMClassName class])];
@@ -25,10 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView cellWillAppear:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)tableView:(UITableView *)tableView cellDidAppear:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
-
-@end
-
-@protocol DJTableViewVMDataSource <UITableViewDataSource>
 
 @end
 
@@ -50,11 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DJTableViewVM: NSObject <UITableViewDelegate, UITableViewDataSource,DJTableViewDataSourcePrefetching>
 
-@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
+@property (nonatomic, weak, readonly) UITableView *tableView;
 @property (nonatomic, weak, nullable) id<DJTableViewVMDelegate> delegate;
-@property (nonatomic, weak, nullable) id<DJTableViewVMDataSource> dataSource;
 @property (nonatomic, weak, nullable) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
 
+#pragma mark - UITableView properties
 @property (nonatomic, strong, nullable) UIColor *separatorColor;
 @property (nonatomic, strong, nullable) UIView *tableHeaderView;
 @property (nonatomic, strong, nullable) UIView *tableFooterView;
@@ -62,20 +59,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
 
+#pragma mark - advanced properties
+@property (nonatomic, assign) BOOL emptyLinesHide;//whether hide lines when the tableview has no enough cells to fill its bounds size. default is NO.
+@property (nonatomic, assign) BOOL prefetchingEnabled;//whether prefetch enable. default is NO.
 @property (nonatomic, strong, readonly, nullable) NSArray *sections;
-@property (nonatomic, assign) BOOL prefetchingEnabled;
-
 /**
- *  Default is NO.Control whether height of cells can be caculated an cached in spare time(kCFRunLoopDefaultMode in main thread runloop).
+ *  whether height of cells can be caculated an cached in spare time(kCFRunLoopDefaultMode in main thread runloop).Default is NO
  */
 @property (nonatomic, assign) BOOL preCaculateHeightEnable;
 
-@property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");   // will return the default value if unset
-@property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight instead");   // will return the default value if unset
-@property (nonatomic, assign) CGFloat estimatedRowHeight;
-@property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight __deprecated_msg("estimatedSectionHeaderHeight deprecated. Use sectionWithHeaderHeight instead");
-@property (nonatomic, assign) CGFloat estimatedSectionFooterHeight __deprecated_msg("estimatedSectionFooterHeight deprecated. Use sectionWithFooterHeight instead");
+#pragma mark - keyboard manage
+@property(nonatomic, assign) BOOL keyboardManageEnabled;//whether srcoll to target offset auto by DJTableViewVM.defalt is NO.
+@property(nonatomic, assign) BOOL scrollHideKeyboadEnable;//whether hide keyboard while scroll UITableView.default is NO.
+@property(nonatomic, assign) BOOL tapHideKeyboardEnable;//whether hide keyboard while tap UITableView.defailt is NO.
+@property(nonatomic, assign) CGFloat offsetUnderResponder;//the offset between top of keboard and bottom of responder view.responder view is the return from cell that implemente DJInputCellProtocol. default is 10.0f.
 
+#pragma mark - init methods
 - (id)initWithTableView:(UITableView *)tableView delegate:(nullable id<DJTableViewVMDelegate>)delegate;
 - (id)initWithTableView:(UITableView *)tableView;
 - (void)reloadData;
@@ -93,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)objectAtKeyedSubscript:(id<NSCopying>)key;
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
+#pragma mark - VM manage
 - (void)addSection:(DJTableViewVMSection *)section;
 - (void)addSectionsFromArray:(NSArray *)array;
 - (void)insertSection:(DJTableViewVMSection *)section atIndex:(NSUInteger)index;
@@ -100,6 +100,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeSectionAtIndex:(NSUInteger)index;
 - (void)removeSectionsInArray:(NSArray *)otherArray;
 - (void)removeAllSections;
+
+@property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight in DJTableViewVMSection instead");   // will return the default value if unset
+@property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight in DJTableViewVMSection instead");   // will return the default value if unset
+@property (nonatomic, assign) CGFloat estimatedRowHeight;
+@property (nonatomic, assign) CGFloat estimatedSectionHeaderHeight __deprecated_msg("estimatedSectionHeaderHeight deprecated. Use sectionWithHeaderHeight in DJTableViewVMSection instead");
+@property (nonatomic, assign) CGFloat estimatedSectionFooterHeight __deprecated_msg("estimatedSectionFooterHeight deprecated. Use sectionWithFooterHeight in DJTableViewVMSection instead");
 
 @end
 

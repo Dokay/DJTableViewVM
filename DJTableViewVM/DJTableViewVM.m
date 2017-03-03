@@ -13,6 +13,7 @@
 #import "DJTableViewPrefetchManager.h"
 #import "DJLazyTaskManager.h"
 #import "DJLog.h"
+#import "DJTableViewVM+Keyboard.h"
 
 @interface DJTableViewVM()
 
@@ -40,21 +41,14 @@
 
 - (id)initWithTableView:(UITableView *)tableView delegate:(id<DJTableViewVMDelegate>)delegate
 {
-    self = [self initWithTableView:tableView];
-    if (self){
-        self.delegate = delegate;
-    }
-    return self;
-}
-
-- (id)initWithTableView:(UITableView *)tableView
-{
     self = [super init];
     if (self){
         tableView.delegate = self;
         tableView.dataSource = self;
         self.tableView = tableView;
-
+        self.delegate = delegate;
+        self.offsetUnderResponder = 10.0f;
+        
         self.mutableSections        = [[NSMutableArray alloc] init];
         self.registeredClasses      = [[NSMutableDictionary alloc] init];
         self.registeredXIBs         = [[NSMutableDictionary alloc] init];
@@ -67,8 +61,20 @@
     return self;
 }
 
+- (id)initWithTableView:(UITableView *)tableView
+{
+    self = [self initWithTableView:tableView delegate:nil];
+    if (self){
+      
+    }
+    return self;
+}
+
 - (void)dealloc
 {
+    if (self.keyboardManageEnabled) {
+        [self unregistKeyboard];
+    }
     [DJLog dj_debugLog:[NSString stringWithFormat:@"%@ dealloc",[self class]]];
 }
 
@@ -216,10 +222,6 @@
 
 - (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView __TVOS_PROHIBITED
 {
-    if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
-        [self.dataSource sectionIndexTitlesForTableView:tableView];
-    }
-    
     BOOL bIndexTitle = NO;
     for (DJTableViewVMSection *sectionVM in self.sections) {
         if (sectionVM.sectionIndexTitle.length > 0) {
@@ -244,10 +246,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index __TVOS_PROHIBITED
 {
-    if ([self.dataSource conformsToProtocol:@protocol(UITableViewDataSource)] && [self.dataSource respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
-        [self.dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
-    }
-    
     for (DJTableViewVMSection *sectionVM in self.sections) {
         if (sectionVM.sectionIndexTitle.length > 0
             && [sectionVM.sectionIndexTitle isEqualToString:title]) {
@@ -576,6 +574,26 @@
         [self p_startPreCaculateHeight];
     }else{
         [self.lazyTaskManager stop];
+    }
+}
+
+- (void)setEmptyLinesHide:(BOOL)emptyLinesHide
+{
+    _emptyLinesHide = emptyLinesHide;
+    if (_emptyLinesHide) {
+        self.tableView.tableFooterView = [UIView new];
+    }
+}
+
+- (void)setKeyboardManageEnabled:(BOOL)enabled
+{
+    if (enabled != _keyboardManageEnabled) {
+        if (enabled) {
+            [self registKeyboard];
+        }else{
+            [self unregistKeyboard];
+        }
+        _keyboardManageEnabled = enabled;
     }
 }
 

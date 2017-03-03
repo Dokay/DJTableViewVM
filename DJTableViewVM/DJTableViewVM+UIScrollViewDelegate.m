@@ -7,6 +7,7 @@
 //
 
 #import "DJTableViewVM+UIScrollViewDelegate.h"
+#import "DJTableViewVM+Keyboard.h"
 
 @implementation DJTableViewVM(UIScrollViewDelegate)
 
@@ -30,6 +31,7 @@
     if ([self.delegate conformsToProtocol:@protocol(UIScrollViewDelegate)] && [self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
         [self.delegate scrollViewWillBeginDragging:self.tableView];
     }
+    [self scrollHideKeyboard];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
