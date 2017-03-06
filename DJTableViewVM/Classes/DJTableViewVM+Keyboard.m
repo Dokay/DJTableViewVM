@@ -7,7 +7,7 @@
 //
 
 #import "DJTableViewVM+Keyboard.h"
-#import "DJInputProtocol.h"
+#import "DJTableViewVMInputBaseRow.h"
 #import <objc/runtime.h>
 #import "DJToolBar.h"
 
@@ -59,8 +59,8 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     UIView *responderView;
     UITableViewScrollPosition focusScrollPosition;
-    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMInCurrentVM];
-    focusScrollPosition = ((DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM).focusScrollPosition;
+    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMInCurrentVM];
+    focusScrollPosition = ((DJTableViewVMInputBaseRow *)inputRowVM).focusScrollPosition;
     
     UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
     if ([cell respondsToSelector:@selector(inputResponder)]) {
@@ -150,7 +150,7 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
     
     UIView *responderView;
-    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMInCurrentVM];
+    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMInCurrentVM];
     UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
     if ([cell respondsToSelector:@selector(inputResponder)]) {
         responderView = [cell inputResponder];
@@ -181,14 +181,14 @@
     } completion:NULL];
 }
 
-- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMInCurrentVM
+- (DJTableViewVMInputBaseRow *)inputRowVMInCurrentVM
 {
-    __block DJTableViewVMRow<DJInputRowProtocol> *inputRowVM;
+    __block DJTableViewVMInputBaseRow *inputRowVM;
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection * _Nonnull sectionVM, NSUInteger idx, BOOL * _Nonnull stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow * _Nonnull rowVM, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
-                if (((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).editing) {
-                    inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
+            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
+                if (((DJTableViewVMInputBaseRow *)rowVM).editing) {
+                    inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
                     *stop = YES;
                 }
             }
@@ -219,9 +219,9 @@
 {
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection * _Nonnull sectionVM, NSUInteger idx, BOOL * _Nonnull stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow * _Nonnull rowVM, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
-                if (((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).enabled
-                    &&((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).editing) {
+            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
+                if (((DJTableViewVMInputBaseRow *)rowVM).enabled
+                    &&((DJTableViewVMInputBaseRow *)rowVM).editing) {
                     UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:rowVM.indexPath];
                     [cell resignFirstResponder];
                     *stop = YES;
@@ -240,7 +240,7 @@
 }
 
 #pragma mark - toolbar methods
-- (void)configToolBarWithRowVM:(DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM forCurrentState:(DJKeyboardState *)state
+- (void)configToolBarWithRowVM:(DJTableViewVMInputBaseRow *)inputRowVM forCurrentState:(DJKeyboardState *)state
 {
     if (inputRowVM.inputAccessoryView != nil && [inputRowVM.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
         DJToolBar *keyboardToolBar = (DJToolBar *)inputRowVM.inputAccessoryView;
@@ -263,7 +263,7 @@
     }
 }
 
-- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMBeforeIndexPath:(NSIndexPath *)indexPath
+- (DJTableViewVMInputBaseRow *)inputRowVMBeforeIndexPath:(NSIndexPath *)indexPath
 {
     for (NSInteger section = indexPath.section; section >= 0; section--) {
         NSInteger currentRowIndex = indexPath.row;
@@ -274,8 +274,8 @@
         for (NSInteger row = currentRowIndex; row > 0; row--) {
             DJTableViewVMSection *sectionVMLoop = self.sections[section];
             DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
-            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
-                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
+            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
+                DJTableViewVMInputBaseRow *inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
                 if (inputRowVM.enabled == YES
                     && inputRowVM.editing == NO) {
                     return inputRowVM;
@@ -286,7 +286,7 @@
     return nil;
 }
 
-- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMAfterIndexPath:(NSIndexPath *)indexPath
+- (DJTableViewVMInputBaseRow *)inputRowVMAfterIndexPath:(NSIndexPath *)indexPath
 {
     for (NSInteger section = indexPath.section; section < self.sections.count; section++) {
         NSInteger currentRowIndex = indexPath.row;
@@ -297,8 +297,8 @@
         for (NSInteger row = currentRowIndex; row < sectionVM.rows.count; row++) {
             DJTableViewVMSection *sectionVMLoop = self.sections[section];
             DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
-            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
-                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
+            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
+                DJTableViewVMInputBaseRow *inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
                 if (inputRowVM.enabled == YES
                     && inputRowVM.editing == NO) {
                     return inputRowVM;
@@ -311,7 +311,7 @@
 
 - (void)jumpToPreInputCellBeforeIndexPath:(NSIndexPath *)indexPath
 {
-    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
+    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
     if (inputRowVM != nil) {
         UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         UIView *responderView = [cell inputResponder];
@@ -323,7 +323,7 @@
 
 - (void)jumpToNextInputCellAfterIndexPath:(NSIndexPath *)indexPath
 {
-    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
+    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
     if (inputRowVM != nil) {
         UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         UIView *responderView = [cell inputResponder];

@@ -9,7 +9,6 @@
 @import Foundation;
 #import "DJTableViewVMCell.h"
 #import "DJTableViewVMTextFieldCellRow.h"
-#import "DJInputProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

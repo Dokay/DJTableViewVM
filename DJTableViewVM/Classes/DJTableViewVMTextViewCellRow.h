@@ -6,13 +6,13 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMRow.h"
-#import "DJInputProtocol.h"
+#import "DJTableViewVMInputBaseRow.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 #define DJTableViewVMTextViewCellRowMagicMarginNumber 5
 
-@interface DJTableViewVMTextViewCellRow : DJTableViewVMRow<DJInputRowProtocol>
+@interface DJTableViewVMTextViewCellRow : DJTableViewVMInputBaseRow
 
 @property(nonatomic, nullable, copy)NSString *placeholder;
 @property(nonatomic, strong) UIColor *placeholderColor;
@@ -20,12 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSAttributedString *attributedPlaceholder;
 
 @property(nonatomic, assign) CGFloat textFiledLeftMargin;
-@property(nonatomic, assign) UITableViewScrollPosition focusScrollPosition;
 @property(nonatomic, assign) UIEdgeInsets textContainerInset;
-@property (nonatomic, assign) BOOL editing;//whether cell is editing.default is NO.
-
-@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
-@property(nonatomic, weak) UIView *inputResponder;
 
 @property(nonatomic, assign) BOOL showCharactersCount;
 @property(nonatomic, assign) NSUInteger charactersMaxCount;
@@ -35,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
-@property (nullable, readwrite, strong) UIView *inputAccessoryView;
 
 @property(nullable,nonatomic,copy) NSString *text;
 @property(nullable,nonatomic,strong) UIFont *font;

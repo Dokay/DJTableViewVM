@@ -6,18 +6,14 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMRow.h"
-#import "DJInputProtocol.h"
+#import "DJTableViewVMInputBaseRow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DJTableViewVMTextFieldCellRow : DJTableViewVMRow<DJInputRowProtocol>
+@interface DJTableViewVMTextFieldCellRow : DJTableViewVMInputBaseRow
 
 @property (nonatomic, assign) NSUInteger charactersMaxCount;//max characters can input.default is 0,means has no restrict.
 @property (nonatomic, assign) CGFloat textFiledLeftMargin;//left margin for textFiled.default is 0.
-@property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.default is UITableViewScrollPositionBottom.it works when keyboardManageEnabled in DJTableViewVM set YES.
-@property (nonatomic, assign) BOOL editing;//whether cell is editing.default is NO.
-@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
 
 #pragma mark - UITextInputTraits properties
 @property(nonatomic) UITextAutocapitalizationType autocapitalizationType; // default is UITextAutocapitalizationTypeSentences
@@ -56,7 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
-@property (nullable, readwrite, strong) UIView *inputAccessoryView;
 
 @property(nonatomic) BOOL clearsOnInsertion NS_AVAILABLE_IOS(6_0); // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
 

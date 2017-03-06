@@ -28,12 +28,7 @@
         _editable = YES;
         isEditable = YES;
         _textContainerInset = UIEdgeInsetsMake(MagicMarginNumber, -MagicMarginNumber, MagicMarginNumber, 0);
-        _focusScrollPosition = UITableViewScrollPositionBottom;
         self.cellHeight = 128;
-        
-        DJToolBar *toolBarView = [DJToolBar new];
-        toolBarView.frame = CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.bounds.size.width, 44);
-        _inputAccessoryView = toolBarView;
     }
     return self;
 }

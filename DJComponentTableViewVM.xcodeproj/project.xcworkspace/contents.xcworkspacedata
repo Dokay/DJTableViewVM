@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:HDBComponentTableViewVM.xcodeproj">
+      location = "self:/Users/dokaydou/Mine/IOS/DJHubCompoent/DJTableViewVM/DJComponentTableViewVM.xcodeproj">
    </FileRef>
 </Workspace>

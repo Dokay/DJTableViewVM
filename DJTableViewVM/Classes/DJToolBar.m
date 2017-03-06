@@ -20,10 +20,9 @@
 @end
 
 @implementation DJToolBar
-
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.bounds.size.width, 44)];
     if (self) {
         // Initialization code
         
@@ -61,8 +60,8 @@
     
     UIBarButtonItem *emptyLeftItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *emptyRightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    self.doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onTouchDone)];
+
+    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onTouchDone)];
     
     self.items = @[self.preButton,emptyItem,self.nextButton,emptyLeftItem,self.placeHolderItem,emptyRightItem,self.doneButton];
 }
@@ -96,12 +95,6 @@
 }
 
 #pragma mark - seter
-- (void)setDoneTitle:(NSString *)doneTitle
-{
-    _doneTitle = doneTitle;
-    self.doneButton.title = doneTitle;
-}
-
 - (void)setPlaceholder:(NSString *)placeholder
 {
     _placeholder = placeholder;

@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.version      = "0.1.4"
   s.summary      = "DJTableViewVM is a ViewModel implementation for UITableView"
   s.description  = <<-DESC
-                   only for private use,DJTableViewVM is a ViewModel implementation for DJTableViewVM
+                   only for private use,DJTableViewVM is a ViewModel implementation for UITableView.
                    DESC
   s.homepage     = "https://github.com/Dokay"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Classes", "DJTableViewVM/Classes/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
   s.public_header_files = "DJTableViewVM/Classes/**/*.h"
-  s.resource_bundles = {'DJTableViewVM' => ['DJTableViewVM/Resources/*'}
+  s.resource_bundles = {'DJTableViewVM' => ['DJTableViewVM/Resources/*']}
   s.requires_arc = true
 
 end

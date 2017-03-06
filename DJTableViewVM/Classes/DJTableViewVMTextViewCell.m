@@ -141,7 +141,6 @@
     }
     if (should) {
         self.rowVM.editing = YES;
-        self.rowVM.inputResponder = self.textView;
     }
     return should;
 }
@@ -169,7 +168,6 @@
     }
     
     self.rowVM.editing = NO;
-    self.rowVM.inputResponder = nil;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

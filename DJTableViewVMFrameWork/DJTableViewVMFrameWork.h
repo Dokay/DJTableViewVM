@@ -28,5 +28,6 @@ FOUNDATION_EXPORT const unsigned char DJTableViewVMFrameWorkVersionString[];
 #import <DJTableViewVMFrameWork/DJTableViewVMTextFieldCell.h>
 #import <DJTableViewVMFrameWork/DJTableViewVMTextFieldCellRow.h>
 #import <DJTableViewVMFrameWork/DJToolBar.h>
+#import <DJTableViewVMFrameWork/DJTableViewVMInputBaseRow.h>
 
 #endif /* DJTableViewVMFrameWork_h */

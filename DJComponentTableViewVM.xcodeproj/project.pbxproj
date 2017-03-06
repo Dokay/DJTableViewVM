@@ -18,6 +18,9 @@
 		4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED1A1D0FE219000F801F /* DJTableViewVMTextTestCell.m */; };
 		4E3AED211D0FE219000F801F /* DJTableViewVMTextTestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E3AED1B1D0FE219000F801F /* DJTableViewVMTextTestCell.xib */; };
 		4E3AED221D0FE219000F801F /* DJTableViewVMTextTestRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED1D1D0FE219000F801F /* DJTableViewVMTextTestRow.m */; };
+		4E4C3E211E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C3E201E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m */; };
+		4E4C3E221E6D64CB002BA264 /* DJTableViewVMInputBaseRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4C3E201E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m */; };
+		4E4C3E231E6D64D5002BA264 /* DJTableViewVMInputBaseRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E4C3E1F1E6D63EA002BA264 /* DJTableViewVMInputBaseRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E6B02D81E6D53BA003F1B91 /* DJTableViewVM.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02D71E6D53BA003F1B91 /* DJTableViewVM.podspec */; };
 		4E6B03981E6D557B003F1B91 /* DJLazyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03741E6D557B003F1B91 /* DJLazyTaskManager.m */; };
 		4E6B03991E6D557B003F1B91 /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03761E6D557B003F1B91 /* DJLog.m */; };
@@ -55,17 +58,15 @@
 		4E6B03B91E6D5599003F1B91 /* DJTableViewVMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B038E1E6D557B003F1B91 /* DJTableViewVMTextViewCell.m */; };
 		4E6B03BA1E6D559A003F1B91 /* DJTableViewVMTextViewCellRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03901E6D557B003F1B91 /* DJTableViewVMTextViewCellRow.m */; };
 		4E6B03BB1E6D559A003F1B91 /* DJToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03921E6D557B003F1B91 /* DJToolBar.m */; };
-		4E6B03BC1E6D55BE003F1B91 /* DJInputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03721E6D557B003F1B91 /* DJInputProtocol.h */; };
-		4E6B03BD1E6D55BE003F1B91 /* DJLazyTaskManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03731E6D557B003F1B91 /* DJLazyTaskManager.h */; };
-		4E6B03BE1E6D55BE003F1B91 /* DJTableViewVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03811E6D557B003F1B91 /* DJTableViewVM.h */; };
-		4E6B03BF1E6D55BE003F1B91 /* DJTableViewVMCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03831E6D557B003F1B91 /* DJTableViewVMCell.h */; };
-		4E6B03C01E6D55BE003F1B91 /* DJTableViewVMRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03851E6D557B003F1B91 /* DJTableViewVMRow.h */; };
-		4E6B03C11E6D55BE003F1B91 /* DJTableViewVMSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03871E6D557B003F1B91 /* DJTableViewVMSection.h */; };
-		4E6B03C21E6D55BE003F1B91 /* DJTableViewVMTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03891E6D557B003F1B91 /* DJTableViewVMTextFieldCell.h */; };
-		4E6B03C31E6D55BE003F1B91 /* DJTableViewVMTextFieldCellRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038B1E6D557B003F1B91 /* DJTableViewVMTextFieldCellRow.h */; };
-		4E6B03C41E6D55BE003F1B91 /* DJTableViewVMTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038D1E6D557B003F1B91 /* DJTableViewVMTextViewCell.h */; };
-		4E6B03C51E6D55BE003F1B91 /* DJTableViewVMTextViewCellRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038F1E6D557B003F1B91 /* DJTableViewVMTextViewCellRow.h */; };
-		4E6B03C61E6D55BE003F1B91 /* DJToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03911E6D557B003F1B91 /* DJToolBar.h */; };
+		4E6B03BE1E6D55BE003F1B91 /* DJTableViewVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03811E6D557B003F1B91 /* DJTableViewVM.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03BF1E6D55BE003F1B91 /* DJTableViewVMCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03831E6D557B003F1B91 /* DJTableViewVMCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C01E6D55BE003F1B91 /* DJTableViewVMRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03851E6D557B003F1B91 /* DJTableViewVMRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C11E6D55BE003F1B91 /* DJTableViewVMSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03871E6D557B003F1B91 /* DJTableViewVMSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C21E6D55BE003F1B91 /* DJTableViewVMTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03891E6D557B003F1B91 /* DJTableViewVMTextFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C31E6D55BE003F1B91 /* DJTableViewVMTextFieldCellRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038B1E6D557B003F1B91 /* DJTableViewVMTextFieldCellRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C41E6D55BE003F1B91 /* DJTableViewVMTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038D1E6D557B003F1B91 /* DJTableViewVMTextViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C51E6D55BE003F1B91 /* DJTableViewVMTextViewCellRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B038F1E6D557B003F1B91 /* DJTableViewVMTextViewCellRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B03C61E6D55BE003F1B91 /* DJToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03911E6D557B003F1B91 /* DJToolBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E81CF431DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E81CF4C1DB75DF900C8A458 /* DJTableViewVMFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4ECE916F1E56F3D70026F32C /* DJTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE916E1E56F3D70026F32C /* DJTextViewController.m */; };
@@ -106,8 +107,9 @@
 		4E3AED1B1D0FE219000F801F /* DJTableViewVMTextTestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJTableViewVMTextTestCell.xib; sourceTree = "<group>"; };
 		4E3AED1C1D0FE219000F801F /* DJTableViewVMTextTestRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMTextTestRow.h; sourceTree = "<group>"; };
 		4E3AED1D1D0FE219000F801F /* DJTableViewVMTextTestRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMTextTestRow.m; sourceTree = "<group>"; };
+		4E4C3E1F1E6D63EA002BA264 /* DJTableViewVMInputBaseRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMInputBaseRow.h; sourceTree = "<group>"; };
+		4E4C3E201E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMInputBaseRow.m; sourceTree = "<group>"; };
 		4E6B02D71E6D53BA003F1B91 /* DJTableViewVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DJTableViewVM.podspec; sourceTree = "<group>"; };
-		4E6B03721E6D557B003F1B91 /* DJInputProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputProtocol.h; sourceTree = "<group>"; };
 		4E6B03731E6D557B003F1B91 /* DJLazyTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLazyTaskManager.h; sourceTree = "<group>"; };
 		4E6B03741E6D557B003F1B91 /* DJLazyTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLazyTaskManager.m; sourceTree = "<group>"; };
 		4E6B03751E6D557B003F1B91 /* DJLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLog.h; sourceTree = "<group>"; };
@@ -264,9 +266,10 @@
 				4E6B03861E6D557B003F1B91 /* DJTableViewVMRow.m */,
 				4E6B03871E6D557B003F1B91 /* DJTableViewVMSection.h */,
 				4E6B03881E6D557B003F1B91 /* DJTableViewVMSection.m */,
-				4E6B03721E6D557B003F1B91 /* DJInputProtocol.h */,
 				4E6B03911E6D557B003F1B91 /* DJToolBar.h */,
 				4E6B03921E6D557B003F1B91 /* DJToolBar.m */,
+				4E4C3E1F1E6D63EA002BA264 /* DJTableViewVMInputBaseRow.h */,
+				4E4C3E201E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m */,
 				4E6B03891E6D557B003F1B91 /* DJTableViewVMTextFieldCell.h */,
 				4E6B038A1E6D557B003F1B91 /* DJTableViewVMTextFieldCell.m */,
 				4E6B038B1E6D557B003F1B91 /* DJTableViewVMTextFieldCellRow.h */,
@@ -321,8 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E81CF4C1DB75DF900C8A458 /* DJTableViewVMFrameWork.h in Headers */,
-				4E6B03BC1E6D55BE003F1B91 /* DJInputProtocol.h in Headers */,
-				4E6B03BD1E6D55BE003F1B91 /* DJLazyTaskManager.h in Headers */,
+				4E4C3E231E6D64D5002BA264 /* DJTableViewVMInputBaseRow.h in Headers */,
 				4E6B03BE1E6D55BE003F1B91 /* DJTableViewVM.h in Headers */,
 				4E6B03BF1E6D55BE003F1B91 /* DJTableViewVMCell.h in Headers */,
 				4E6B03C01E6D55BE003F1B91 /* DJTableViewVMRow.h in Headers */,
@@ -448,6 +450,7 @@
 				4ECE916F1E56F3D70026F32C /* DJTextViewController.m in Sources */,
 				4E6B039E1E6D557B003F1B91 /* DJTableViewVM+UITableViewDelegate.m in Sources */,
 				4E3AED221D0FE219000F801F /* DJTableViewVMTextTestRow.m in Sources */,
+				4E4C3E211E6D63EA002BA264 /* DJTableViewVMInputBaseRow.m in Sources */,
 				4E6B039D1E6D557B003F1B91 /* DJTableViewVM+UIScrollViewDelegate.m in Sources */,
 				4ED9F9031D24F8030035D288 /* DJAlertView.m in Sources */,
 				4E6B03A31E6D557B003F1B91 /* DJTableViewVMTextFieldCell.m in Sources */,
@@ -477,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E4C3E221E6D64CB002BA264 /* DJTableViewVMInputBaseRow.m in Sources */,
 				4E6B03AC1E6D5599003F1B91 /* DJLazyTaskManager.m in Sources */,
 				4E6B03AD1E6D5599003F1B91 /* DJLog.m in Sources */,
 				4E6B03AE1E6D5599003F1B91 /* DJTableViewPrefetchManager.m in Sources */,
@@ -598,6 +602,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DJComponentTableViewVM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -611,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DJComponentTableViewVM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
