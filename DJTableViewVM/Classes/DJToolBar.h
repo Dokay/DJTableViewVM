@@ -11,7 +11,6 @@
 @interface DJToolBar : UIToolbar
 
 @property(nonatomic, strong) NSString *doneTitle;
-@property(nonatomic, strong) NSString *placeholder;
 @property(nonatomic, assign) BOOL preEnable;
 @property(nonatomic, assign) BOOL nextEnable;
 

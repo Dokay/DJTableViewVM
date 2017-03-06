@@ -246,7 +246,6 @@
         DJToolBar *keyboardToolBar = (DJToolBar *)inputRowVM.inputAccessoryView;
         keyboardToolBar.preEnable = [self inputRowVMBeforeIndexPath:inputRowVM.indexPath] != nil;
         keyboardToolBar.nextEnable = [self inputRowVMAfterIndexPath:inputRowVM.indexPath] != nil;
-        keyboardToolBar.placeholder = [inputRowVM placeholder];
         
         __weak typeof(self) weakSelf = self;
         [keyboardToolBar setTapPreHandler:^{
