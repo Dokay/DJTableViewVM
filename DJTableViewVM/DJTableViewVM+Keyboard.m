@@ -140,6 +140,7 @@
             self.tableView.contentInset = destContentInsets;
             self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
             self.tableView.contentOffset = destContentOffset;
+            [self.tableView layoutIfNeeded];
         } completion:NULL];
     }
 }
@@ -174,6 +175,7 @@
     [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.tableView.contentInset = destContentInsets;
         self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
+        [self.tableView layoutIfNeeded];
     } completion:NULL];
 }
 

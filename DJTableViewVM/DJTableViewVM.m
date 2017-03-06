@@ -72,6 +72,7 @@
 
 - (void)dealloc
 {
+    self.tableView.delegate = nil;//fix crash in iOS 8:http://stackoverflow.com/questions/15781637/crash-uiscrollview-exc-bad-access
     if (self.keyboardManageEnabled) {
         [self unregistKeyboard];
     }
