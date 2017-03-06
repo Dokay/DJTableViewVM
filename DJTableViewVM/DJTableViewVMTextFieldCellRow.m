@@ -7,6 +7,7 @@
 //
 
 #import "DJTableViewVMTextFieldCellRow.h"
+#import "DJToolBar.h"
 
 @implementation DJTableViewVMTextFieldCellRow
 
@@ -23,6 +24,10 @@
         _minimumFontSize = 0.0f;
         _clearButtonMode = UITextFieldViewModeNever;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        
+        DJToolBar *toolBarView = [DJToolBar new];
+        toolBarView.frame = CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.bounds.size.width, 44);
+        _inputAccessoryView = toolBarView;
     }
     return self;
 }

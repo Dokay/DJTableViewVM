@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DJTableViewVMTextViewCellRow : DJTableViewVMRow<DJInputRowProtocol>
 
-@property(nonatomic, strong) NSString *placeholder;
+@property(nonatomic, nullable, copy)NSString *placeholder;
 @property(nonatomic, strong) UIColor *placeholderColor;
 @property(nonatomic, strong) UIFont *placeholderFont;
 @property(nonatomic, strong) NSAttributedString *attributedPlaceholder;
@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) NSUInteger charactersMaxCount;
 @property(nonatomic, strong) UIColor *charactersCountColor;
 @property(nonatomic, strong) UIFont *charactersCountFont;
+
+// Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
+// set while first responder, will not take effect until reloadInputViews is called.
+@property (nullable, readwrite, strong) UIView *inputView;
+@property (nullable, readwrite, strong) UIView *inputAccessoryView;
 
 @property(nullable,nonatomic,copy) NSString *text;
 @property(nullable,nonatomic,strong) UIFont *font;

@@ -38,6 +38,13 @@
 		4E6B02A11E691333003F1B91 /* DJTableViewVMTextViewCellRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B02941E66707D003F1B91 /* DJTableViewVMTextViewCellRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E6B02A21E691333003F1B91 /* DJTableViewVMTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9447431E5C177100DEF29A /* DJTableViewVMTextViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E6B02A31E691333003F1B91 /* DJInputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B02901E666F9F003F1B91 /* DJInputProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6B02CB1E6D0114003F1B91 /* DJToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B02CA1E6D0114003F1B91 /* DJToolBar.m */; };
+		4E6B02D11E6D0629003F1B91 /* DJArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02CD1E6D0629003F1B91 /* DJArrowLeft@2x.png */; };
+		4E6B02D21E6D0629003F1B91 /* DJArrowLeft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02CE1E6D0629003F1B91 /* DJArrowLeft@3x.png */; };
+		4E6B02D31E6D0629003F1B91 /* DJArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02CF1E6D0629003F1B91 /* DJArrowRight@2x.png */; };
+		4E6B02D41E6D0629003F1B91 /* DJArrowRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02D01E6D0629003F1B91 /* DJArrowRight@3x.png */; };
+		4E6B02D51E6D0A63003F1B91 /* DJToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B02CA1E6D0114003F1B91 /* DJToolBar.m */; };
+		4E6B02D61E6D0A72003F1B91 /* DJToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B02C91E6D0114003F1B91 /* DJToolBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E8092FC1DF921DB0053876B /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8092FB1DF921DB0053876B /* DJLog.m */; };
 		4E8092FD1DF922980053876B /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8092FB1DF921DB0053876B /* DJLog.m */; };
 		4E81CF431DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -118,6 +125,12 @@
 		4E6B02921E667013003F1B91 /* DJTableViewVMTextFieldCellRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMTextFieldCellRow.m; sourceTree = "<group>"; };
 		4E6B02941E66707D003F1B91 /* DJTableViewVMTextViewCellRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMTextViewCellRow.h; sourceTree = "<group>"; };
 		4E6B02951E66707D003F1B91 /* DJTableViewVMTextViewCellRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMTextViewCellRow.m; sourceTree = "<group>"; };
+		4E6B02C91E6D0114003F1B91 /* DJToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJToolBar.h; sourceTree = "<group>"; };
+		4E6B02CA1E6D0114003F1B91 /* DJToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJToolBar.m; sourceTree = "<group>"; };
+		4E6B02CD1E6D0629003F1B91 /* DJArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowLeft@2x.png"; sourceTree = "<group>"; };
+		4E6B02CE1E6D0629003F1B91 /* DJArrowLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowLeft@3x.png"; sourceTree = "<group>"; };
+		4E6B02CF1E6D0629003F1B91 /* DJArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowRight@2x.png"; sourceTree = "<group>"; };
+		4E6B02D01E6D0629003F1B91 /* DJArrowRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowRight@3x.png"; sourceTree = "<group>"; };
 		4E8092FA1DF921DB0053876B /* DJLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLog.h; sourceTree = "<group>"; };
 		4E8092FB1DF921DB0053876B /* DJLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLog.m; sourceTree = "<group>"; };
 		4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DJTableViewVMFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +248,9 @@
 				4ECE91711E5A983E0026F32C /* DJTableViewVM+Keyboard.m */,
 				4E8092FA1DF921DB0053876B /* DJLog.h */,
 				4E8092FB1DF921DB0053876B /* DJLog.m */,
+				4E6B02C91E6D0114003F1B91 /* DJToolBar.h */,
+				4E6B02CA1E6D0114003F1B91 /* DJToolBar.m */,
+				4E6B02CC1E6D0628003F1B91 /* Images */,
 			);
 			path = DJTableViewVM;
 			sourceTree = "<group>";
@@ -265,6 +281,17 @@
 			path = TestClasses;
 			sourceTree = "<group>";
 		};
+		4E6B02CC1E6D0628003F1B91 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4E6B02CD1E6D0629003F1B91 /* DJArrowLeft@2x.png */,
+				4E6B02CE1E6D0629003F1B91 /* DJArrowLeft@3x.png */,
+				4E6B02CF1E6D0629003F1B91 /* DJArrowRight@2x.png */,
+				4E6B02D01E6D0629003F1B91 /* DJArrowRight@3x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		4E81CF3B1DB75D4400C8A458 /* DJTableViewVMFrameWork */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +318,7 @@
 				4E6B02A11E691333003F1B91 /* DJTableViewVMTextViewCellRow.h in Headers */,
 				4E6B02A21E691333003F1B91 /* DJTableViewVMTextViewCell.h in Headers */,
 				4E6B02A31E691333003F1B91 /* DJInputProtocol.h in Headers */,
+				4E6B02D61E6D0A72003F1B91 /* DJToolBar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,8 +406,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E6B02D41E6D0629003F1B91 /* DJArrowRight@3x.png in Resources */,
+				4E6B02D31E6D0629003F1B91 /* DJArrowRight@2x.png in Resources */,
 				4E0528BD1C4F1A0200B9AAF5 /* test_head.png in Resources */,
 				4E006D8F1C4CB59F005664D3 /* LaunchScreen.storyboard in Resources */,
+				4E6B02D21E6D0629003F1B91 /* DJArrowLeft@3x.png in Resources */,
+				4E6B02D11E6D0629003F1B91 /* DJArrowLeft@2x.png in Resources */,
 				4E3AED211D0FE219000F801F /* DJTableViewVMTextTestCell.xib in Resources */,
 				4E006D8C1C4CB59F005664D3 /* Assets.xcassets in Resources */,
 			);
@@ -414,6 +446,7 @@
 				4E3AED1F1D0FE219000F801F /* DJTableViewVMTextFrameCell.m in Sources */,
 				4E6B02961E66707D003F1B91 /* DJTableViewVMTextViewCellRow.m in Sources */,
 				4E9447451E5C177100DEF29A /* DJTableViewVMTextViewCell.m in Sources */,
+				4E6B02CB1E6D0114003F1B91 /* DJToolBar.m in Sources */,
 				4E006D871C4CB59F005664D3 /* ViewController.m in Sources */,
 				4ECE91721E5A983E0026F32C /* DJTableViewVM+Keyboard.m in Sources */,
 				4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */,
@@ -430,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E6B02D51E6D0A63003F1B91 /* DJToolBar.m in Sources */,
 				4E6B029A1E69124D003F1B91 /* DJTableViewVM+Keyboard.m in Sources */,
 				4E6B029B1E69124D003F1B91 /* DJTableViewVMTextFieldCellRow.m in Sources */,
 				4E6B029C1E69124D003F1B91 /* DJTableViewVMTextFieldCell.m in Sources */,

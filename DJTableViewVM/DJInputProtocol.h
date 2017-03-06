@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol DJInputRowProtocol <NSObject>
 
 @required
 @property(nonatomic, assign) BOOL editing;
 @property(nonatomic, assign) BOOL enabled;
 @property(nonatomic, assign) UITableViewScrollPosition focusScrollPosition;
+@property(nullable, readwrite, strong) UIView *inputAccessoryView;
+@property(nonatomic, nullable, copy)NSString *placeholder;
 
 @end
 
@@ -23,3 +27,5 @@
 - (UIView *)inputResponder;//return a responder view.The view is used to scroll to good target offset auto.
 
 @end
+
+NS_ASSUME_NONNULL_END

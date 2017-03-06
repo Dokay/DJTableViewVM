@@ -9,6 +9,7 @@
 #import "DJTableViewVM+Keyboard.h"
 #import "DJInputProtocol.h"
 #import <objc/runtime.h>
+#import "DJToolBar.h"
 
 @interface DJKeyboardState : NSObject
 
@@ -17,6 +18,7 @@
 @property(nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property(nonatomic, assign) BOOL isKeyboardRegist;//whether keyborad notification has resigted.
 @property(nonatomic, assign) BOOL isInfoSaved;//whether orignial tableview info has saved.
+@property(nonatomic, weak) DJToolBar *toolBar;
 
 @end
 
@@ -75,7 +77,7 @@
         state.scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
         state.contentInset = self.tableView.contentInset;
     }
-    
+    [self configToolBarWithRowVM:inputRowVM forCurrentState:state];
     [self addTapGestureToHideKeyboard];
     
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -218,7 +220,8 @@
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection * _Nonnull sectionVM, NSUInteger idx, BOOL * _Nonnull stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow * _Nonnull rowVM, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
-                if (((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).editing) {
+                if (((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).enabled
+                    &&((DJTableViewVMRow<DJInputRowProtocol> *)rowVM).editing) {
                     UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:rowVM.indexPath];
                     [cell resignFirstResponder];
                     *stop = YES;
@@ -233,6 +236,101 @@
 {
     if (self.scrollHideKeyboadEnable) {
         [self hideKeyboard];
+    }
+}
+
+#pragma mark - toolbar methods
+- (void)configToolBarWithRowVM:(DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM forCurrentState:(DJKeyboardState *)state
+{
+    if (inputRowVM.inputAccessoryView != nil && [inputRowVM.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
+        DJToolBar *keyboardToolBar = (DJToolBar *)inputRowVM.inputAccessoryView;
+        keyboardToolBar.preEnable = [self inputRowVMBeforeIndexPath:inputRowVM.indexPath] != nil;
+        keyboardToolBar.nextEnable = [self inputRowVMAfterIndexPath:inputRowVM.indexPath] != nil;
+        keyboardToolBar.placeholder = [inputRowVM placeholder];
+        
+        __weak typeof(self) weakSelf = self;
+        [keyboardToolBar setTapPreHandler:^{
+            [weakSelf jumpToPreInputCellBeforeIndexPath:inputRowVM.indexPath];
+        }];
+        [keyboardToolBar setTapNextHandler:^{
+            [weakSelf jumpToNextInputCellAfterIndexPath:inputRowVM.indexPath];
+        }];
+        [keyboardToolBar setTapDoneHandler:^{
+            UITableViewCell<DJInputCellProtocol> *cell = [weakSelf.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+            [cell resignFirstResponder];
+        }];
+        [keyboardToolBar setNeedsLayout];
+        state.toolBar = keyboardToolBar;
+    }
+}
+
+- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMBeforeIndexPath:(NSIndexPath *)indexPath
+{
+    for (NSInteger section = indexPath.section; section >= 0; section--) {
+        NSInteger currentRowIndex = indexPath.row;
+        if (section != indexPath.section) {
+            DJTableViewVMSection *sectionVM = self.sections[section];
+            currentRowIndex = sectionVM.rows.count - 1;//another section from last row
+        }
+        for (NSInteger row = currentRowIndex; row > 0; row--) {
+            DJTableViewVMSection *sectionVMLoop = self.sections[section];
+            DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
+            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
+                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
+                if (inputRowVM.enabled == YES
+                    && inputRowVM.editing == NO) {
+                    return inputRowVM;
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMAfterIndexPath:(NSIndexPath *)indexPath
+{
+    for (NSInteger section = indexPath.section; section < self.sections.count; section++) {
+        NSInteger currentRowIndex = indexPath.row;
+        DJTableViewVMSection *sectionVM = self.sections[section];
+        if (section != indexPath.section) {
+            currentRowIndex = 0;//another section form first row
+        }
+        for (NSInteger row = currentRowIndex; row < sectionVM.rows.count; row++) {
+            DJTableViewVMSection *sectionVMLoop = self.sections[section];
+            DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
+            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
+                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
+                if (inputRowVM.enabled == YES
+                    && inputRowVM.editing == NO) {
+                    return inputRowVM;
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+- (void)jumpToPreInputCellBeforeIndexPath:(NSIndexPath *)indexPath
+{
+    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
+    if (inputRowVM != nil) {
+        UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+        UIView *responderView = [cell inputResponder];
+        if ([responderView respondsToSelector:@selector(becomeFirstResponder)]) {
+            [responderView becomeFirstResponder];
+        }
+    }
+}
+
+- (void)jumpToNextInputCellAfterIndexPath:(NSIndexPath *)indexPath
+{
+    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
+    if (inputRowVM != nil) {
+        UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+        UIView *responderView = [cell inputResponder];
+        if ([responderView respondsToSelector:@selector(becomeFirstResponder)]) {
+            [responderView becomeFirstResponder];
+        }
     }
 }
 

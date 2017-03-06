@@ -60,6 +60,8 @@
     self.textView.dataDetectorTypes = textRow.dataDetectorTypes;
     self.textView.allowsEditingTextAttributes = textRow.allowsEditingTextAttributes;
     self.textView.textContainerInset = textRow.textContainerInset;
+    self.textView.inputView = textRow.inputView;
+    self.textView.inputAccessoryView = textRow.inputAccessoryView;
     
     self.userInteractionEnabled = textRow.enabled;
     
