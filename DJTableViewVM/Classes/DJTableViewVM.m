@@ -486,6 +486,7 @@
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
             if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row_idx inSection:section_idx];
+//                [DJLog dj_debugLog:[NSString stringWithFormat:@"Dokay->Message:add Task:%@",indexPath]];
                 [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:indexPath];
             }
         }];
@@ -496,6 +497,9 @@
 
 - (void)p_preLoadForIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath == nil) {
+        return;
+    }
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     if (section.rows.count > indexPath.row) {
         DJTableViewVMRow *rowVM = [section.rows objectAtIndex:indexPath.row];

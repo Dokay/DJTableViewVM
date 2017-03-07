@@ -14,7 +14,7 @@
 @interface DJLazyTask : NSObject
 
 @property (nonatomic, weak) NSObject *target;
-@property (nonatomic, weak) NSObject *param;
+@property (nonatomic, strong) NSObject *param;
 @property (nonatomic, assign) SEL selector;
 
 - (instancetype)initWithTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param;
