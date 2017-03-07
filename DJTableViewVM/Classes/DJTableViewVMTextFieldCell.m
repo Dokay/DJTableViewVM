@@ -8,6 +8,8 @@
 
 #import "DJTableViewVMTextFieldCell.h"
 #import "DJTableViewVM.h"
+#import "DJToolBar.h"
+#import "DJLazyTaskManager.h"
 
 @interface DJTableViewVMTextFieldCell()<UITextFieldDelegate>
 
@@ -15,6 +17,8 @@
 @end
 
 @interface DJTableViewVMTextFieldCell()
+
+@property(nonatomic, strong) DJLazyTaskManager *lazyTaskManager;
 
 @end
 
@@ -66,7 +70,14 @@
     self.textField.secureTextEntry = textRow.secureTextEntry;
     
     self.textField.inputView = textRow.inputView;
-    self.textField.inputAccessoryView = textRow.inputAccessoryView;
+    if (textRow.inputAccessoryView != nil && [textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
+        if (self.tableViewVM.toolbarEnable) {
+            NSAssert(self.tableViewVM.keyboardManageEnabled, @"keyboardManageEnabled must be YES for toolbar enable");
+            self.textField.inputAccessoryView = textRow.inputAccessoryView;
+        }
+    }else{
+        self.textField.inputAccessoryView = textRow.inputAccessoryView;
+    }
     
     if (textRow.attributedPlaceholder) {
         self.textField.attributedPlaceholder = textRow.attributedPlaceholder;
@@ -81,8 +92,13 @@
     self.userInteractionEnabled = textRow.enabled;
     
     if (textRow.editing && [self.textField isFirstResponder] == NO) {
-        [self.textField becomeFirstResponder];
+        [self.lazyTaskManager start];//textField becomeFirstResponder after all animation done & tableview load finished.
     }
+}
+
+- (void)openKeyboardAuto
+{
+    [self.textField becomeFirstResponder];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -241,6 +257,15 @@
         [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _textField;
+}
+
+- (DJLazyTaskManager *)lazyTaskManager
+{
+    if (_lazyTaskManager == nil) {
+        _lazyTaskManager = [DJLazyTaskManager new];
+        [_lazyTaskManager addLazyTarget:self selector:@selector(openKeyboardAuto) param:nil];
+    }
+    return _lazyTaskManager;
 }
 
 @end

@@ -73,6 +73,8 @@
 - (void)dealloc
 {
     self.tableView.delegate = nil;//fix crash in iOS 8:http://stackoverflow.com/questions/15781637/crash-uiscrollview-exc-bad-access
+    self.tableView.dataSource = nil;
+    self.delegate = nil;
     if (self.keyboardManageEnabled) {
         [self unregistKeyboard];
     }
@@ -575,14 +577,6 @@
         [self p_startPreCaculateHeight];
     }else{
         [self.lazyTaskManager stop];
-    }
-}
-
-- (void)setEmptyLinesHide:(BOOL)emptyLinesHide
-{
-    _emptyLinesHide = emptyLinesHide;
-    if (_emptyLinesHide) {
-        self.tableView.tableFooterView = [UIView new];
     }
 }
 

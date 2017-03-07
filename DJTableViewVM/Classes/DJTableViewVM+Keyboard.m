@@ -78,7 +78,13 @@
         state.contentInset = self.tableView.contentInset;
     }
     [self configToolBarWithRowVM:inputRowVM forCurrentState:state];
-    [self addTapGestureToHideKeyboard];
+    if (self.tapHideKeyboardEnable) {
+        [self addTapGestureToHideKeyboard];
+    }
+    
+    if (self.keyboardManageEnabled == NO) {
+        return;
+    }
     
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     UIViewAnimationOptions animationOptions = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
@@ -100,22 +106,22 @@
         CGFloat responderViewTopOffsetInView = 0.0f;
         CGFloat destScrollOffset = 0.0f;
         switch (focusScrollPosition) {
-            case UITableViewScrollPositionNone:
+                case UITableViewScrollPositionNone:
             {
                 //need not scroll
             }
                 break;
-            case UITableViewScrollPositionTop:
+                case UITableViewScrollPositionTop:
             {
                 responderViewTopOffsetInView = 0.0f;
             }
                 break;
-            case UITableViewScrollPositionMiddle:
+                case UITableViewScrollPositionMiddle:
             {
                 responderViewTopOffsetInView = (tableViewScrollHeight - responderView.frame.size.height)/2;
             }
                 break;
-            case UITableViewScrollPositionBottom:
+                case UITableViewScrollPositionBottom:
             {
                 responderViewTopOffsetInView = tableViewScrollHeight - responderView.frame.size.height;
             }
@@ -147,8 +153,8 @@
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
+- (void)keyboardWillHide:(NSNotification *)notification
+{
     UIView *responderView;
     DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMInCurrentVM];
     UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
@@ -174,6 +180,9 @@
         [state.tapGesture removeTarget:self action:@selector(onTapTableView:)];
     }
     
+    if (self.keyboardManageEnabled == NO) {
+        return;
+    }
     [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.tableView.contentInset = destContentInsets;
         self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
@@ -200,17 +209,22 @@
 #pragma mark - hide keyboard
 - (void)addTapGestureToHideKeyboard
 {
-    if (self.tapHideKeyboardEnable) {
-        DJKeyboardState *state = [self keyboardState];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
-        [self.tableView addGestureRecognizer:tapGesture];
-        state.tapGesture = tapGesture;
-    }
+    DJKeyboardState *state = [self keyboardState];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
+    [self.tableView addGestureRecognizer:tapGesture];
+    state.tapGesture = tapGesture;
 }
 
 - (void)onTapTableView:(UITapGestureRecognizer *)gesture
 {
     if (self.tapHideKeyboardEnable) {
+        [self hideKeyboard];
+    }
+}
+
+- (void)scrollHideKeyboard
+{
+    if (self.scrollHideKeyboadEnable) {
         [self hideKeyboard];
     }
 }
@@ -229,14 +243,6 @@
             }
         }];
     }];
-    
-}
-
-- (void)scrollHideKeyboard
-{
-    if (self.scrollHideKeyboadEnable) {
-        [self hideKeyboard];
-    }
 }
 
 #pragma mark - toolbar methods

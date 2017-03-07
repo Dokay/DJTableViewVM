@@ -1,5 +1,5 @@
 //
-//  DJTextViewController.h
+//  DJInputCellTestController.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/2/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DJTextViewController : UIViewController
+@interface DJInputCellTestController : UIViewController
 
 @end

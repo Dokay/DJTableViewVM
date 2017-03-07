@@ -1,18 +1,18 @@
 //
-//  DJTextViewController.m
+//  DJInputCellTestController.m
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/2/17.
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTextViewController.h"
+#import "DJInputCellTestController.h"
 #import "DJTableViewVM.h"
 #import "DJTableViewVMTextFieldCell.h"
 #import "DJTableViewVMTextViewCell.h"
 #import "DJTableViewVM+Keyboard.h"
 
-@interface DJTextViewController ()
+@interface DJInputCellTestController ()
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *tableViewVM;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation DJTextViewController
+@implementation DJInputCellTestController
 
 - (void)viewDidLoad
 {
@@ -83,10 +83,8 @@
 {
     if (_tableViewVM == nil) {
         _tableViewVM = [[DJTableViewVM alloc] initWithTableView:self.tableView];
-        _tableViewVM.emptyLinesHide = YES;
         _tableViewVM.keyboardManageEnabled = YES;
-        _tableViewVM.scrollHideKeyboadEnable = YES;
-        _tableViewVM.tapHideKeyboardEnable = YES;
+        _tableViewVM.toolbarEnable = YES;
     }
     return _tableViewVM;
 }
@@ -105,7 +103,6 @@
             NSLog(@"more than 8");
         }];
         _textFieldRow.title = @"Name：";
-        
     }
     return _textFieldRow;
 }

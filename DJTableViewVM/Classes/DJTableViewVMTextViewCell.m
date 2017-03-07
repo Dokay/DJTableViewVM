@@ -9,6 +9,7 @@
 #import "DJTableViewVMTextViewCell.h"
 #import "DJTableViewVM.h"
 #import "DJLazyTaskManager.h"
+#import "DJToolBar.h"
 
 #define MagicMarginNumber DJTableViewVMTextViewCellRowMagicMarginNumber
 
@@ -61,7 +62,15 @@
     self.textView.allowsEditingTextAttributes = textRow.allowsEditingTextAttributes;
     self.textView.textContainerInset = textRow.textContainerInset;
     self.textView.inputView = textRow.inputView;
-    self.textView.inputAccessoryView = textRow.inputAccessoryView;
+    
+    if (textRow.inputAccessoryView != nil && [textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
+        if (self.tableViewVM.toolbarEnable) {
+            NSAssert(self.tableViewVM.keyboardManageEnabled, @"keyboardManageEnabled must be YES for toolbar enable");
+            self.textView.inputAccessoryView = textRow.inputAccessoryView;
+        }
+    }else{
+        self.textView.inputAccessoryView = textRow.inputAccessoryView;
+    }
     
     self.userInteractionEnabled = textRow.enabled;
     
