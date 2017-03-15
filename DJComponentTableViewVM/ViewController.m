@@ -450,13 +450,13 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.title = [NSString stringWithFormat:@"LongTapActions--%d",i];
         row.editingStyle = UITableViewCellEditingStyleInsert;
         [row setCopyHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap copy with row:%ld",rowVM.indexPath.row);
+            NSLog(@"tap copy with row:%zd",rowVM.indexPath.row);
         }];
         [row setCutHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap cut with row:%ld",rowVM.indexPath.row);
+            NSLog(@"tap cut with row:%zd",rowVM.indexPath.row);
         }];
         [row setPasteHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap paste with row:%ld",rowVM.indexPath.row);
+            NSLog(@"tap paste with row:%zd",rowVM.indexPath.row);
         }];
         [section addRow:row];
     }

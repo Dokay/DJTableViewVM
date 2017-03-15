@@ -67,9 +67,20 @@
 		4E6B03C61E6D55BE003F1B91 /* DJToolBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6B03911E6D557B003F1B91 /* DJToolBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E81CF431DB75D4400C8A458 /* DJTableViewVMFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E81CF4C1DB75DF900C8A458 /* DJTableViewVMFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4EB32C7F1E793EF50040470D /* DJComponentTableViewVMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */; };
 		4ECE916F1E56F3D70026F32C /* DJInputCellTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE916E1E56F3D70026F32C /* DJInputCellTestController.m */; };
 		4ED9F9031D24F8030035D288 /* DJAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9F9021D24F8030035D288 /* DJAlertView.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4EB32C811E793EF50040470D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E006D741C4CB59F005664D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E006D7B1C4CB59F005664D3;
+			remoteInfo = DJComponentTableViewVM;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4E81CF421DB75D4400C8A458 /* Embed Frameworks */ = {
@@ -146,6 +157,9 @@
 		4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DJTableViewVMFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E81CF3E1DB75D4400C8A458 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMFrameWork.h; sourceTree = "<group>"; };
+		4EB32C7C1E793EF50040470D /* DJComponentTableViewVMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DJComponentTableViewVMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJComponentTableViewVMUITests.m; sourceTree = "<group>"; };
+		4EB32C801E793EF50040470D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ECE916D1E56F3D70026F32C /* DJInputCellTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputCellTestController.h; sourceTree = "<group>"; };
 		4ECE916E1E56F3D70026F32C /* DJInputCellTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputCellTestController.m; sourceTree = "<group>"; };
 		4ED9F9011D24F8030035D288 /* DJAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAlertView.h; sourceTree = "<group>"; };
@@ -167,6 +181,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EB32C791E793EF50040470D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -177,6 +198,7 @@
 				4E6B03701E6D557B003F1B91 /* DJTableViewVM */,
 				4E006D7E1C4CB59F005664D3 /* DJComponentTableViewVM */,
 				4E81CF3B1DB75D4400C8A458 /* DJTableViewVMFrameWork */,
+				4EB32C7D1E793EF50040470D /* DJComponentTableViewVMUITests */,
 				4E006D7D1C4CB59F005664D3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -186,6 +208,7 @@
 			children = (
 				4E006D7C1C4CB59F005664D3 /* DJComponentTableViewVM.app */,
 				4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */,
+				4EB32C7C1E793EF50040470D /* DJComponentTableViewVMUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,6 +335,15 @@
 			path = DJTableViewVMFrameWork;
 			sourceTree = "<group>";
 		};
+		4EB32C7D1E793EF50040470D /* DJComponentTableViewVMUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */,
+				4EB32C801E793EF50040470D /* Info.plist */,
+			);
+			path = DJComponentTableViewVMUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -372,6 +404,24 @@
 			productReference = 4E81CF3A1DB75D4400C8A458 /* DJTableViewVMFrameWork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4EB32C7B1E793EF50040470D /* DJComponentTableViewVMUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EB32C851E793EF50040470D /* Build configuration list for PBXNativeTarget "DJComponentTableViewVMUITests" */;
+			buildPhases = (
+				4EB32C781E793EF50040470D /* Sources */,
+				4EB32C791E793EF50040470D /* Frameworks */,
+				4EB32C7A1E793EF50040470D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4EB32C821E793EF50040470D /* PBXTargetDependency */,
+			);
+			name = DJComponentTableViewVMUITests;
+			productName = DJComponentTableViewVMUITests;
+			productReference = 4EB32C7C1E793EF50040470D /* DJComponentTableViewVMUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -391,6 +441,11 @@
 						DevelopmentTeam = XVEP6G79H7;
 						ProvisioningStyle = Automatic;
 					};
+					4EB32C7B1E793EF50040470D = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E006D7B1C4CB59F005664D3;
+					};
 				};
 			};
 			buildConfigurationList = 4E006D771C4CB59F005664D3 /* Build configuration list for PBXProject "DJComponentTableViewVM" */;
@@ -408,6 +463,7 @@
 			targets = (
 				4E006D7B1C4CB59F005664D3 /* DJComponentTableViewVM */,
 				4E81CF391DB75D4400C8A458 /* DJTableViewVMFrameWork */,
+				4EB32C7B1E793EF50040470D /* DJComponentTableViewVMUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -430,6 +486,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4E81CF381DB75D4400C8A458 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4EB32C7A1E793EF50040470D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -494,7 +557,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EB32C781E793EF50040470D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EB32C7F1E793EF50040470D /* DJComponentTableViewVMUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4EB32C821E793EF50040470D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E006D7B1C4CB59F005664D3 /* DJComponentTableViewVM */;
+			targetProxy = 4EB32C811E793EF50040470D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4E006D8D1C4CB59F005664D3 /* LaunchScreen.storyboard */ = {
@@ -674,6 +753,34 @@
 			};
 			name = Release;
 		};
+		4EB32C831E793EF50040470D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = DJComponentTableViewVMUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dj226.DJComponentTableViewVMUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = DJComponentTableViewVM;
+			};
+			name = Debug;
+		};
+		4EB32C841E793EF50040470D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = DJComponentTableViewVMUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dj226.DJComponentTableViewVMUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = DJComponentTableViewVM;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -703,6 +810,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		4EB32C851E793EF50040470D /* Build configuration list for PBXNativeTarget "DJComponentTableViewVMUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EB32C831E793EF50040470D /* Debug */,
+				4EB32C841E793EF50040470D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
