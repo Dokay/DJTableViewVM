@@ -9,7 +9,6 @@
 #import "DJTableViewVMTextFieldCell.h"
 #import "DJTableViewVM.h"
 #import "DJToolBar.h"
-#import "DJLazyTaskManager.h"
 
 @interface DJTableViewVMTextFieldCell()<UITextFieldDelegate>
 
@@ -17,8 +16,6 @@
 @end
 
 @interface DJTableViewVMTextFieldCell()
-
-@property(nonatomic, strong) DJLazyTaskManager *lazyTaskManager;
 
 @end
 
@@ -38,7 +35,7 @@
     [super cellWillAppear];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    DJTableViewVMTextFieldCellRow *textRow = self.rowVM;
+    DJTableViewVMTextFieldRow *textRow = self.rowVM;
     
     self.textField.placeholder = textRow.placeholder;
     self.textField.text = textRow.text;
@@ -70,14 +67,15 @@
     self.textField.secureTextEntry = textRow.secureTextEntry;
     
     self.textField.inputView = textRow.inputView;
-    if (textRow.inputAccessoryView != nil && [textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
-        if (self.tableViewVM.toolbarEnable) {
-            NSAssert(self.tableViewVM.keyboardManageEnabled, @"keyboardManageEnabled must be YES for toolbar enable");
-            self.textField.inputAccessoryView = textRow.inputAccessoryView;
-        }
-    }else{
-        self.textField.inputAccessoryView = textRow.inputAccessoryView;
+    
+    if (self.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
+        textRow.inputAccessoryView = [DJToolBar new];
     }
+    if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
+        && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
+        ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
+    }
+    self.textField.inputAccessoryView = textRow.inputAccessoryView;
     
     if (textRow.attributedPlaceholder) {
         self.textField.attributedPlaceholder = textRow.attributedPlaceholder;
@@ -90,10 +88,6 @@
     }
     
     self.userInteractionEnabled = textRow.enabled;
-    
-    if (textRow.editing && [self.textField isFirstResponder] == NO) {
-        [self.lazyTaskManager start];//textField becomeFirstResponder after all animation done & tableview load finished.
-    }
 }
 
 - (void)openKeyboardAuto
@@ -131,9 +125,10 @@
     return [super resignFirstResponder];
 }
 
-- (UIView *)inputResponder
+- (BOOL)becomeFirstResponder
 {
-    return self.textField;
+    [self.textField becomeFirstResponder];
+    return [super becomeFirstResponder];
 }
 
 #pragma mark - events
@@ -166,9 +161,6 @@
     if (self.rowVM.shouldBeginEditing) {
         should = self.rowVM.shouldBeginEditing(self.rowVM);
     }
-    if (should) {
-        self.rowVM.editing = YES;
-    }
     return should;
 }
 
@@ -193,8 +185,6 @@
     if (self.rowVM.didEndEditing) {
         self.rowVM.didEndEditing(self.rowVM);
     }
-
-    self.rowVM.editing = NO;
 }
 
 //note:called in place of textFieldDidEndEditing:
@@ -207,8 +197,6 @@
     if (self.rowVM.didEndEditing) {
         self.rowVM.didEndEditing(self.rowVM);
     }
-    
-    self.rowVM.editing = NO;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -257,15 +245,6 @@
         [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _textField;
-}
-
-- (DJLazyTaskManager *)lazyTaskManager
-{
-    if (_lazyTaskManager == nil) {
-        _lazyTaskManager = [DJLazyTaskManager new];
-        [_lazyTaskManager addLazyTarget:self selector:@selector(openKeyboardAuto) param:nil];
-    }
-    return _lazyTaskManager;
 }
 
 @end

@@ -1,15 +1,15 @@
 //
-//  DJTableViewVMTextFieldCellRow.m
+//  DJTableViewVMTextFieldRow.m
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/3/1.
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMTextFieldCellRow.h"
+#import "DJTableViewVMTextFieldRow.h"
 #import "DJToolBar.h"
 
-@implementation DJTableViewVMTextFieldCellRow
+@implementation DJTableViewVMTextFieldRow
 
 - (instancetype)init
 {
@@ -22,6 +22,8 @@
         _autocapitalizationType = UITextAutocapitalizationTypeSentences;
         _minimumFontSize = 0.0f;
         _clearButtonMode = UITextFieldViewModeNever;
+        _enabled = YES;
+        _focusScrollPosition = UITableViewScrollPositionBottom;
     }
     return self;
 }

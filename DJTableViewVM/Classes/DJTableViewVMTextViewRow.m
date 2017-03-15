@@ -1,17 +1,17 @@
 //
-//  DJTableViewVMTextViewCellRow.m
+//  DJTableViewVMTextViewRow.m
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/3/1.
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMTextViewCellRow.h"
+#import "DJTableViewVMTextViewRow.h"
 #import "DJToolBar.h"
 
-#define MagicMarginNumber DJTableViewVMTextViewCellRowMagicMarginNumber
+#define MagicMarginNumber DJTableViewVMTextViewRowMagicMarginNumber
 
-@implementation DJTableViewVMTextViewCellRow
+@implementation DJTableViewVMTextViewRow
 @synthesize enabled = isEditable;
 
 - (instancetype)init
@@ -26,9 +26,10 @@
         _font = self.titleFont;
         _textColor = self.titleColor;
         _editable = YES;
-        isEditable = YES;
         _textContainerInset = UIEdgeInsetsMake(MagicMarginNumber, -MagicMarginNumber, MagicMarginNumber, 0);
         self.cellHeight = 128;
+        isEditable = YES;
+        _focusScrollPosition = UITableViewScrollPositionBottom;
     }
     return self;
 }

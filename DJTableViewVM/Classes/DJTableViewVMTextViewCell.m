@@ -8,17 +8,14 @@
 
 #import "DJTableViewVMTextViewCell.h"
 #import "DJTableViewVM.h"
-#import "DJLazyTaskManager.h"
 #import "DJToolBar.h"
 
-#define MagicMarginNumber DJTableViewVMTextViewCellRowMagicMarginNumber
+#define MagicMarginNumber DJTableViewVMTextViewRowMagicMarginNumber
 
 @interface DJTableViewVMTextViewCell()<UITextViewDelegate>
 
 @property(nonatomic, strong) UILabel *placeholderLabel;
 @property(nonatomic, strong) UILabel *charactersLabel;
-
-@property(nonatomic, strong) DJLazyTaskManager *lazyTaskManager;
 
 @end
 
@@ -40,7 +37,7 @@
     [super cellWillAppear];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    DJTableViewVMTextViewCellRow *textRow = self.rowVM;
+    DJTableViewVMTextViewRow *textRow = self.rowVM;
     self.placeholderLabel.text = textRow.placeholder;
     self.placeholderLabel.textColor = textRow.placeholderColor;
     self.placeholderLabel.font = textRow.placeholderFont;
@@ -63,14 +60,14 @@
     self.textView.textContainerInset = textRow.textContainerInset;
     self.textView.inputView = textRow.inputView;
     
-    if (textRow.inputAccessoryView != nil && [textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
-        if (self.tableViewVM.toolbarEnable) {
-            NSAssert(self.tableViewVM.keyboardManageEnabled, @"keyboardManageEnabled must be YES for toolbar enable");
-            self.textView.inputAccessoryView = textRow.inputAccessoryView;
-        }
-    }else{
-        self.textView.inputAccessoryView = textRow.inputAccessoryView;
+    if (self.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
+        textRow.inputAccessoryView = [DJToolBar new];
     }
+    if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
+        && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
+        ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
+    }
+    self.textView.inputAccessoryView = textRow.inputAccessoryView;
     
     self.userInteractionEnabled = textRow.enabled;
     
@@ -82,15 +79,6 @@
     }
     
     [self refreshLabelsWithTextView:self.textView];
-    
-    if (textRow.editing && [self.textView isFirstResponder] == NO) {
-        [self.lazyTaskManager start];//textView becomeFirstResponder after all animation done & tableview load finished.
-    }
-}
-
-- (void)openKeyboardAuto
-{
-    [self.textView becomeFirstResponder];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -121,15 +109,16 @@
     self.charactersLabel.frame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y + self.textView.frame.size.height - 20, self.textView.frame.size.width - 10, 20);
 }
 
+- (BOOL)becomeFirstResponder
+{
+    [self.textView becomeFirstResponder];
+    return [super becomeFirstResponder];
+}
+
 - (BOOL)resignFirstResponder
 {
     [self.textView resignFirstResponder];
     return [super resignFirstResponder];
-}
-
-- (UIView *)inputResponder
-{
-    return self.textView;
 }
 
 #pragma mark - private methods
@@ -147,9 +136,6 @@
     BOOL should = YES;
     if (self.rowVM.shouldBeginEditing) {
         should = self.rowVM.shouldBeginEditing(self.rowVM);
-    }
-    if (should) {
-        self.rowVM.editing = YES;
     }
     return should;
 }
@@ -176,7 +162,6 @@
         self.rowVM.didEndEditing(self.rowVM);
     }
     
-    self.rowVM.editing = NO;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -265,15 +250,6 @@
         _charactersLabel.userInteractionEnabled = NO;
     }
     return _charactersLabel;
-}
-
-- (DJLazyTaskManager *)lazyTaskManager
-{
-    if (_lazyTaskManager == nil) {
-        _lazyTaskManager = [DJLazyTaskManager new];
-        [_lazyTaskManager addLazyTarget:self selector:@selector(openKeyboardAuto) param:nil];
-    }
-    return _lazyTaskManager;
 }
 
 @end

@@ -8,13 +8,13 @@
 
 @import Foundation;
 #import "DJTableViewVMCell.h"
-#import "DJTableViewVMTextFieldCellRow.h"
+#import "DJTableViewVMTextFieldRow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DJTableViewVMTextFieldCell : DJTableViewVMCell<DJInputCellProtocol>
+@interface DJTableViewVMTextFieldCell : DJTableViewVMCell
 
-@property (nonatomic, strong) DJTableViewVMTextFieldCellRow *rowVM;
+@property (nonatomic, strong) DJTableViewVMTextFieldRow *rowVM;
 @property (nonatomic, strong) UITextField *textField;
 
 @end

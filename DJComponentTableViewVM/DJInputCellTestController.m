@@ -17,8 +17,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *tableViewVM;
 
-@property (nonatomic, strong) DJTableViewVMTextFieldCellRow *textFieldRow;
-@property (nonatomic, strong) DJTableViewVMTextViewCellRow *textViewRow;
+@property (nonatomic, strong) DJTableViewVMTextFieldRow *textFieldRow;
+@property (nonatomic, strong) DJTableViewVMTextViewRow *textViewRow;
 
 @end
 
@@ -38,8 +38,8 @@
 
 - (void)registCells
 {
-    DJTableViewRegister(self.tableViewVM, DJTableViewVMTextFieldCellRow, DJTableViewVMTextFieldCell);
-    DJTableViewRegister(self.tableViewVM, DJTableViewVMTextViewCellRow, DJTableViewVMTextViewCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMTextFieldRow, DJTableViewVMTextFieldCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMTextViewRow, DJTableViewVMTextViewCell);
 }
 
 - (void)configTable
@@ -49,7 +49,7 @@
     DJTableViewVMSection *textTestSection = [DJTableViewVMSection new];
     [self.tableViewVM addSection:textTestSection];
     
-    for (NSInteger i = 0; i < 7; i++) {
+    for (NSInteger i = 0; i < 8; i++) {
         DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
         rowVM.cellHeight = 50;
         rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
@@ -84,22 +84,23 @@
     if (_tableViewVM == nil) {
         _tableViewVM = [[DJTableViewVM alloc] initWithTableView:self.tableView];
         _tableViewVM.keyboardManageEnabled = YES;
-        _tableViewVM.toolbarEnable = YES;
+        _tableViewVM.tapHideKeyboardEnable = YES;
+        _tableViewVM.scrollHideKeyboadEnable = YES;
     }
     return _tableViewVM;
 }
 
-- (DJTableViewVMTextFieldCellRow *)textFieldRow
+- (DJTableViewVMTextFieldRow *)textFieldRow
 {
     if (_textFieldRow == nil) {
-        _textFieldRow = [DJTableViewVMTextFieldCellRow new];
+        _textFieldRow = [DJTableViewVMTextFieldRow new];
         _textFieldRow.font = [UIFont systemFontOfSize:20];
         _textFieldRow.placeholder = @"Please input your name";
         _textFieldRow.charactersMaxCount = 8;
-        [_textFieldRow setTextChanged:^(DJTableViewVMTextFieldCellRow * _Nonnull rowVM) {
+        [_textFieldRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
             NSLog(@"input->message:%@",rowVM.text);
         }];
-        [_textFieldRow setMaxCountInputMore:^(DJTableViewVMTextFieldCellRow * _Nonnull rowVM) {
+        [_textFieldRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
             NSLog(@"more than 8");
         }];
         _textFieldRow.title = @"Name：";
@@ -107,10 +108,10 @@
     return _textFieldRow;
 }
 
-- (DJTableViewVMTextViewCellRow *)textViewRow
+- (DJTableViewVMTextViewRow *)textViewRow
 {
     if (_textViewRow == nil) {
-        _textViewRow = [DJTableViewVMTextViewCellRow new];
+        _textViewRow = [DJTableViewVMTextViewRow new];
         _textViewRow.placeholder = @"Please input your address";
         _textViewRow.showCharactersCount = YES;
     }

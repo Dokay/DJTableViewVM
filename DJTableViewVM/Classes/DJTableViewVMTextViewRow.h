@@ -1,18 +1,23 @@
 //
-//  DJTableViewVMTextViewCellRow.h
+//  DJTableViewVMTextViewRow.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/3/1.
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMInputBaseRow.h"
+#import "DJTableViewVMRow.h"
+#import "DJInputRowProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define DJTableViewVMTextViewCellRowMagicMarginNumber 5
+#define DJTableViewVMTextViewRowMagicMarginNumber 5
 
-@interface DJTableViewVMTextViewCellRow : DJTableViewVMInputBaseRow
+@interface DJTableViewVMTextViewRow : DJTableViewVMRow<DJInputRowProtocol>
+
+@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
+@property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.default is UITableViewScrollPositionBottom.it works when keyboardManageEnabled in DJTableViewVM set YES.
+@property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 @property(nonatomic, nullable, copy)NSString *placeholder;
 @property(nonatomic, strong) UIColor *placeholderColor;
@@ -30,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
+@property (nullable, nonatomic, strong) UIView *inputAccessoryView;
 
 @property(nullable,nonatomic,copy) NSString *text;
 @property(nullable,nonatomic,strong) UIFont *font;
@@ -45,14 +51,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSDictionary<NSString *, id> *typingAttributes NS_AVAILABLE_IOS(6_0); // automatically resets when the selection changes
 
 #pragma mark - actions
-@property (nonatomic, copy) void (^textChanged)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) void (^didBeginEditing)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) void (^didEndEditing)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) void (^maxCountInputMore)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) void (^didChangeSelection)(DJTableViewVMTextViewCellRow *rowVM, NSRange selectedRange);
-@property (nonatomic, copy) BOOL (^shouldBeginEditing)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) BOOL (^shouldEndEditing)(DJTableViewVMTextViewCellRow *rowVM);
-@property (nonatomic, copy) BOOL (^shouldChangeCharacterInRange)(DJTableViewVMTextViewCellRow *rowVM, NSRange range, NSString *replacementString);
+@property (nonatomic, copy) void (^textChanged)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) void (^didBeginEditing)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) void (^didEndEditing)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) void (^maxCountInputMore)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) void (^didChangeSelection)(DJTableViewVMTextViewRow *rowVM, NSRange selectedRange);
+@property (nonatomic, copy) BOOL (^shouldBeginEditing)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) BOOL (^shouldEndEditing)(DJTableViewVMTextViewRow *rowVM);
+@property (nonatomic, copy) BOOL (^shouldChangeCharacterInRange)(DJTableViewVMTextViewRow *rowVM, NSRange range, NSString *replacementString);
 
 @end
 

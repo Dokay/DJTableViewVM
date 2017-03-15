@@ -1,16 +1,21 @@
 //
-//  DJTableViewVMTextFieldCellRow.h
+//  DJTableViewVMTextFieldRow.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/3/1.
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import "DJTableViewVMInputBaseRow.h"
+#import "DJTableViewVMRow.h"
+#import "DJInputRowProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DJTableViewVMTextFieldCellRow : DJTableViewVMInputBaseRow
+@interface DJTableViewVMTextFieldRow : DJTableViewVMRow<DJInputRowProtocol>
+
+@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
+@property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.default is UITableViewScrollPositionBottom.it works when keyboardManageEnabled in DJTableViewVM set YES.
+@property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 @property (nonatomic, assign) NSUInteger charactersMaxCount;//max characters can input.default is 0,means has no restrict.
 @property (nonatomic, assign) CGFloat textFiledLeftMargin;//left margin for textFiled.default is 0.
@@ -52,20 +57,21 @@ NS_ASSUME_NONNULL_BEGIN
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
+@property (nullable, nonatomic, strong) UIView *inputAccessoryView;
 
 @property(nonatomic) BOOL clearsOnInsertion NS_AVAILABLE_IOS(6_0); // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
 
 #pragma mark - actions
-@property (nonatomic, copy) void (^textChanged)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) void (^didBeginEditing)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) void (^didEndEditing)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) void (^maxCountInputMore)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) void (^didEndEditingWithReason)(DJTableViewVMTextFieldCellRow *rowVM,UITextFieldDidEndEditingReason reason) NS_AVAILABLE_IOS(10_0);
-@property (nonatomic, copy) BOOL (^shouldReturn)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) BOOL (^shouldBeginEditing)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) BOOL (^shouldEndEditing)(DJTableViewVMTextFieldCellRow *rowVM);
-@property (nonatomic, copy) BOOL (^shouldChangeCharacterInRange)(DJTableViewVMTextFieldCellRow *rowVM, NSRange range, NSString *replacementString);
-@property (nonatomic, copy) BOOL (^shouldClear)(DJTableViewVMTextFieldCellRow *rowVM);
+@property (nonatomic, copy) void (^textChanged)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) void (^didBeginEditing)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) void (^didEndEditing)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) void (^maxCountInputMore)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) void (^didEndEditingWithReason)(DJTableViewVMTextFieldRow *rowVM,UITextFieldDidEndEditingReason reason) NS_AVAILABLE_IOS(10_0);
+@property (nonatomic, copy) BOOL (^shouldReturn)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) BOOL (^shouldBeginEditing)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) BOOL (^shouldEndEditing)(DJTableViewVMTextFieldRow *rowVM);
+@property (nonatomic, copy) BOOL (^shouldChangeCharacterInRange)(DJTableViewVMTextFieldRow *rowVM, NSRange range, NSString *replacementString);
+@property (nonatomic, copy) BOOL (^shouldClear)(DJTableViewVMTextFieldRow *rowVM);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,7 +7,7 @@
 //
 
 #import "DJTableViewVM+Keyboard.h"
-#import "DJTableViewVMInputBaseRow.h"
+#import "DJInputRowProtocol.h"
 #import <objc/runtime.h>
 #import "DJToolBar.h"
 
@@ -19,6 +19,9 @@
 @property(nonatomic, assign) BOOL isKeyboardRegist;//whether keyborad notification has resigted.
 @property(nonatomic, assign) BOOL isInfoSaved;//whether orignial tableview info has saved.
 @property(nonatomic, weak) DJToolBar *toolBar;
+
+@property(nonatomic, weak) UIView *responderView;
+@property(nonatomic, strong) NSNotification *notification;
 
 @end
 
@@ -40,9 +43,14 @@
                                                  selector:@selector(keyboardWillHide:)
                                                      name:UIKeyboardWillHideNotification object:nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(inputDidBeginEditingNotification:)
+                                                     name:UITextFieldTextDidBeginEditingNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(inputDidBeginEditingNotification:)
+                                                     name:UITextViewTextDidBeginEditingNotification object:nil];
         state.isKeyboardRegist = YES;
     }
-    
 }
 
 - (void)unregistKeyboard
@@ -51,42 +59,100 @@
     if (state.isKeyboardRegist == YES) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidBeginEditingNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidBeginEditingNotification object:nil];
         
         state.isKeyboardRegist = NO;
     }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    UIView *responderView;
-    UITableViewScrollPosition focusScrollPosition;
-    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMInCurrentVM];
-    focusScrollPosition = ((DJTableViewVMInputBaseRow *)inputRowVM).focusScrollPosition;
-    
-    UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
-    if ([cell respondsToSelector:@selector(inputResponder)]) {
-        responderView = [cell inputResponder];
-    }
-    if (inputRowVM == nil || responderView == nil) {
-        //keyboard shown for view that not in DJTableViewVM
-        return;
-    }
-    
     DJKeyboardState *state = [self keyboardState];
     if (state.isInfoSaved == NO) {
         state.isInfoSaved = YES;
         state.scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
         state.contentInset = self.tableView.contentInset;
     }
-    [self configToolBarWithRowVM:inputRowVM forCurrentState:state];
-    if (self.tapHideKeyboardEnable) {
-        [self addTapGestureToHideKeyboard];
+    state.notification = notification;
+    
+    [self adjustFrame];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    DJKeyboardState *state = [self keyboardState];
+    if (state.responderView == nil || state.isInfoSaved == NO) {
+        return;
+    }
+    
+    NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    UIViewAnimationOptions animationOptions = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    UIEdgeInsets destContentInsets = state.contentInset;
+    UIEdgeInsets destScrollIndicatorInsets = state.scrollIndicatorInsets;
+    state.isInfoSaved = NO;
+    state.notification = nil;
+    if (state.tapGesture) {
+        [self.tableView.window removeGestureRecognizer:state.tapGesture];
+        state.tapGesture = nil;
     }
     
     if (self.keyboardManageEnabled == NO) {
         return;
     }
+    [UIView animateWithDuration:animationDuration delay:0
+                        options:(animationOptions|UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+        self.tableView.contentInset = destContentInsets;
+        self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
+        [self.tableView layoutIfNeeded];
+    } completion:NULL];
+}
+
+- (void)inputDidBeginEditingNotification:(NSNotification *)notification
+{
+    DJKeyboardState *state = [self keyboardState];
     
+    UITableViewCell *superCell = [self superCellInTableView:notification.object];
+    if (superCell != nil) {
+        state.responderView = notification.object;
+        
+        [self adjustFrame];
+    }
+}
+
+- (void)adjustFrame
+{
+    DJKeyboardState *state = [self keyboardState];
+    if (state.responderView == nil
+        || self.keyboardManageEnabled == NO
+        || state.notification == nil) {
+        return;
+    }
+    
+    UITableViewCell *superCell = [self superCellInTableView:state.responderView];
+    if (superCell == nil) {
+        return;
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:superCell];
+    if (indexPath == nil) {
+        return;
+    }
+    DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
+    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [section.rows objectAtIndex:indexPath.row];
+    [self configToolBarWithRowVM:inputRowVM forCurrentState:state];
+    if (self.tapHideKeyboardEnable) {
+        [self addTapGestureToHideKeyboard];
+    }
+
+    UITableViewScrollPosition focusScrollPosition = ((DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM).focusScrollPosition;
+    UIView *responderView = state.responderView;
+    NSNotification *notification = state.notification;
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (animationDuration == 0.0f) {
+        animationDuration = 0.25f;
+    }
     UIViewAnimationOptions animationOptions = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
     CGRect keyboardRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
@@ -94,6 +160,7 @@
         //caculate content inset
         CGRect tableViewRectInWindow = [self.tableView.superview convertRect:self.tableView.frame toView:self.tableView.window];
         CGFloat bottomInsetFixHeight = keyboardRect.size.height - (self.tableView.window.bounds.size.height - tableViewRectInWindow.size.height - tableViewRectInWindow.origin.y);
+        bottomInsetFixHeight = MAX(0, bottomInsetFixHeight);
         
         UIEdgeInsets destContentInsets = state.contentInset;
         destContentInsets.bottom += bottomInsetFixHeight;
@@ -103,38 +170,52 @@
         //caculate content offset
         CGRect responderViewInTableView = [responderView.superview convertRect:responderView.frame toView:self.tableView];
         CGFloat tableViewScrollHeight = self.tableView.bounds.size.height - destContentInsets.top - destContentInsets.bottom;
-        CGFloat responderViewTopOffsetInView = 0.0f;
-        CGFloat destScrollOffset = 0.0f;
+        
+        if (responderViewInTableView.size.height > tableViewScrollHeight) {
+            //tableview can not show responderView wholly
+            if ([responderView conformsToProtocol:@protocol(UITextInput)]) {
+                UIView <UITextInput> *textInputView = (UIView <UITextInput>*)responderView;
+                UITextPosition *caretPosition = [textInputView selectedTextRange].start;
+                if (caretPosition) {
+                    //set the caret in the visible space
+                    responderViewInTableView = [self.tableView convertRect:[textInputView caretRectForPosition:caretPosition] fromView:textInputView];
+                }
+            }
+        }
+        __block CGFloat responderViewTopOffsetInView = 0.0f;
+        __block CGFloat destScrollOffset = 0.0f;
+        
+       void (^cacluateScrollOffset)() = ^(){
+            destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
+            destScrollOffset += self.offsetUnderResponder;
+        };
         switch (focusScrollPosition) {
-                case UITableViewScrollPositionNone:
+            case UITableViewScrollPositionNone:
             {
                 //need not scroll
+                destScrollOffset = self.tableView.contentOffset.y;
             }
                 break;
-                case UITableViewScrollPositionTop:
+            case UITableViewScrollPositionTop:
             {
                 responderViewTopOffsetInView = 0.0f;
+                cacluateScrollOffset();
             }
                 break;
-                case UITableViewScrollPositionMiddle:
+            case UITableViewScrollPositionMiddle:
             {
-                responderViewTopOffsetInView = (tableViewScrollHeight - responderView.frame.size.height)/2;
+                responderViewTopOffsetInView = (tableViewScrollHeight - responderViewInTableView.size.height)/2;
+                cacluateScrollOffset();
             }
                 break;
-                case UITableViewScrollPositionBottom:
+            case UITableViewScrollPositionBottom:
             {
-                responderViewTopOffsetInView = tableViewScrollHeight - responderView.frame.size.height;
+                responderViewTopOffsetInView = tableViewScrollHeight - responderViewInTableView.size.height;
+                cacluateScrollOffset();
             }
                 break;
             default:
                 break;
-        }
-        
-        if (focusScrollPosition != UITableViewScrollPositionNone) {
-            destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
-            destScrollOffset += self.offsetUnderResponder;
-        }else{
-            destScrollOffset = self.tableView.contentOffset.y;
         }
         
         CGPoint destContentOffset = self.tableView.contentOffset;
@@ -153,66 +234,29 @@
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification
+- (UITableViewCell *)superCellInTableView:(UIView *)view
 {
-    UIView *responderView;
-    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMInCurrentVM];
-    UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
-    if ([cell respondsToSelector:@selector(inputResponder)]) {
-        responderView = [cell inputResponder];
-    }
-    if (inputRowVM == nil || responderView == nil) {
-        //keyboard shown for view that not in DJTableViewVM
-        return;
-    }
-    
-    NSDictionary *userInfo = [notification userInfo];
-    
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    
-    DJKeyboardState *state = [self keyboardState];
-    UIEdgeInsets destContentInsets = state.contentInset;
-    UIEdgeInsets destScrollIndicatorInsets = state.scrollIndicatorInsets;
-    state.isInfoSaved = NO;
-    if (state.tapGesture) {
-        [state.tapGesture removeTarget:self action:@selector(onTapTableView:)];
-    }
-    
-    if (self.keyboardManageEnabled == NO) {
-        return;
-    }
-    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        self.tableView.contentInset = destContentInsets;
-        self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
-        [self.tableView layoutIfNeeded];
-    } completion:NULL];
-}
-
-- (DJTableViewVMInputBaseRow *)inputRowVMInCurrentVM
-{
-    __block DJTableViewVMInputBaseRow *inputRowVM;
-    [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection * _Nonnull sectionVM, NSUInteger idx, BOOL * _Nonnull stop) {
-        [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow * _Nonnull rowVM, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
-                if (((DJTableViewVMInputBaseRow *)rowVM).editing) {
-                    inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
-                    *stop = YES;
-                }
+    if (view) {
+        if ([view.superview isKindOfClass:[UITableViewCell class]]) {
+            return (UITableViewCell *)view.superview;
+        }else{
+            if (view.superview.superview) {
+                return [self superCellInTableView:view.superview];
             }
-        }];
-    }];
-    return inputRowVM;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - hide keyboard
 - (void)addTapGestureToHideKeyboard
 {
     DJKeyboardState *state = [self keyboardState];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
-    [self.tableView addGestureRecognizer:tapGesture];
-    state.tapGesture = tapGesture;
+    if (state.tapGesture == nil) {
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
+        [self.tableView.window addGestureRecognizer:tapGesture];
+        state.tapGesture = tapGesture;
+    }
 }
 
 - (void)onTapTableView:(UITapGestureRecognizer *)gesture
@@ -231,25 +275,30 @@
 
 - (void)hideKeyboard
 {
-    [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection * _Nonnull sectionVM, NSUInteger idx, BOOL * _Nonnull stop) {
-        [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow * _Nonnull rowVM, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
-                if (((DJTableViewVMInputBaseRow *)rowVM).enabled
-                    &&((DJTableViewVMInputBaseRow *)rowVM).editing) {
-                    UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:rowVM.indexPath];
-                    [cell resignFirstResponder];
-                    *stop = YES;
-                }
-            }
-        }];
-    }];
+    DJKeyboardState *state = [self keyboardState];
+    if (state.responderView) {
+       [state.responderView resignFirstResponder];
+    }
 }
 
 #pragma mark - toolbar methods
-- (void)configToolBarWithRowVM:(DJTableViewVMInputBaseRow *)inputRowVM forCurrentState:(DJKeyboardState *)state
+- (void)configToolBarWithRowVM:(DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM forCurrentState:(DJKeyboardState *)state
 {
-    if (inputRowVM.inputAccessoryView != nil && [inputRowVM.inputAccessoryView isKindOfClass:[DJToolBar class]]) {
-        DJToolBar *keyboardToolBar = (DJToolBar *)inputRowVM.inputAccessoryView;
+    UIView *inputView = state.responderView;
+    UIView *inputAccessoryView;
+    if ([inputView isKindOfClass:[UITextView class]]) {
+        inputAccessoryView = ((UITextView *)inputView).inputAccessoryView;
+    }
+    if ([inputView isKindOfClass:[UITextField class]]) {
+        inputAccessoryView = ((UITextField *)inputView).inputAccessoryView;
+    }
+    if (inputAccessoryView == nil) {
+        return;
+    }
+
+    if (inputAccessoryView != nil
+        && [inputAccessoryView isKindOfClass:[DJToolBar class]]) {
+        DJToolBar *keyboardToolBar = (DJToolBar *)inputAccessoryView;
         keyboardToolBar.preEnable = [self inputRowVMBeforeIndexPath:inputRowVM.indexPath] != nil;
         keyboardToolBar.nextEnable = [self inputRowVMAfterIndexPath:inputRowVM.indexPath] != nil;
         
@@ -261,7 +310,7 @@
             [weakSelf jumpToNextInputCellAfterIndexPath:inputRowVM.indexPath];
         }];
         [keyboardToolBar setTapDoneHandler:^{
-            UITableViewCell<DJInputCellProtocol> *cell = [weakSelf.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+            UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
             [cell resignFirstResponder];
         }];
         [keyboardToolBar setNeedsLayout];
@@ -269,7 +318,7 @@
     }
 }
 
-- (DJTableViewVMInputBaseRow *)inputRowVMBeforeIndexPath:(NSIndexPath *)indexPath
+- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMBeforeIndexPath:(NSIndexPath *)indexPath
 {
     for (NSInteger section = indexPath.section; section >= 0; section--) {
         NSInteger currentRowIndex = indexPath.row;
@@ -280,10 +329,10 @@
         for (NSInteger row = currentRowIndex; row > 0; row--) {
             DJTableViewVMSection *sectionVMLoop = self.sections[section];
             DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
-            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
-                DJTableViewVMInputBaseRow *inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
+            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
+                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
                 if (inputRowVM.enabled == YES
-                    && inputRowVM.editing == NO) {
+                    && (indexPath.row != row || indexPath.section != section)){
                     return inputRowVM;
                 }
             }
@@ -292,7 +341,7 @@
     return nil;
 }
 
-- (DJTableViewVMInputBaseRow *)inputRowVMAfterIndexPath:(NSIndexPath *)indexPath
+- (DJTableViewVMRow<DJInputRowProtocol> *)inputRowVMAfterIndexPath:(NSIndexPath *)indexPath
 {
     for (NSInteger section = indexPath.section; section < self.sections.count; section++) {
         NSInteger currentRowIndex = indexPath.row;
@@ -303,10 +352,10 @@
         for (NSInteger row = currentRowIndex; row < sectionVM.rows.count; row++) {
             DJTableViewVMSection *sectionVMLoop = self.sections[section];
             DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
-            if ([rowVM isKindOfClass:[DJTableViewVMInputBaseRow class]]) {
-                DJTableViewVMInputBaseRow *inputRowVM = (DJTableViewVMInputBaseRow *)rowVM;
+            if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
+                DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = (DJTableViewVMRow<DJInputRowProtocol> *)rowVM;
                 if (inputRowVM.enabled == YES
-                    && inputRowVM.editing == NO) {
+                    && (indexPath.row != row || indexPath.section != section)) {
                     return inputRowVM;
                 }
             }
@@ -317,26 +366,47 @@
 
 - (void)jumpToPreInputCellBeforeIndexPath:(NSIndexPath *)indexPath
 {
-    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
+    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
     if (inputRowVM != nil) {
-        UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
-        UIView *responderView = [cell inputResponder];
-        if ([responderView respondsToSelector:@selector(becomeFirstResponder)]) {
-            [responderView becomeFirstResponder];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+        if (cell) {
+           [cell becomeFirstResponder];
+        }else{
+            //cell is not visiable in tableView
+            [self jumpUnvisiableCellForRow:inputRowVM];
         }
     }
 }
 
 - (void)jumpToNextInputCellAfterIndexPath:(NSIndexPath *)indexPath
 {
-    DJTableViewVMInputBaseRow *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
+    DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
     if (inputRowVM != nil) {
-        UITableViewCell<DJInputCellProtocol> *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
-        UIView *responderView = [cell inputResponder];
-        if ([responderView respondsToSelector:@selector(becomeFirstResponder)]) {
-            [responderView becomeFirstResponder];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+        if (cell) {
+            [cell becomeFirstResponder];
+        }else{
+            //cell is not visiable in tableView
+            [self jumpUnvisiableCellForRow:inputRowVM];
         }
     }
+}
+
+- (void)jumpUnvisiableCellForRow:(DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM
+{
+    DJKeyboardState *state = [self keyboardState];
+    NSTimeInterval animationDuration = [[[state.notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (animationDuration == 0.0f) {
+        animationDuration = 0.25f;
+    }
+    UIViewAnimationOptions animationOptions = [[[state.notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    [UIView animateWithDuration:animationDuration delay:0.0f options:animationOptions | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [self.tableView scrollToRowAtIndexPath:inputRowVM.indexPath atScrollPosition:inputRowVM.focusScrollPosition animated:NO];
+    } completion:^(BOOL finished) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
+        [cell becomeFirstResponder];
+    }];
 }
 
 #pragma mark - getter & setter

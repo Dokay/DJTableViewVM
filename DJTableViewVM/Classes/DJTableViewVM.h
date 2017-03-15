@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) BOOL keyboardManageEnabled;//whether srcoll to target offset auto by DJTableViewVM.defalt is NO.It manages inputView(UITextField/UITextView) appears in UITableView DJTableView only.If you dont like the management for keyboard in DJTableViewVM,you can set it to NO and implement it yourself.
 @property(nonatomic, assign) BOOL scrollHideKeyboadEnable;//whether hide keyboard while scroll UITableView.default is NO.
 @property(nonatomic, assign) BOOL tapHideKeyboardEnable;//whether hide keyboard while tap UITableView.defailt is NO.
-@property(nonatomic, assign) BOOL toolbarEnable;//whether show toolbar when keyboard showing.default is NO.
+//@property(nonatomic, assign) BOOL toolbarEnable;//whether show toolbar when keyboard showing.default is NO.
 @property(nonatomic, assign) CGFloat offsetUnderResponder;//the offset between top of keboard and bottom of responder view.responder view is the return from cell that implemente DJInputCellProtocol. default is 10.0f.
 
 #pragma mark - init methods
