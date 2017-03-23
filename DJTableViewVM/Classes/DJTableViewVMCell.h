@@ -16,12 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DJTableViewVMCellDelegate <NSObject>
 
-@property (weak, nonatomic, nullable) UITableView *parentTableView;
-@property (weak, nonatomic, nullable) DJTableViewVM *tableViewVM;
-@property (weak, nonatomic, nullable) DJTableViewVMSection *section;
-@property (strong, nonatomic) DJTableViewVMRow *rowVM;
-@property (assign, nonatomic) NSInteger rowIndex;
-@property (assign, nonatomic) NSInteger sectionIndex;
+@required
+@property (nonatomic, weak) UITableView *parentTableView;
+@property (nonatomic, strong) DJTableViewVMRow *rowVM;
 @property (nonatomic, assign) BOOL loaded;
 
 - (void)cellDidLoad;
@@ -36,11 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DJTableViewVMCell : UITableViewCell<DJTableViewVMCellDelegate>
 
 @property (weak, nonatomic, nullable) UITableView *parentTableView;
-@property (weak, nonatomic, nullable) DJTableViewVM *tableViewVM;
-@property (weak, nonatomic, nullable) DJTableViewVMSection *section;
 @property (strong, nonatomic) DJTableViewVMRow *rowVM;
-@property (assign, nonatomic) NSInteger rowIndex;
-@property (assign, nonatomic) NSInteger sectionIndex;
 @property (nonatomic, assign) BOOL loaded;
 
 + (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;

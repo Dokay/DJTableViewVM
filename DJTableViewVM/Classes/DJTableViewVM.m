@@ -101,8 +101,6 @@
     UITableViewCell<DJTableViewVMCellDelegate> *cell = [self p_tableView:tableView cellForRowAtIndexPath:indexPath forCalculateHeight:NO];
     
     if ([cell isKindOfClass:[DJTableViewVMCell class]] && [cell respondsToSelector:@selector(loaded)] && !cell.loaded) {
-        cell.tableViewVM = self;
-        
         if (!cell.loaded) {
             if ([self.delegate conformsToProtocol:@protocol(DJTableViewVMDelegate)] && [self.delegate respondsToSelector:@selector(tableView:cellWillLoad:forRowAtIndexPath:)]){
                 [self.delegate tableView:tableView cellWillLoad:cell forRowAtIndexPath:indexPath];
@@ -201,12 +199,6 @@
         void(^completeBlock)() = ^{
             [sectionVM removeRowAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            for (NSInteger i = indexPath.row; i < sectionVM.rows.count; i++) {
-                DJTableViewVMRow *afterDeleteRowVM = [sectionVM.rows objectAtIndex:i];
-                id<DJTableViewVMCellDelegate> cell = (id<DJTableViewVMCellDelegate>)[tableView cellForRowAtIndexPath:afterDeleteRowVM.indexPath];
-                cell.rowIndex--;
-            }
         };
         if (rowVM.deleteCellCompleteHandler) {
             rowVM.deleteCellCompleteHandler(rowVM,completeBlock);
@@ -459,10 +451,7 @@
         }
     }
     
-    cell.rowIndex = indexPath.row;
-    cell.sectionIndex = indexPath.section;
     cell.parentTableView = tableView;
-    cell.section = section;
     cell.rowVM = row;
     
     if (cell == nil) {

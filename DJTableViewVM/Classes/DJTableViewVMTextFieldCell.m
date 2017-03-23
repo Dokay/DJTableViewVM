@@ -68,7 +68,7 @@
     
     self.textField.inputView = textRow.inputView;
     
-    if (self.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
+    if (self.rowVM.sectionVM.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
         textRow.inputAccessoryView = [DJToolBar new];
     }
     if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]

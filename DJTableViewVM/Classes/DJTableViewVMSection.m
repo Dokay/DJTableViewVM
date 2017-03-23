@@ -132,7 +132,7 @@
 - (void)addRow:(id)row
 {
     if ([row isKindOfClass:[DJTableViewVMRow class]]){
-        ((DJTableViewVMRow *)row).section = self;
+        ((DJTableViewVMRow *)row).sectionVM = self;
     }
     
     [self.mutableRows addObject:row];
@@ -143,7 +143,7 @@
     for (DJTableViewVMRow *Row in array)
     {
         if ([Row isKindOfClass:[DJTableViewVMRow class]]){
-            ((DJTableViewVMRow *)Row).section = self;
+            ((DJTableViewVMRow *)Row).sectionVM = self;
         }
     }
     
@@ -153,7 +153,7 @@
 - (void)insertRow:(id)row atIndex:(NSUInteger)index
 {
     if ([row isKindOfClass:[DJTableViewVMRow class]]){
-        ((DJTableViewVMRow *)row).section = self;
+        ((DJTableViewVMRow *)row).sectionVM = self;
     }
     
     [self.mutableRows insertObject:row atIndex:index];

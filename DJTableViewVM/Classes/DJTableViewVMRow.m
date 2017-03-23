@@ -39,7 +39,7 @@
 
 - (NSIndexPath *)indexPath
 {
-    return [NSIndexPath indexPathForRow:[self.section.rows indexOfObject:self] inSection:self.section.index];
+    return [NSIndexPath indexPathForRow:[self.sectionVM.rows indexOfObject:self] inSection:self.sectionVM.index];
 }
 
 - (void)selectRowAnimated:(BOOL)animated
@@ -49,22 +49,22 @@
 
 - (void)selectRowAnimated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition
 {
-    [self.section.tableViewVM.tableView selectRowAtIndexPath:self.indexPath animated:animated scrollPosition:scrollPosition];
+    [self.sectionVM.tableViewVM.tableView selectRowAtIndexPath:self.indexPath animated:animated scrollPosition:scrollPosition];
 }
 
 - (void)deselectRowAnimated:(BOOL)animated
 {
-    [self.section.tableViewVM.tableView deselectRowAtIndexPath:self.indexPath animated:animated];
+    [self.sectionVM.tableViewVM.tableView deselectRowAtIndexPath:self.indexPath animated:animated];
 }
 
 - (void)reloadRowWithAnimation:(UITableViewRowAnimation)animation
 {
-    [self.section.tableViewVM.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:animation];
+    [self.sectionVM.tableViewVM.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:animation];
 }
 
 - (void)deleteRowWithAnimation:(UITableViewRowAnimation)animation
 {
-    DJTableViewVMSection *section = self.section;
+    DJTableViewVMSection *section = self.sectionVM;
     NSInteger row = self.indexPath.row;
     [section removeRowAtIndex:self.indexPath.row];
     [section.tableViewVM.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section.index]] withRowAnimation:animation];
