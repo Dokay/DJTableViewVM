@@ -28,7 +28,7 @@
             row.cellHeight = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];
         }else{
             row.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
-            [DJLog dj_debugLog:[NSString stringWithFormat:@"auto caculate cell(position:%@) height:%f",indexPath,row.cellHeight]];
+            DJLog(@"auto caculate cell(position:%@) height:%f",indexPath,row.cellHeight);
         }
     }
     return row.cellHeight;

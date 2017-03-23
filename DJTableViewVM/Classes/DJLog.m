@@ -8,16 +8,17 @@
 
 #import "DJLog.h"
 
-#define DJ_DEBUG_LOG
+__attribute__((weak)) BOOL DJ_LOG_ENABLE;
 
-@implementation DJLog
-
-+ (void)dj_debugLog:(NSString *)message
+void DJLog(NSString *format, ...)
 {
-#ifdef DJ_DEBUG_LOG
-    NSLog(@"DJTableViewVM Debug Log => %@ \n",message);
-#endif
-    
+    if (DJ_LOG_ENABLE) {
+        va_list args;
+        va_start(args, format);
+        
+        NSString *logFormat = [NSString stringWithFormat:@"\nDJTableViewVM Debug Log => %@ \n\n",format];
+        NSLogv(logFormat,args);
+        
+        va_end(args);
+    }
 }
-
-@end

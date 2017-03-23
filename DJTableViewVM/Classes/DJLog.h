@@ -8,8 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DJLog : NSObject
 
-+ (void)dj_debugLog:(NSString *)message;
-
-@end
+void DJLog(NSString *format, ...);

@@ -13,6 +13,7 @@
 #import "DJTableViewVMTextFrameCell.h"
 #import "DJAlertView.h"
 #import "DJInputCellTestController.h"
+#import "DJLog.h"
 
 static const NSString *kConstContent = @"There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real! Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.\n May you have enough happiness to make you sweet,enough trials to make you strong,enough sorrow to keep you human,enough hope to make you happy? Always put yourself in others’shoes.If you feel that it hurts you,it probably hurts the other person, too. \nThe happiest of people don’t necessarily have the best of everything;they just make the most of everything that comes along their way.Happiness lies for those who cry,those who hurt, those who have searched,and those who have tried,for only they can appreciate the importance of people. \n who have touched their lives.Love begins with a smile,grows with a kiss and ends with a tear.The brightest future will always be based on a forgotten past, you can’t go on well in lifeuntil you let go of your past failures and heartaches.\n When you were born,you were crying and everyone around you was smiling.Live your life so that when you die,you're the one who is smiling and everyone around you is crying.\n Please send this message to those people who mean something to you,to those who have touched your life in one way or another,to those who make you smile when you really need it,to those that make you see the brighter side of things when you are really down,to those who you want to let them know that you appreciate their friendship.And if you don’t, don’t worry,nothing bad will happen to you,you will just miss out on the opportunity to brighten someone’s day with this message.";
 
@@ -282,7 +283,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                 return YES;
             }];
             [row setMoveCellCompletionHandler:^(DJTableViewVMRow *rowVM, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
-                NSLog(@"Move Complete");
+                DJLog(@"Move Complete");
             }];
             [section addRow:row];
         }
@@ -312,10 +313,10 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                 [weakSelf testTable];
             }];
             [row setPrefetchHander:^(DJTableViewVMRow *rowVM) {
-                NSLog(@"PrefetchHander->%d--%d",j,i);
+                DJLog(@"PrefetchHander->%d--%d",j,i);
             }];
             [row setPrefetchCancelHander:^(DJTableViewVMRow *rowVM) {
-                NSLog(@"PrefetchCancelHander->%d--%d",j,i);
+                DJLog(@"PrefetchCancelHander->%d--%d",j,i);
             }];
             [section addRow:row];
         }
@@ -338,7 +339,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
         row.editingStyle = UITableViewCellEditingStyleDelete;
         [row setDeleteCellHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"delete->--%d",i);
+            DJLog(@"delete->--%d",i);
         }];
         [section addRow:row];
     }
@@ -354,10 +355,10 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
         row.editingStyle = UITableViewCellEditingStyleDelete;
         [row setDeleteCellHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"delete->--%d",i);
+            DJLog(@"delete->--%d",i);
         }];
         [row setDeleteCellCompleteHandler:^(DJTableViewVMRow *rowVM, void (^complete)()) {
-            NSLog(@"delete %d with complete",i);
+            DJLog(@"delete %d with complete",i);
             DJAlertView *alertView = [[DJAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"Are you want to delete rowVM \r\n with ID:%d?",i] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
             [alertView showWithCompletion:^(DJAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex == 0) {
@@ -384,12 +385,12 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.editingStyle = UITableViewCellEditingStyleDelete;
         if (([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)) {
             UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"action 1" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                NSLog(@"action 1");
+                DJLog(@"action 1");
             }];
             action1.backgroundColor = [UIColor orangeColor];
             
             UITableViewRowAction *action2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"action 2" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                NSLog(@"action 2");
+                DJLog(@"action 2");
             }];
             action2.backgroundColor = [UIColor purpleColor];
             row.editActions = @[action1,action2];
@@ -412,7 +413,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
         row.editingStyle = UITableViewCellEditingStyleInsert;
         [row setInsertCellHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap insert");
+            DJLog(@"tap insert");
         }];
         [section addRow:row];
     }
@@ -450,13 +451,13 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         row.title = [NSString stringWithFormat:@"LongTapActions--%d",i];
         row.editingStyle = UITableViewCellEditingStyleInsert;
         [row setCopyHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap copy with row:%zd",rowVM.indexPath.row);
+            DJLog(@"tap copy with row:%zd",rowVM.indexPath.row);
         }];
         [row setCutHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap cut with row:%zd",rowVM.indexPath.row);
+            DJLog(@"tap cut with row:%zd",rowVM.indexPath.row);
         }];
         [row setPasteHandler:^(DJTableViewVMRow *rowVM) {
-            NSLog(@"tap paste with row:%zd",rowVM.indexPath.row);
+            DJLog(@"tap paste with row:%zd",rowVM.indexPath.row);
         }];
         [section addRow:row];
     }

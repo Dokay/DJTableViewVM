@@ -66,7 +66,7 @@
 
 - (void)dealloc
 {
-    [DJLog dj_debugLog:[NSString stringWithFormat:@"%@ dealloc",[self class]]];
+    DJLog(@"%@ dealloc",[self class]);
 }
 
 - (void)addLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param

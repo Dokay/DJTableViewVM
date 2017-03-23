@@ -78,7 +78,7 @@
     if (self.keyboardManageEnabled) {
         [self unregistKeyboard];
     }
-    [DJLog dj_debugLog:[NSString stringWithFormat:@"%@ dealloc",[self class]]];
+    DJLog(@"%@ dealloc",[self class]);
 }
 
 #pragma mark - UITableViewDataSource
@@ -475,7 +475,7 @@
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
             if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row_idx inSection:section_idx];
-//                [DJLog dj_debugLog:[NSString stringWithFormat:@"Dokay->Message:add Task:%@",indexPath]];
+//                DJLog(@"Dokay->Message:add Task:%@",indexPath);
                 [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:indexPath];
             }
         }];
@@ -495,9 +495,9 @@
         //maybe has caculated in normal scrolling
         if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
             rowVM.cellHeight = [self heightWithAutoLayoutCellForIndexPath:indexPath];
-            [DJLog dj_debugLog:[NSString stringWithFormat:@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath]];
+            DJLog(@"CellHeight:%f,indexPath:%@",rowVM.cellHeight,indexPath);
         }else{
-            [DJLog dj_debugLog:@"no need caculate"];
+            DJLog(@"no need caculate");
         }
     }
 }

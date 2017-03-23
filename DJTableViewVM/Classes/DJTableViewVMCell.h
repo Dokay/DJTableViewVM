@@ -21,12 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) DJTableViewVMRow *rowVM;
 @property (nonatomic, assign) BOOL loaded;
 
++ (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;
+
 - (void)cellDidLoad;
 - (void)cellWillAppear;
 - (void)cellDidDisappear;
-
-@optional
-+ (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;
 
 @end
 
