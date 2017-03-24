@@ -10,6 +10,12 @@
 #import "DJTableViewVM.h"
 #import "DJTableViewVMSection.h"
 
+@interface DJTableViewVMRow()
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
+@end
+
 @implementation DJTableViewVMRow
 
 - (id)init
@@ -39,7 +45,9 @@
 
 - (NSIndexPath *)indexPath
 {
-    return [NSIndexPath indexPathForRow:[self.sectionVM.rows indexOfObject:self] inSection:self.sectionVM.index];
+    //using an instance _indexPath to make a strong reference in RowVM for param in DJLazyTask is weak.
+    _indexPath = [NSIndexPath indexPathForRow:[self.sectionVM.rows indexOfObject:self] inSection:self.sectionVM.index];
+    return _indexPath;
 }
 
 - (void)selectRowAnimated:(BOOL)animated

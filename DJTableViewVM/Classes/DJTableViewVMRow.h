@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) CGFloat indentationLevel;
 
 @property (nonatomic, strong, nullable) NSObject *paramObject;
+@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
 
 @property (nonatomic, assign) CGFloat  cellHeight;
 @property (nonatomic, assign) UITableViewCellStyle style;
@@ -81,7 +82,6 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 + (instancetype)row;
 
-- (NSIndexPath *)indexPath;
 - (void)selectRowAnimated:(BOOL)animated;
 - (void)selectRowAnimated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
 - (void)deselectRowAnimated:(BOOL)animated;

@@ -9,12 +9,12 @@
 #import "DJLazyTaskManager.h"
 #import "DJLog.h"
 
-#define DJMainThreadAssert() NSAssert([[NSThread currentThread] isMainThread], @"This method must be called on the main thread!");
+#define DJMainThreadAssert NSAssert([[NSThread currentThread] isMainThread], @"This method must be called on the main thread!");
 
 @interface DJLazyTask : NSObject
 
 @property (nonatomic, weak) NSObject *target;
-@property (nonatomic, strong) NSObject *param;
+@property (nonatomic, weak) NSObject *param;
 @property (nonatomic, assign) SEL selector;
 
 - (instancetype)initWithTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param;
@@ -71,7 +71,7 @@
 
 - (void)addLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param
 {
-    DJMainThreadAssert();
+    DJMainThreadAssert;
     
     DJLazyTask *lazyTask = [[DJLazyTask alloc] initWithTarget:target selector:selector param:param];
     [self.taskQueue addObject:lazyTask];
@@ -79,7 +79,7 @@
 
 - (void)start
 {
-    DJMainThreadAssert();
+    DJMainThreadAssert;
     
     if (self.state == DJLazyTaskManagerStateDoing) {
         return;
@@ -97,7 +97,7 @@
     __weak DJLazyTaskManager *weakSelf = self;
     void (^runLoopObserverCallback)(CFRunLoopObserverRef runLoopObserver, CFRunLoopActivity activity) = ^(CFRunLoopObserverRef runLoopObserver, CFRunLoopActivity activity){
         __strong DJLazyTaskManager *strongSelf = weakSelf;
-        if (strongSelf.taskQueue.count == 0) {
+        if (!strongSelf || strongSelf.taskQueue.count == 0) {
             strongSelf.state = DJLazyTaskManagerStateDone;
             CFRunLoopRemoveObserver(runLoop, runLoopObserver, runLoopMode);
             return ;
@@ -119,8 +119,9 @@
 
 - (void)stop
 {
-    DJMainThreadAssert();
+    DJMainThreadAssert;
     
+    //CFRunLoopRemoveObserver not call here,it is called in runLoopObserverCallback.while there is not task in queue, observer will be removed in last block excutes.
     [self.taskQueue removeAllObjects];
 }
 

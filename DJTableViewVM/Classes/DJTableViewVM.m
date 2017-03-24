@@ -428,7 +428,7 @@
         cellIdentifier = self.registeredXIBs[cellClassName];
     }
     
-    if ([row respondsToSelector:@selector(cellIdentifier)] && row.cellIdentifier) {
+    if (row.cellIdentifier) {
         cellIdentifier = row.cellIdentifier;
     }
     
@@ -474,9 +474,7 @@
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection *  _Nonnull sectionVM, NSUInteger section_idx, BOOL * _Nonnull section_stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
             if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row_idx inSection:section_idx];
-//                DJLog(@"Dokay->Message:add Task:%@",indexPath);
-                [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:indexPath];
+                [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:rowVM.indexPath];
             }
         }];
     }];

@@ -8,5 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-
 void DJLog(NSString *format, ...);

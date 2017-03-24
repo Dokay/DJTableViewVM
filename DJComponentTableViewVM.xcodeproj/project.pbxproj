@@ -278,6 +278,7 @@
 		4E6B03711E6D557B003F1B91 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4E955ADE1E83DDC400779551 /* DJInput */,
 				4E6B03811E6D557B003F1B91 /* DJTableViewVM.h */,
 				4E6B03821E6D557B003F1B91 /* DJTableViewVM.m */,
 				4E6B03831E6D557B003F1B91 /* DJTableViewVMCell.h */,
@@ -286,25 +287,12 @@
 				4E6B03861E6D557B003F1B91 /* DJTableViewVMRow.m */,
 				4E6B03871E6D557B003F1B91 /* DJTableViewVMSection.h */,
 				4E6B03881E6D557B003F1B91 /* DJTableViewVMSection.m */,
-				4E6B03911E6D557B003F1B91 /* DJToolBar.h */,
-				4E6B03921E6D557B003F1B91 /* DJToolBar.m */,
-				4E54488B1E77FC6500BCD8F3 /* DJInputRowProtocol.h */,
-				4E6B03891E6D557B003F1B91 /* DJTableViewVMTextFieldCell.h */,
-				4E6B038A1E6D557B003F1B91 /* DJTableViewVMTextFieldCell.m */,
-				4E6B038B1E6D557B003F1B91 /* DJTableViewVMTextFieldRow.h */,
-				4E6B038C1E6D557B003F1B91 /* DJTableViewVMTextFieldRow.m */,
-				4E6B038D1E6D557B003F1B91 /* DJTableViewVMTextViewCell.h */,
-				4E6B038E1E6D557B003F1B91 /* DJTableViewVMTextViewCell.m */,
-				4E6B038F1E6D557B003F1B91 /* DJTableViewVMTextViewRow.h */,
-				4E6B03901E6D557B003F1B91 /* DJTableViewVMTextViewRow.m */,
 				4E6B03731E6D557B003F1B91 /* DJLazyTaskManager.h */,
 				4E6B03741E6D557B003F1B91 /* DJLazyTaskManager.m */,
 				4E6B03751E6D557B003F1B91 /* DJLog.h */,
 				4E6B03761E6D557B003F1B91 /* DJLog.m */,
 				4E6B03771E6D557B003F1B91 /* DJTableViewPrefetchManager.h */,
 				4E6B03781E6D557B003F1B91 /* DJTableViewPrefetchManager.m */,
-				4E6B03791E6D557B003F1B91 /* DJTableViewVM+Keyboard.h */,
-				4E6B037A1E6D557B003F1B91 /* DJTableViewVM+Keyboard.m */,
 				4E6B037B1E6D557B003F1B91 /* DJTableViewVM+Properties.h */,
 				4E6B037C1E6D557B003F1B91 /* DJTableViewVM+Properties.m */,
 				4E6B037D1E6D557B003F1B91 /* DJTableViewVM+UIScrollViewDelegate.h */,
@@ -333,6 +321,26 @@
 				4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */,
 			);
 			path = DJTableViewVMFrameWork;
+			sourceTree = "<group>";
+		};
+		4E955ADE1E83DDC400779551 /* DJInput */ = {
+			isa = PBXGroup;
+			children = (
+				4E6B03911E6D557B003F1B91 /* DJToolBar.h */,
+				4E6B03921E6D557B003F1B91 /* DJToolBar.m */,
+				4E54488B1E77FC6500BCD8F3 /* DJInputRowProtocol.h */,
+				4E6B03891E6D557B003F1B91 /* DJTableViewVMTextFieldCell.h */,
+				4E6B038A1E6D557B003F1B91 /* DJTableViewVMTextFieldCell.m */,
+				4E6B038B1E6D557B003F1B91 /* DJTableViewVMTextFieldRow.h */,
+				4E6B038C1E6D557B003F1B91 /* DJTableViewVMTextFieldRow.m */,
+				4E6B038D1E6D557B003F1B91 /* DJTableViewVMTextViewCell.h */,
+				4E6B038E1E6D557B003F1B91 /* DJTableViewVMTextViewCell.m */,
+				4E6B038F1E6D557B003F1B91 /* DJTableViewVMTextViewRow.h */,
+				4E6B03901E6D557B003F1B91 /* DJTableViewVMTextViewRow.m */,
+				4E6B03791E6D557B003F1B91 /* DJTableViewVM+Keyboard.h */,
+				4E6B037A1E6D557B003F1B91 /* DJTableViewVM+Keyboard.m */,
+			);
+			name = DJInput;
 			sourceTree = "<group>";
 		};
 		4EB32C7D1E793EF50040470D /* DJComponentTableViewVMUITests */ = {
@@ -818,6 +826,7 @@
 				4EB32C841E793EF50040470D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
