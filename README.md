@@ -16,6 +16,7 @@ __DJTableViewVM is a lightweight ViewModel implementation for UITableView.__
 * prefetch for iOS under iOS 10;
 * cell height dynamic caculate;
 * cell height pre caculate.
+* keyboard shows and input view scroll automatically.
 
 ## Requirements
 * Xcode 7 or higher
@@ -46,27 +47,31 @@ github "Dokay/DJTableViewVM"
 ## Quickstart
 * Sample code
 ```objc
-- (void)testNormal
+- (void)testTextRowAutoLayoutWithNib
 {
-    DJCollectionViewVMCellRegister(self.collectionVM, DJCollectionViewTitleCellRow, DJCollectionViewTitleCell);
-    [self.collectionVM removeAllSections];
-    
-    DJCollectionViewVMSection *contentSection = [DJCollectionViewVMSection sectionWithHeaderHeight:10];
-    contentSection.minimumLineSpacing = 10.0f;
-    contentSection.minimumInteritemSpacing = 10.0f;
-    [self.collectionVM addSection:contentSection];
-    for (NSInteger i = 0; i < 100; i ++) {
-        DJCollectionViewTitleCellRow *row = [DJCollectionViewTitleCellRow new];
-        row.itemSize = CGSizeMake(100, 100);
-        row.backgroundColor = [UIColor redColor];
-        row.title = [NSString stringWithFormat:@"%@",@(i)];
-        [row setSelectionHandler:^(DJCollectionViewVMRow *rowVM) {
-            NSLog(@"tap %@",rowVM.indexPath);
+    DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextTestCell);
+
+    [self.aDJTableViewVM removeAllSections];
+    self.aDJTableViewVM.preCaculateHeightEnable = YES;
+
+    for (int j = 0; j < 20; j++) {
+        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"AutoLayoutWithNib"];
+        [self.aDJTableViewVM addSection:section];
+        for (int i  = 0; i < 100; i ++) {
+        NSInteger random = arc4random() % kConstContent.length;
+        random = MAX(10, random);
+        DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
+        row.heightCaculateType = DJCellHeightCaculateAutoLayout;
+        row.contentText = [kConstContent substringToIndex:random];
+        __weak ViewController *weakSelf = self;
+            [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
+            [rowVM deselectRowAnimated:YES];
+            [weakSelf testTable];
         }];
-        [contentSection addRow:row];
+        [section addRow:row];
+        }
     }
-    
-    [self.collectionView reloadData];
+    [self.aDJTableViewVM reloadData];
 }
 ```
 
@@ -83,15 +88,35 @@ github "Dokay/DJTableViewVM"
   </tr>
   <tr>
     <td>DJTableViewVMRow</td>
-    <td>The ViewModel for rows in sections,it is the root class of all <tt>DJTableViewVM</tt> row hierarchies.<br />
+    <td>The ViewModel for row in sections,it is the root class of all <tt>DJTableViewVM</tt> row hierarchies.<br />
         You should subclass <tt>DJTableViewVMRow</tt> to obtain cell characteristics specific to your application's needs.
         Through <tt>DJTableViewVMRow</tt>, rows inherit a basic interface that communicates with <tt>DJTableViewVM</tt> and <tt>DJTableViewVMSection</tt>.</td>
   </tr>
   <tr>
     <td>DJTableViewVMCell</td>
-    <td>The View for DJTableViewVMRow(ViewModel),it defines the attributes and behavior of the cells that appear in <tt>UITableView</tt> objects.
+    <td>The Cell(View) for DJTableViewVMRow(ViewModel),it defines the attributes and behavior of the cells that appear in <tt>UITableView</tt> objects.
         You should subclass <tt>DJTableViewVMCell</tt> to obtain cell characteristics and behavior specific to your application's needs.
         By default, it is being mapped with <tt>DJTableViewVMRow</tt>.</td>
+  </tr>
+  <tr>
+    <td>DJInputRowProtocol</td>
+    <td>The Protocol that all input Rows (such cell with UITextField/UITextView/UIDataPicker) has to implemented.By default,<tt>DJTableViewVMTextFieldRow</tt> and <tt>DJTableViewVMTextViewRow</tt> implement it.You can implement it for your input view in cell.</td>
+  </tr>
+  <tr>
+    <td>DJTableViewVMTextFieldRow</td>
+    <td>The ViewModel for DJTableViewVMTextFieldCell.</td>
+  </tr>
+  <tr>
+    <td>DJTableViewVMTextFieldCell</td>
+    <td>Cell with a UITextField.If you want keyboard(showed by the UITextField) be managed by <tt>DJTableViewVM</tt>,property keyboardManageEnabled in <tt>DJTableViewVM</tt> should be set YES.By default, it is being mapped with <tt>DJTableViewVMTextFieldRow</tt>.</td>
+  </tr>
+  <tr>
+    <td>DJTableViewVMTextViewRow</td>
+    <td>The ViewModel for DJTableViewVMTextViewCell.</td>
+  </tr>
+  <tr>
+    <td>DJTableViewVMTextViewCell</td>
+    <td>Cell with a UITextView.If you want keyboard(showed by the UITextView) be managed by <tt>DJTableViewVM</tt>,property keyboardManageEnabled in <tt>DJTableViewVM</tt> should be set YES.By default, it is being mapped with <tt>DJTableViewVMTextFieldRow</tt>.</td>
   </tr>
 </table>
 
