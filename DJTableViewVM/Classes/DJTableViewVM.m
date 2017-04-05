@@ -14,6 +14,10 @@
 #import "DJLazyTaskManager.h"
 #import "DJLog.h"
 #import "DJTableViewVM+Keyboard.h"
+#import "DJTableViewVMTextViewRow.h"
+#import "DJTableViewVMTextViewCell.h"
+#import "DJTableViewVMTextFieldRow.h"
+#import "DJTableViewVMTextFieldCell.h"
 
 @interface DJTableViewVM()
 
@@ -371,7 +375,9 @@
 #pragma mark  - regist class name
 - (void)p_registerDefaultCells
 {
-    self[@"DJTableViewVMRow"] = @"DJTableViewVMCell";
+    DJTableViewRegister(self, DJTableViewVMRow, DJTableViewVMCell);
+    DJTableViewRegister(self, DJTableViewVMTextViewRow, DJTableViewVMTextViewCell);
+    DJTableViewRegister(self, DJTableViewVMTextFieldRow, DJTableViewVMTextFieldCell);
 }
 
 - (void)p_registerRowClass:(id)rowClass forCellClass:(id)cellClass
