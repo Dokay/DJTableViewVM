@@ -10,6 +10,8 @@
 #import "DJTableViewVMRow.h"
 #import "DJTableViewVM.h"
 
+#define kDefaultWidth 100
+
 @interface DJTableViewVMSection()
 
 @property (strong, nonatomic) NSMutableArray *mutableRows;
@@ -52,12 +54,12 @@
 {
     UIView *headerView = nil;
     if (hheight > 0) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, hheight)];
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, hheight)];
         [headerView setBackgroundColor:[UIColor clearColor]];
     }
     UIView *footerView = nil;
     if (fheight > 0) {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, fheight)];
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, fheight)];
         [footerView setBackgroundColor:[UIColor clearColor]];
     }
     return [[self class] sectionWithHeaderView:headerView footerView:footerView];
@@ -67,7 +69,7 @@
 {
     UIView *headerView = nil;
     if (hheight > 0) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, hheight)];
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, hheight)];
         [headerView setBackgroundColor:[UIColor clearColor]];
     }
     return [[self class] sectionWithHeaderView:headerView];
@@ -77,7 +79,7 @@
 {
     UIView *footerView = nil;
     if (fheight > 0) {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, fheight)];
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, fheight)];
         [footerView setBackgroundColor:[UIColor clearColor]];
     }
     return [[self class] sectionWithFooterView:footerView];

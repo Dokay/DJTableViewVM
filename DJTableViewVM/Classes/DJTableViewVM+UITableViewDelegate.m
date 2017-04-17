@@ -56,20 +56,6 @@
     DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.headerView) {
         return section.headerView.frame.size.height;
-    } else if (section.headerTitle.length) {
-        CGFloat headerHeight = 0;
-        CGFloat headerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
-        
-        CGSize headerRect = CGSizeMake(headerWidth,DBL_MAX);
-        
-        CGRect headerFrame = [section.headerTitle boundingRectWithSize:headerRect
-                                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                            attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] }
-                                                               context:nil];
-        
-        headerHeight = headerFrame.size.height;
-        
-        return headerHeight + 20.0f;
     }
     
     return UITableViewAutomaticDimension;
@@ -93,21 +79,6 @@
     DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
     if (section.footerView) {
         return section.footerView.frame.size.height;
-    } else if (section.footerTitle.length) {
-        
-        CGFloat footerHeight = 0;
-        CGFloat footerWidth = CGRectGetWidth(CGRectIntegral(tableView.bounds)) - 30.0f; // 30 = 15pt horizontal padding on each side
-        
-        CGSize footerRect = CGSizeMake(footerWidth, DBL_MAX);
-        
-        CGRect footerFrame = [section.footerTitle boundingRectWithSize:footerRect
-                                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                            attributes:@{ NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote] }
-                                                               context:nil];
-        
-        footerHeight = footerFrame.size.height;
-        
-        return footerHeight + 10.0f;
     }
     
     return UITableViewAutomaticDimension;
