@@ -44,21 +44,7 @@
         return [self.delegate tableView:tableView heightForHeaderInSection:sectionIndex];
     }
     
-    if (self.sections.count <= sectionIndex) {
-        return UITableViewAutomaticDimension;
-    }
-    
-    //UITableView init in Xib has default height 28
-    //    if (self.sectionHeaderHeight > 0.0f) {
-    //        return self.sectionHeaderHeight;
-    //    }
-    
-    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
-    if (section.headerView) {
-        return section.headerView.frame.size.height;
-    }
-    
-    return UITableViewAutomaticDimension;
+    return [self heightWithSectionIndex:sectionIndex isHeader:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)sectionIndex
@@ -67,21 +53,7 @@
         return [self.delegate tableView:tableView heightForFooterInSection:sectionIndex];
     }
     
-    if (self.sections.count <= sectionIndex) {
-        return UITableViewAutomaticDimension;
-    }
-    
-    //UITableView init in Xib has default height 28
-    //    if (self.sectionFooterHeight > 0.0f) {
-    //        return self.sectionFooterHeight;
-    //    }
-    
-    DJTableViewVMSection *section = [self.sections objectAtIndex:sectionIndex];
-    if (section.footerView) {
-        return section.footerView.frame.size.height;
-    }
-    
-    return UITableViewAutomaticDimension;
+    return [self heightWithSectionIndex:sectionIndex isHeader:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -464,6 +436,50 @@
     }
     
     return NO;
+}
+
+- (CGFloat)heightWithSectionIndex:(NSInteger )sectionIndex isHeader:(BOOL)isHeader
+{
+    if (self.sections.count <= sectionIndex) {
+        return UITableViewAutomaticDimension;
+    }
+    
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:sectionIndex];
+    UIView *sectionView = isHeader ? sectionVM.headerView : sectionVM.footerView;
+    DJSectionHeightCaculateType caculateType = isHeader ? sectionVM.headerHeightCaculateType : sectionVM.footerHeightCaculateType;
+    NSString *heightCacheKey = isHeader ? @"DJSectionVMHeaderHeightKey" : @"DJSectionVMFooterHeightKey";
+    
+    //UITableView init in Xib has default height 28
+    //    if (self.sectionHeaderHeight > 0.0f) {
+    //        return self.sectionHeaderHeight;
+    //    }
+    
+    if(sectionView) {
+        if (caculateType == DJSectionHeightCaculateTypeDefault) {
+            return sectionView.frame.size.height;
+        }else if(caculateType == DJSectionHeightCaculateTypeAutomatic){
+            CGFloat cacheHeight = [[sectionVM.automaticHeightCache valueForKey:heightCacheKey] floatValue];
+            if (cacheHeight == 0 || sectionVM.isSectionHeightNeedRefresh) {
+                CGFloat contentViewWidth = CGRectGetWidth(self.tableView.frame);
+                if (contentViewWidth > 0) {
+                    NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:sectionView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+                    [sectionView addConstraint:widthFenceConstraint];
+                    CGSize sectionViewSize = [sectionView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                    [sectionView removeConstraint:widthFenceConstraint];
+                    
+                    [sectionVM.automaticHeightCache setValue:@(sectionViewSize.height) forKey:heightCacheKey];
+                    sectionVM.isSectionHeightNeedRefresh = NO;
+                    
+                    return sectionViewSize.height;
+                }
+            }else{
+                return cacheHeight;
+            }
+            
+        }
+    }
+    
+    return UITableViewAutomaticDimension;
 }
 
 @end

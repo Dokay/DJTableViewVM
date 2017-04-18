@@ -11,6 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
+    DJSectionHeightCaculateTypeDefault,//using height of headerView' frame.
+    DJSectionHeightCaculateTypeAutomatic,//auto caclulate with autolayout of headerView's subviews.
+};
+
 @class DJTableViewVM;
 
 @interface DJTableViewVMSection : NSObject
@@ -24,7 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) DJTableViewVM *tableViewVM;
 @property (nonatomic, readonly, assign) NSUInteger index;
 
+@property (nonatomic, assign) DJSectionHeightCaculateType headerHeightCaculateType;
+@property (nonatomic, assign) DJSectionHeightCaculateType footerHeightCaculateType;
+@property (nonatomic, strong, readonly) NSMutableDictionary *automaticHeightCache;
+@property (nonatomic, assign) BOOL isSectionHeightNeedRefresh;
+
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle;
++ (instancetype)sectionWithFooterTitle:(NSString *)footerTitle;
 + (instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
 + (instancetype)sectionWithHeaderView:(UIView *)headerView;
 + (instancetype)sectionWithFooterView:(UIView *)footerView;
@@ -34,7 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sectionWithFooterHeight:(CGFloat)height;
 
 - (id)initWithHeaderTitle:(NSString *)headerTitle;
+- (id)initWithFooterTitle:(NSString *)footerTitle;
 - (id)initWithHeaderView:(UIView *)headerView;
+- (id)initWithFooterView:(UIView *)footerView;
 - (id)initWithHeaderView:(nullable UIView *)headerView footerView:(nullable UIView *)footerView;
 - (id)initWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
 

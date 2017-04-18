@@ -10,11 +10,12 @@
 #import "DJTableViewVMRow.h"
 #import "DJTableViewVM.h"
 
-#define kDefaultWidth 100
+#define kDefaultWidth 100 
 
 @interface DJTableViewVMSection()
 
-@property (strong, nonatomic) NSMutableArray *mutableRows;
+@property (nonatomic, strong) NSMutableArray *mutableRows;
+@property (nonatomic, strong) NSMutableDictionary *automaticHeightCache;
 
 @end
 
@@ -23,6 +24,11 @@
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle
 {
     return [[self alloc ] initWithHeaderTitle:headerTitle];
+}
+
++ (instancetype)sectionWithFooterTitle:(NSString *)footerTitle
+{
+    return [[self alloc ] initWithFooterTitle:footerTitle];
 }
 
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle footerTitle:(NSString *)footerTitle
@@ -43,11 +49,6 @@
 + (instancetype)sectionWithHeaderView:(UIView *)headerView footerView:(UIView *)footerView
 {
     return [[self alloc] initWithHeaderView:headerView footerView:footerView];
-}
-
-- (id)initWithHeaderTitle:(NSString *)headerTitle
-{
-    return [self initWithHeaderTitle:headerTitle footerTitle:nil];
 }
 
 + (instancetype)sectionWithHeaderHeight:(CGFloat)hheight andFooterHeight:(CGFloat)fheight
@@ -85,6 +86,16 @@
     return [[self class] sectionWithFooterView:footerView];
 }
 
+- (id)initWithHeaderTitle:(NSString *)headerTitle
+{
+    return [self initWithHeaderTitle:headerTitle footerTitle:nil];
+}
+
+- (id)initWithFooterTitle:(NSString *)footerTitle
+{
+    return [self initWithHeaderTitle:nil footerTitle:footerTitle];
+}
+
 - (id)initWithHeaderTitle:(NSString *)headerTitle footerTitle:(NSString *)footerTitle
 {
     self = [self init];
@@ -102,15 +113,29 @@
     return [self initWithHeaderView:headerView footerView:nil];
 }
 
+- (id)initWithFooterView:(UIView *)footerView
+{
+    return [self initWithHeaderView:nil footerView:footerView];
+}
+
 - (id)initWithHeaderView:(UIView *)headerView footerView:(UIView *)footerView
 {
     self = [self init];
-    if (!self)
-        return nil;
+    if (self){
+        self.headerView = headerView;
+        self.footerView = footerView;
+    }
     
-    self.headerView = headerView;
-    self.footerView = footerView;
-    
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _headerHeightCaculateType = DJSectionHeightCaculateTypeDefault;
+        _footerHeightCaculateType = DJSectionHeightCaculateTypeDefault;
+    }
     return self;
 }
 
@@ -179,10 +204,18 @@
 #pragma mark - getter
 - (NSMutableArray *)mutableRows
 {
-    if (!_mutableRows) {
+    if (_mutableRows == nil) {
         _mutableRows = [NSMutableArray new];
     }
     return _mutableRows;
+}
+
+- (NSMutableDictionary *)automaticHeightCache
+{
+    if (_automaticHeightCache == nil) {
+        _automaticHeightCache = [NSMutableDictionary new];
+    }
+    return _automaticHeightCache;
 }
 
 @end
