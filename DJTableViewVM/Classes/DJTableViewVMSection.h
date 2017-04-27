@@ -20,13 +20,13 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 
 @interface DJTableViewVMSection : NSObject
 
+@property (nonatomic, weak, nullable) DJTableViewVM *tableViewVM;
 @property (nonatomic, strong, readonly,nullable) NSArray *rows;
 @property (nonatomic, strong, nullable) UIView *headerView;
 @property (nonatomic, strong, nullable) UIView *footerView;
 @property (nonatomic, copy, nullable) NSString *headerTitle;
 @property (nonatomic, copy, nullable) NSString *footerTitle;
 @property (nonatomic, copy, nullable) NSString *sectionIndexTitle;
-@property (nonatomic, weak, nullable) DJTableViewVM *tableViewVM;
 @property (nonatomic, readonly, assign) NSUInteger index;
 
 @property (nonatomic, assign) DJSectionHeightCaculateType headerHeightCaculateType;
@@ -44,12 +44,22 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 + (instancetype)sectionWithHeaderHeight:(CGFloat)height;
 + (instancetype)sectionWithFooterHeight:(CGFloat)height;
 
+///get a instance with attributedString and edgeInsets for label in header view
++ (instancetype)sectionWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets;
+///get a instance with attributedString and edgeInsets for label in footer view
++ (instancetype)sectionWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets;
+
 - (id)initWithHeaderTitle:(NSString *)headerTitle;
 - (id)initWithFooterTitle:(NSString *)footerTitle;
 - (id)initWithHeaderView:(UIView *)headerView;
 - (id)initWithFooterView:(UIView *)footerView;
 - (id)initWithHeaderView:(nullable UIView *)headerView footerView:(nullable UIView *)footerView;
 - (id)initWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
+
+///init a instance with attributedString and edgeInsets for label in header view
+- (id)initWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets;
+///init a instance with attributedString and edgeInsets for label in footer view
+- (id)initWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets;
 
 - (void)addRow:(id)row;
 - (void)addRowsFromArray:(NSArray *)array;

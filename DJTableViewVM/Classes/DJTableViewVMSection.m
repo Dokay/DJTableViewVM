@@ -86,6 +86,16 @@
     return [[self class] sectionWithFooterView:footerView];
 }
 
++ (instancetype)sectionWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
+{
+    return [[self alloc] initWithHeaderAttributedText:attributedString edgeInsets:edgeInsets];
+}
+
++ (instancetype)sectionWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
+{
+    return [[self alloc] initWithFooterAttributedText:attributedString edgeInsets:edgeInsets];
+}
+
 - (id)initWithHeaderTitle:(NSString *)headerTitle
 {
     return [self initWithHeaderTitle:headerTitle footerTitle:nil];
@@ -129,6 +139,22 @@
     return self;
 }
 
+- (id)initWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
+{
+    UIView *headerView = [self holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
+    DJTableViewVMSection *sevtionVM = [self initWithHeaderView:headerView];
+    sevtionVM.headerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
+    return sevtionVM;
+}
+
+- (id)initWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
+{
+    UIView *footerView = [self holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
+    DJTableViewVMSection *sevtionVM = [self initWithFooterView:footerView];
+    sevtionVM.footerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
+    return sevtionVM;
+}
+
 - (id)init
 {
     self = [super init];
@@ -148,6 +174,27 @@
 - (void)reloadSectionWithAnimation:(UITableViewRowAnimation)animation
 {
     [self.tableViewVM.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.index] withRowAnimation:animation];
+}
+
+- (UIView *)holderViewWithAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
+{
+    UIView *holderView = [[UIView alloc] initWithFrame:CGRectZero];
+    holderView.backgroundColor = [UIColor whiteColor];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.attributedText = attributedString;
+    titleLabel.numberOfLines = 0;
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [holderView addSubview:titleLabel];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(holderView,titleLabel);
+    NSDictionary *metrics = @{@"top":@(edgeInsets.top),
+                              @"bottom":@(edgeInsets.bottom),
+                              @"left":@(edgeInsets.left),
+                              @"right":@(edgeInsets.right)};
+    [holderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[titleLabel]-(bottom)-|" options:0 metrics:metrics views:views]];
+    [holderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[titleLabel]-(right)-|" options:0 metrics:metrics views:views]];
+    
+    return holderView;
 }
 
 #pragma mark - rows manage
@@ -217,5 +264,6 @@
     }
     return _automaticHeightCache;
 }
+
 
 @end

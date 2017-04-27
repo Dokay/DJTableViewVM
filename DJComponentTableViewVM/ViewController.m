@@ -172,7 +172,8 @@ static const NSString *kConstContent = @"There are moments in life when you miss
     [self.aDJTableViewVM removeAllSections];
     
     for (int j = 0; j < 20; j++) {
-        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"AutoLayoutWithOutNib"];
+        NSAttributedString *headerAttributedString = [[NSAttributedString alloc] initWithString:@"AutoLayoutWithOutNib" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+        DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderAttributedText:headerAttributedString edgeInsets:UIEdgeInsetsMake(10, 15, 10, 15)];
         [self.aDJTableViewVM addSection:section];
         for (int i  = 0; i < 100; i ++) {
             NSInteger random = arc4random() % kConstContent.length;
