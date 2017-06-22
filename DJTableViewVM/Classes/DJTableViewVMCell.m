@@ -11,7 +11,7 @@
 
 @interface DJTableViewVMCell()
 
-@property (nonatomic, weak) UIView *separatorLineView;
+@property (nonatomic, strong) NSArray *separatorLineViews;
 
 @end
 
@@ -86,17 +86,21 @@
         switch (self.rowVM.separatorLineType) {
             case DJCellSeparatorLineDefault:
             {
-                _separatorLineView.alpha = 1.0f;//line maybe has changed
+                //do nothing
             }
                 break;
             case DJCellSeparatorLineHide:
             {
-                self.separatorLineView.alpha = 0.0f;
+                [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
+                    separatorLineView.hidden = YES;
+                }];
             }
                 break;
             case DJCellSeparatorLineShow:
             {
-                self.separatorLineView.alpha = 1.0f;
+                [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
+                    separatorLineView.hidden = NO;
+                }];
             }
                 break;
             default:
@@ -117,16 +121,18 @@
 }
 
 #pragma mark - getter
-- (UIView *)separatorLineView
+- (NSArray *)separatorLineViews
 {
-    if (_separatorLineView == nil) {
+    if (_separatorLineViews == nil) {
         //unsafe method to get SeparatorView.apple may change class name for _UITableViewCellSeparatorView
+        NSMutableArray *tmpViews = [NSMutableArray new];
         for (UIView *subview in self.contentView.superview.subviews) {
             if ([NSStringFromClass(subview.class) hasSuffix:@"SeparatorView"]) {
-                _separatorLineView = subview;
+                [tmpViews addObject:subview];
             }
         }
+        _separatorLineViews = tmpViews.copy;
     }
-    return _separatorLineView;
+    return _separatorLineViews;
 }
 @end
