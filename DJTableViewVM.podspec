@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DJTableViewVM"
-  s.version      = "0.1.8"
+  s.version      = "0.1.9"
   s.summary      = "DJTableViewVM is a ViewModel implementation for UITableView"
   s.description  = <<-DESC
                    only for private use,DJTableViewVM is a ViewModel implementation for UITableView.
