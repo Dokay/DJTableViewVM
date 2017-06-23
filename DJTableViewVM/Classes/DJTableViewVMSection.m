@@ -73,7 +73,7 @@
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, hheight)];
         [headerView setBackgroundColor:[UIColor clearColor]];
     }
-    return [[self class] sectionWithHeaderView:headerView];
+    return [[self class] sectionWithHeaderView:headerView footerView:nil];
 }
 
 + (instancetype)sectionWithFooterHeight:(CGFloat)fheight
@@ -83,7 +83,7 @@
         footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDefaultWidth, fheight)];
         [footerView setBackgroundColor:[UIColor clearColor]];
     }
-    return [[self class] sectionWithFooterView:footerView];
+    return [[self class] sectionWithHeaderView:nil footerView:footerView];
 }
 
 + (instancetype)sectionWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
