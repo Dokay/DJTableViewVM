@@ -67,7 +67,7 @@
     }
     
     if (self.sections.count <= indexPath.section) {
-        return UITableViewAutomaticDimension;
+        return 0;
     }
     
     if (self.estimatedRowHeight > 0.0f) {
@@ -84,7 +84,7 @@
         height = row.cellHeight;
     }
     
-    return height ? height : UITableViewAutomaticDimension;
+    return height ? height : 0;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
@@ -97,7 +97,7 @@
 //        return self.estimatedSectionHeaderHeight;
 //    }
 //
-//    return UITableViewAutomaticDimension;
+//    return 0;
 //}
 //
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
@@ -110,7 +110,7 @@
 //        return self.estimatedSectionFooterHeight;
 //    }
 //
-//    return UITableViewAutomaticDimension;
+//    return 0;
 //}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
@@ -441,7 +441,7 @@
 - (CGFloat)heightWithSectionIndex:(NSInteger )sectionIndex isHeader:(BOOL)isHeader
 {
     if (self.sections.count <= sectionIndex) {
-        return UITableViewAutomaticDimension;
+        return 0;
     }
     
     DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:sectionIndex];
@@ -479,7 +479,7 @@
         }
     }
     
-    return UITableViewAutomaticDimension;
+    return 0;
 }
 
 @end
