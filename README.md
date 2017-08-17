@@ -122,7 +122,7 @@ github "Dokay/DJTableViewVM"
 
 * For exsist cells in your project<br />1.If the super class of your cell is UITableViewCell ,just change it to DJTableViewVMCell.<br />2.If tht super class of your cell is your custom class ,you need to implement the protocol DJTableViewVMCellDelegate or change it to DJTableViewVMCell.<br />
 
-##UICollectionView
+## DJCollectionViewVM
     
 ViewModel for UICollectionView: [DJCollectionViewVM](http://github.com/Dokay/DJCollectionViewVM)
 
