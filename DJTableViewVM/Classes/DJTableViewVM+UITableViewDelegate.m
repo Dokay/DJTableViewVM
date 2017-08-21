@@ -67,7 +67,7 @@
     }
     
     if (self.sections.count <= indexPath.section) {
-        return 0;
+        return UITableViewAutomaticDimension;
     }
     
     if (self.estimatedRowHeight > 0.0f) {
@@ -84,7 +84,7 @@
         height = row.cellHeight;
     }
     
-    return height ? height : 0;
+    return height ? height : UITableViewAutomaticDimension;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
@@ -97,7 +97,7 @@
 //        return self.estimatedSectionHeaderHeight;
 //    }
 //
-//    return 0;
+//    return UITableViewAutomaticDimension;
 //}
 //
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
@@ -110,7 +110,7 @@
 //        return self.estimatedSectionFooterHeight;
 //    }
 //
-//    return 0;
+//    return UITableViewAutomaticDimension;
 //}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex

@@ -48,6 +48,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 @property (nonatomic, assign) CGFloat indentationWidth;
 @property (nonatomic, assign) CGFloat indentationLevel;
+@property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
 
 @property (nonatomic, strong, nullable) NSObject *paramObject;
 @property (nonatomic, strong, readonly) NSIndexPath *indexPath;

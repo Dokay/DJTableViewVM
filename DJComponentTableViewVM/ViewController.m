@@ -14,6 +14,7 @@
 #import "DJAlertView.h"
 #import "DJInputCellTestController.h"
 #import "DJLog.h"
+#import "DJAdvanceViewController.h"
 
 BOOL DJ_LOG_ENABLE = YES;
 
@@ -137,7 +138,9 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                                 @{@"title":@"LongTapActions",
                                   @"jumpID":@(11)},
                                 @{@"title":@"TextInputDemo",
-                                  @"jumpID":@(12)},];
+                                  @"jumpID":@(12)},
+                                @{@"title":@"AdvanceCellDemo",
+                                  @"jumpID":@(13)},];
     
     __weak ViewController *weakSelf = self;
     
@@ -146,13 +149,17 @@ static const NSString *kConstContent = @"There are moments in life when you miss
     [self.aDJTableViewVM addSection:contenteSection];
     for (NSDictionary *testDic in testDataSource) {
         DJTableViewVMRow *testRowVM = [DJTableViewVMRow new];
+        testRowVM.paramObject = testDic;
         testRowVM.title = [testDic valueForKey:@"title"];
         testRowVM.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [testRowVM setSelectionHandler:^(DJTableViewVMRow *rowVM) {
             [rowVM deselectRowAnimated:YES];
             if ([rowVM.title isEqualToString:@"TextInputDemo"]) {
                 DJInputCellTestController *aDJInputCellTestController = [DJInputCellTestController new];
-                [self.navigationController pushViewController:aDJInputCellTestController animated:YES];
+                [weakSelf.navigationController pushViewController:aDJInputCellTestController animated:YES];
+            }if ([rowVM.title isEqualToString:@"AdvanceCellDemo"]) {
+                DJAdvanceViewController *aDJAdvanceViewController = [DJAdvanceViewController new];
+                [weakSelf.navigationController pushViewController:aDJAdvanceViewController animated:YES];
             }else{
                 ViewController *aViewController = [ViewController new];
                 aViewController.type = [[testDic objectForKey:@"jumpID"] integerValue];
