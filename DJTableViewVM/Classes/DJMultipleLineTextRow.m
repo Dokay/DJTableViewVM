@@ -15,7 +15,6 @@
     self = [super init];
     if (self) {
         self.heightCaculateType = DJCellHeightCaculateAutoLayout;
-        self.contentEdgeInsets = UIEdgeInsetsMake(10, 15, 10, 15);
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.numberOfLines = 0;
     }

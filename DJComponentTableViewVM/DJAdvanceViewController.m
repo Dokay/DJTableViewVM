@@ -9,13 +9,17 @@
 #import "DJAdvanceViewController.h"
 #import "DJTableViewVM.h"
 #import "DJMultipleLineTextCell.h"
+#import "DJTableViewVMBoolCell.h"
+#import "DJLog.h"
 
 @interface DJAdvanceViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *tableViewVM;
 
+@property (nonatomic, strong) DJTableViewVMBoolRow *boolRow;
 @property (nonatomic, strong) DJMultipleLineTextRow *multipleLineRow;
+
 
 @end
 
@@ -38,7 +42,7 @@
 - (void)registCells
 {
     DJTableViewRegister(self.tableViewVM, DJMultipleLineTextRow, DJMultipleLineTextCell);
-//    DJTableViewRegister(self.tableViewVM, DJTableViewVMTextViewRow, DJTableViewVMTextViewCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMBoolRow, DJTableViewVMBoolCell);
 }
 
 - (void)configTable
@@ -48,6 +52,7 @@
     DJTableViewVMSection *testSection = [DJTableViewVMSection new];
     [self.tableViewVM addSection:testSection];
     
+    [testSection addRow:self.boolRow];
     [testSection addRow:self.multipleLineRow];
     
 //
@@ -88,6 +93,16 @@
         _tableViewVM = [[DJTableViewVM alloc] initWithTableView:self.tableView];
     }
     return _tableViewVM;
+}
+
+- (DJTableViewVMBoolRow *)boolRow
+{
+    if (_boolRow == nil) {
+        _boolRow = [[DJTableViewVMBoolRow alloc] initWithTitle:@"Switch" value:NO valueChangeHander:^(DJTableViewVMBoolRow *rowVM) {
+            DJLog(@"value :%d",rowVM.value);
+        }];
+    }
+    return _boolRow;
 }
 
 - (DJMultipleLineTextRow *)multipleLineRow

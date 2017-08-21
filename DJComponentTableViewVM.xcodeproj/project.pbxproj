@@ -22,6 +22,8 @@
 		4E554D321F4ADC29008A9933 /* DJMultipleLineTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D311F4ADC29008A9933 /* DJMultipleLineTextCell.m */; };
 		4E554D381F4ADC90008A9933 /* DJMultipleLineTextRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D371F4ADC90008A9933 /* DJMultipleLineTextRow.m */; };
 		4E554D3B1F4AE2A4008A9933 /* DJAdvanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D3A1F4AE2A4008A9933 /* DJAdvanceViewController.m */; };
+		4E554D3E1F4AE9B0008A9933 /* DJTableViewVMBoolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D3D1F4AE9B0008A9933 /* DJTableViewVMBoolCell.m */; };
+		4E554D411F4AE9C9008A9933 /* DJTableViewVMBoolRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D401F4AE9C9008A9933 /* DJTableViewVMBoolRow.m */; };
 		4E6B02D81E6D53BA003F1B91 /* DJTableViewVM.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B02D71E6D53BA003F1B91 /* DJTableViewVM.podspec */; };
 		4E6B03981E6D557B003F1B91 /* DJLazyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03741E6D557B003F1B91 /* DJLazyTaskManager.m */; };
 		4E6B03991E6D557B003F1B91 /* DJLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B03761E6D557B003F1B91 /* DJLog.m */; };
@@ -126,6 +128,10 @@
 		4E554D371F4ADC90008A9933 /* DJMultipleLineTextRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJMultipleLineTextRow.m; sourceTree = "<group>"; };
 		4E554D391F4AE2A4008A9933 /* DJAdvanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAdvanceViewController.h; sourceTree = "<group>"; };
 		4E554D3A1F4AE2A4008A9933 /* DJAdvanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJAdvanceViewController.m; sourceTree = "<group>"; };
+		4E554D3C1F4AE9B0008A9933 /* DJTableViewVMBoolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMBoolCell.h; sourceTree = "<group>"; };
+		4E554D3D1F4AE9B0008A9933 /* DJTableViewVMBoolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMBoolCell.m; sourceTree = "<group>"; };
+		4E554D3F1F4AE9C9008A9933 /* DJTableViewVMBoolRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMBoolRow.h; sourceTree = "<group>"; };
+		4E554D401F4AE9C9008A9933 /* DJTableViewVMBoolRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMBoolRow.m; sourceTree = "<group>"; };
 		4E6B02D71E6D53BA003F1B91 /* DJTableViewVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DJTableViewVM.podspec; sourceTree = "<group>"; };
 		4E6B03731E6D557B003F1B91 /* DJLazyTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLazyTaskManager.h; sourceTree = "<group>"; };
 		4E6B03741E6D557B003F1B91 /* DJLazyTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLazyTaskManager.m; sourceTree = "<group>"; };
@@ -284,6 +290,10 @@
 				4E554D311F4ADC29008A9933 /* DJMultipleLineTextCell.m */,
 				4E554D361F4ADC90008A9933 /* DJMultipleLineTextRow.h */,
 				4E554D371F4ADC90008A9933 /* DJMultipleLineTextRow.m */,
+				4E554D3C1F4AE9B0008A9933 /* DJTableViewVMBoolCell.h */,
+				4E554D3D1F4AE9B0008A9933 /* DJTableViewVMBoolCell.m */,
+				4E554D3F1F4AE9C9008A9933 /* DJTableViewVMBoolRow.h */,
+				4E554D401F4AE9C9008A9933 /* DJTableViewVMBoolRow.m */,
 			);
 			name = AdvanceCells;
 			sourceTree = "<group>";
@@ -550,7 +560,9 @@
 				4E3AED1F1D0FE219000F801F /* DJTableViewVMTextFrameCell.m in Sources */,
 				4E6B03A11E6D557B003F1B91 /* DJTableViewVMRow.m in Sources */,
 				4E6B03A21E6D557B003F1B91 /* DJTableViewVMSection.m in Sources */,
+				4E554D3E1F4AE9B0008A9933 /* DJTableViewVMBoolCell.m in Sources */,
 				4E554D381F4ADC90008A9933 /* DJMultipleLineTextRow.m in Sources */,
+				4E554D411F4AE9C9008A9933 /* DJTableViewVMBoolRow.m in Sources */,
 				4E6B039C1E6D557B003F1B91 /* DJTableViewVM+Properties.m in Sources */,
 				4E554D3B1F4AE2A4008A9933 /* DJAdvanceViewController.m in Sources */,
 				4E6B03A61E6D557B003F1B91 /* DJTableViewVMTextViewRow.m in Sources */,
