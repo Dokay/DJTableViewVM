@@ -17,6 +17,8 @@
 
 @interface DJTableViewVMTextFieldCell()
 
+@property (nonatomic, strong) UITextField *textField;
+
 @end
 
 @implementation DJTableViewVMTextFieldCell

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DJTableViewVMTextViewCell : DJTableViewVMCell
 
 @property(nonatomic, strong) DJTableViewVMTextViewRow *rowVM;
-@property(nonatomic, strong) UITextView *textView;
+@property(nonatomic, readonly) UITextView *textView;
 
 @end
 

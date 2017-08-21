@@ -14,6 +14,7 @@
 
 @interface DJTableViewVMTextViewCell()<UITextViewDelegate>
 
+@property(nonatomic, strong) UITextView *textView;
 @property(nonatomic, strong) UILabel *placeholderLabel;
 @property(nonatomic, strong) UILabel *charactersLabel;
 
