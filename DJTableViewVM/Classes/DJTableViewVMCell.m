@@ -64,6 +64,8 @@
             [self setPreservesSuperviewLayoutMargins:NO];
         }
     }
+    
+    [self refreshCurrentSeparatorLine];
 }
 
 - (void)cellDidDisappear
@@ -75,7 +77,13 @@
 {
     [super layoutSubviews];
     
-    [self refreshCurrentSeparatorLine];
+    DJRectSetLeft(self.textLabel,self.rowVM.elementEdge.left);
+    DJRectSetRight(self.detailTextLabel,self.rowVM.elementEdge.right);
+    
+    [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView * _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
+        DJRectSetLeft(separatorLineView,self.rowVM.elementEdge.left);
+    }];
+    
     [self refreshIndentationWidth];
 }
 

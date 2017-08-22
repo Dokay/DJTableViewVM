@@ -23,10 +23,10 @@
     
     [self.contentView addSubview:self.multipleLinesLabel];
     
-    NSDictionary *metrics=@{@"leftMargin":@(self.rowVM.contentEdgeInsets.left),
-                            @"topMargin":@(self.rowVM.contentEdgeInsets.top),
-                            @"rightMargin":@(self.rowVM.contentEdgeInsets.right),
-                            @"bottomMargin":@(self.rowVM.contentEdgeInsets.bottom),};
+    NSDictionary *metrics=@{@"leftMargin":@(self.rowVM.elementEdge.left),
+                            @"topMargin":@(self.rowVM.elementEdge.top),
+                            @"rightMargin":@(self.rowVM.elementEdge.right),
+                            @"bottomMargin":@(self.rowVM.elementEdge.bottom),};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-topMargin-[_multipleLinesLabel]-bottomMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_multipleLinesLabel)]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-leftMargin-[_multipleLinesLabel]-rightMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_multipleLinesLabel)]];
 }

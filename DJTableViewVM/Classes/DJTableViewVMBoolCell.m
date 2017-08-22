@@ -19,7 +19,7 @@
     
     [self.contentView addSubview:self.switchView];
     
-    NSDictionary *metrics = @{@"rightMargin": @(self.rowVM.contentEdgeInsets.right)};
+    NSDictionary *metrics = @{@"rightMargin": @(self.rowVM.elementEdge.right)};
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.switchView
                                                                  attribute:NSLayoutAttributeCenterY
                                                                  relatedBy:NSLayoutRelationEqual
@@ -50,7 +50,7 @@
 {
     [super layoutSubviews];
     if (self.textLabel.frame.origin.x + self.textLabel.frame.size.width >= self.switchView.frame.origin.x){
-        self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, self.textLabel.frame.origin.y, self.frame.size.width - self.textLabel.frame.origin.x - self.switchView.frame.size.width - 10.0 - self.rowVM.contentEdgeInsets.right, self.textLabel.frame.size.height);
+        self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, self.textLabel.frame.origin.y, self.frame.size.width - self.textLabel.frame.origin.x - self.switchView.frame.size.width - 10.0 - self.rowVM.elementEdge.right, self.textLabel.frame.size.height);
     }
     
     self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;

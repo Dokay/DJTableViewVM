@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define DJRectSetLeft(view,left_value) (view).frame = CGRectMake((left_value), (view).frame.origin.y, (view).frame.size.width, (view).frame.size.height)
+#define DJRectSetRight(view,right_value) (view).frame = CGRectMake(self.contentView.frame.size.width - (view).frame.size.width - right_value, (view).frame.origin.y, (view).frame.size.width, (view).frame.size.height)
+
 @class DJTableViewVM;
 @class DJTableViewVMRow;
 @class DJTableViewVMSection;
@@ -37,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)heightWithRow:(DJTableViewVMRow *)row tableViewVM:(DJTableViewVM *)tableViewVM;
 
+#pragma mark - life cycle
 - (void)cellDidLoad;
 - (void)cellWillAppear;
 - (void)cellDidDisappear;
