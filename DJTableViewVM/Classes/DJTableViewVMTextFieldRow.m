@@ -22,8 +22,8 @@
         _autocapitalizationType = UITextAutocapitalizationTypeSentences;
         _minimumFontSize = 0.0f;
         _clearButtonMode = UITextFieldViewModeNever;
-        _enabled = YES;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        self.enabled = YES;
     }
     return self;
 }

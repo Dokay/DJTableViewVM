@@ -16,7 +16,7 @@
     if (self) {
         _valueChangeBlock = valueChangeBlock;
         _value = aValue;
-        _enabled = YES;
+        self.enabled = YES;
         self.title = aTitle;
     }
     

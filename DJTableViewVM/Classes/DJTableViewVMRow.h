@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) CGFloat indentationLevel;
 @property (nonatomic, assign) UIEdgeInsets elementEdge;
 
+@property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, strong, nullable) NSObject *paramObject;
 @property (nonatomic, strong, readonly) NSIndexPath *indexPath;
 

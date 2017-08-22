@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DJTableViewVMTextFieldRow : DJTableViewVMRow<DJInputRowProtocol>
 
-@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
+//@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable.default is YES.
 @property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.default is UITableViewScrollPositionBottom.it works when keyboardManageEnabled in DJTableViewVM set YES.
 @property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 

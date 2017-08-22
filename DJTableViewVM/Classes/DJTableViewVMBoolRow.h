@@ -14,7 +14,6 @@ typedef void(^switchValueChangeBlock)(DJTableViewVMBoolRow *rowVM);
 @interface DJTableViewVMBoolRow : DJTableViewVMRow
 
 @property (nonatomic, assign) BOOL value;
-@property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, copy) switchValueChangeBlock valueChangeBlock;
 
 - (instancetype)initWithTitle:(NSString *)aTitle value:(BOOL)aValue valueChangeHander:(switchValueChangeBlock)valueChangeBlock;

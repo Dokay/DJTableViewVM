@@ -35,6 +35,7 @@
     self.indentationLevel = 0;
     self.indentationWidth = 10;
     self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
+    self.enabled = YES;
     
     return self;
 }

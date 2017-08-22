@@ -13,6 +13,7 @@
 #import "DJLog.h"
 #import "DJTableViewVMOptionRow.h"
 #import "DJTableViewVMOptionsController.h"
+#import "DJTableViewVMSegmentedCell.h"
 
 @interface DJAdvanceViewController ()
 
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) DJMultipleLineTextRow *multipleLineRow;
 @property (nonatomic, strong) DJTableViewVMOptionRow *optionRow;
 @property (nonatomic, strong) DJTableViewVMOptionRow *multipleChoiceRow;
+@property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
 
 
 @end
@@ -47,7 +49,8 @@
 {
     DJTableViewRegister(self.tableViewVM, DJMultipleLineTextRow, DJMultipleLineTextCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMBoolRow, DJTableViewVMBoolCell);
-    DJTableViewRegister(self.tableViewVM, DJTableViewVMOptionRow, DJTableViewVMCell)
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMOptionRow, DJTableViewVMCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMSegmentedRow, DJTableViewVMSegmentedCell);
 }
 
 - (void)configTable
@@ -61,15 +64,16 @@
     [testSection addRow:self.multipleLineRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
+    [testSection addRow:self.segmentRow];
     
 //
 //    for (NSInteger i = 0; i < 8; i++) {
 //        DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
 //        rowVM.cellHeight = 50;
 //        rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
-//        [textTestSection addRow:rowVM];
+//        [testSection addRow:rowVM];
 //    }
-//    
+//
 //    [textTestSection addRow:self.textFieldRow];
 //    [textTestSection addRow:self.textViewRow];
 //    
@@ -169,6 +173,16 @@
         }];
     }
     return _multipleChoiceRow;
+}
+
+- (DJTableViewVMSegmentedRow *)segmentRow
+{
+    if (_segmentRow == nil) {
+        _segmentRow = [[DJTableViewVMSegmentedRow alloc] initWithTitle:@"Segmented" segmentedControlTitles:@[@"Segment 1",@"Segment 2"] index:0 switchValueChangeHandler:^(DJTableViewVMSegmentedRow *rowVM) {
+            DJLog(@"index :%d",rowVM.selectIndex);
+        }];
+    }
+    return _segmentRow;
 }
 
 
