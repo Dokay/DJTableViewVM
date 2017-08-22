@@ -16,7 +16,7 @@
 
 @property(nonatomic, strong) UITextView *textView;
 @property(nonatomic, strong) UILabel *placeholderLabel;
-@property(nonatomic, strong) UILabel *charactersLabel;
+@property(nonatomic, strong) UILabel *textCountLabel;
 
 @end
 
@@ -30,7 +30,10 @@
     
     [self.contentView addSubview:self.textView];
     [self.contentView addSubview:self.placeholderLabel];
-    [self.contentView addSubview:self.charactersLabel];
+    [self.contentView addSubview:self.textCountLabel];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_textCountLabel(>=10)]-(15)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textCountLabel]-(10)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
 }
 
 - (void)cellWillAppear
@@ -46,8 +49,8 @@
         self.placeholderLabel.attributedText = textRow.attributedPlaceholder;
     }
     
-    self.charactersLabel.textColor = textRow.charactersCountColor;
-    self.charactersLabel.font = textRow.charactersCountFont;
+    self.textCountLabel.textColor = textRow.charactersCountColor;
+    self.textCountLabel.font = textRow.charactersCountFont;
     
     self.textView.text = textRow.text;
     self.textView.textColor = textRow.textColor;
@@ -107,7 +110,7 @@
     CGRect placeholderRect = [self.placeholderLabel textRectForBounds:textFrame limitedToNumberOfLines:0];
     self.placeholderLabel.frame = placeholderRect;
     
-    self.charactersLabel.frame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y + self.textView.frame.size.height - 20, self.textView.frame.size.width - 10, 20);
+//    self.charactersLabel.frame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y + self.textView.frame.size.height - 20, self.textView.frame.size.width - 10, 20);
 }
 
 - (BOOL)becomeFirstResponder
@@ -127,8 +130,8 @@
 {
     self.placeholderLabel.hidden = textView.text.length != 0;
     
-    self.charactersLabel.text = [NSString stringWithFormat:@"%@/%@",@(textView.text.length),@(self.rowVM.charactersMaxCount)];
-    self.charactersLabel.hidden = self.rowVM.showCharactersCount != YES || self.rowVM.charactersMaxCount == 0;
+    self.textCountLabel.text = [NSString stringWithFormat:@"%@/%@",@(textView.text.length),@(self.rowVM.charactersMaxCount)];
+    self.textCountLabel.hidden = self.rowVM.showCharactersCount != YES || self.rowVM.charactersMaxCount == 0;
 }
 
 #pragma mark - UITextViewDelegate
@@ -243,14 +246,15 @@
     return _placeholderLabel;
 }
 
-- (UILabel *)charactersLabel
+- (UILabel *)textCountLabel
 {
-    if (_charactersLabel == nil) {
-        _charactersLabel = [UILabel new];
-        _charactersLabel.textAlignment = NSTextAlignmentRight;
-        _charactersLabel.userInteractionEnabled = NO;
+    if (_textCountLabel == nil) {
+        _textCountLabel = [UILabel new];
+        _textCountLabel.textAlignment = NSTextAlignmentRight;
+        _textCountLabel.userInteractionEnabled = NO;
+        _textCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
-    return _charactersLabel;
+    return _textCountLabel;
 }
 
 @end

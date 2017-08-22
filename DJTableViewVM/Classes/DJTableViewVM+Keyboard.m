@@ -49,6 +49,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(inputDidBeginEditingNotification:)
                                                      name:UITextViewTextDidBeginEditingNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(inputDidBeginEditingNotification:)
+                                                     name:UITextViewTextDidChangeNotification object:nil];
         state.isKeyboardRegist = YES;
     }
 }
@@ -187,7 +190,7 @@
         
        void (^cacluateScrollOffset)() = ^(){
             destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
-            destScrollOffset += self.offsetUnderResponder;
+//            destScrollOffset += self.offsetUnderResponder;
         };
         switch (focusScrollPosition) {
             case UITableViewScrollPositionNone:
@@ -210,7 +213,7 @@
                 break;
             case UITableViewScrollPositionBottom:
             {
-                responderViewTopOffsetInView = tableViewScrollHeight - responderViewInTableView.size.height;
+                responderViewTopOffsetInView = tableViewScrollHeight - responderViewInTableView.size.height - self.offsetUnderResponder;
                 cacluateScrollOffset();
             }
                 break;

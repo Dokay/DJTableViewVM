@@ -116,6 +116,8 @@
         _textViewRow = [DJTableViewVMTextViewRow new];
         _textViewRow.placeholder = @"Please input your address";
         _textViewRow.showCharactersCount = YES;
+        _textViewRow.focusScrollPosition = UITableViewScrollPositionTop;
+        _textViewRow.charactersMaxCount = 200;
     }
     return _textViewRow;
 }

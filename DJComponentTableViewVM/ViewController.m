@@ -157,7 +157,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             if ([rowVM.title isEqualToString:@"TextInputDemo"]) {
                 DJInputCellTestController *aDJInputCellTestController = [DJInputCellTestController new];
                 [weakSelf.navigationController pushViewController:aDJInputCellTestController animated:YES];
-            }if ([rowVM.title isEqualToString:@"AdvanceCellDemo"]) {
+            }else if([rowVM.title isEqualToString:@"AdvanceCellDemo"]) {
                 DJAdvanceViewController *aDJAdvanceViewController = [DJAdvanceViewController new];
                 [weakSelf.navigationController pushViewController:aDJAdvanceViewController animated:YES];
             }else{
