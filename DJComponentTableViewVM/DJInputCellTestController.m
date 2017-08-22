@@ -105,7 +105,7 @@
         [_textFieldRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
             NSLog(@"more than 8");
         }];
-        _textFieldRow.title = @"Name：";
+        _textFieldRow.title = @"Name: ";
     }
     return _textFieldRow;
 }
