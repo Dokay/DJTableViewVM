@@ -14,6 +14,7 @@
 #import "DJTableViewVMOptionRow.h"
 #import "DJTableViewVMOptionsController.h"
 #import "DJTableViewVMSegmentedCell.h"
+#import "DJTableViewVMPickerCell.h"
 
 @interface DJAdvanceViewController ()
 
@@ -25,6 +26,7 @@
 @property (nonatomic, strong) DJTableViewVMOptionRow *optionRow;
 @property (nonatomic, strong) DJTableViewVMOptionRow *multipleChoiceRow;
 @property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
+@property (nonatomic, strong) DJTableViewVMPickerRow *pickerRow;
 
 
 @end
@@ -51,6 +53,7 @@
     DJTableViewRegister(self.tableViewVM, DJTableViewVMBoolRow, DJTableViewVMBoolCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMOptionRow, DJTableViewVMCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMSegmentedRow, DJTableViewVMSegmentedCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMPickerRow, DJTableViewVMPickerCell);
 }
 
 - (void)configTable
@@ -62,6 +65,7 @@
     
     [testSection addRow:self.boolRow];
     [testSection addRow:self.multipleLineRow];
+    [testSection addRow:self.pickerRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
@@ -102,6 +106,7 @@
 {
     if (_tableViewVM == nil) {
         _tableViewVM = [[DJTableViewVM alloc] initWithTableView:self.tableView];
+        _tableViewVM.keyboardManageEnabled = YES;
     }
     return _tableViewVM;
 }
@@ -183,6 +188,21 @@
         }];
     }
     return _segmentRow;
+}
+
+- (DJTableViewVMPickerRow *)pickerRow
+{
+    if (_pickerRow == nil) {
+        NSMutableArray *options = [NSMutableArray new];
+        for (NSInteger i = 0; i < 10; i++) {
+            [options addObject:[NSString stringWithFormat:@"Picker %@",@(i)]];
+        }
+        _pickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select " options:@[options.copy,options.copy]];
+        [_pickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
+            DJLog(@"value:%@ index:%@",rowVM.valueArray,rowVM.selectIndexArray);
+        }];
+    }
+    return _pickerRow;
 }
 
 

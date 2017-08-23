@@ -92,11 +92,6 @@
     self.userInteractionEnabled = textRow.enabled;
 }
 
-- (void)openKeyboardAuto
-{
-    [self.textField becomeFirstResponder];
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
