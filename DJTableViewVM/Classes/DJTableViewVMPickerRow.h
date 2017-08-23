@@ -8,6 +8,7 @@
 
 #import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
 #import "DJInputRowProtocol.h"
+#import "DJValueProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,14 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 @property(nonatomic, copy) NSArray<NSArray *> *optionsArray;
-@property(nonatomic, copy) NSArray *valueArray;
+@property(nonatomic, copy) NSArray<NSString *> *valueArray;
 @property(nonatomic, copy, nullable) NSString *placeholder;//drawn 70% gray
 @property(nonatomic, copy, nullable) NSAttributedString *attributedPlaceholder;//default is nil
-@property(nonatomic, readonly) NSArray *selectIndexArray;
+@property(nonatomic, readonly) NSArray<NSNumber *> *selectIndexArray;
 
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
 
-- (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray *> *)optionsArray;
+- (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray<NSString *> *> *)optionsArray;
+- (id)initWithTitle:(NSString *)title protocolValue:(nullable NSArray<DJValueProtocol> *)originalValueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray;
 
 
 @end

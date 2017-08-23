@@ -84,6 +84,9 @@
     
     self.detailTextLabel.userInteractionEnabled = NO;
     self.textLabel.userInteractionEnabled = NO;
+    if (self.rowVM.toolbarTintColor) {
+        self.accessoryView.tintColor = self.rowVM.toolbarTintColor;
+    }
 }
 
 - (void)updateCurrentValue

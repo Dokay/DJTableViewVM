@@ -51,7 +51,7 @@
     DJTableViewVMSection *textTestSection = [DJTableViewVMSection new];
     [self.tableViewVM addSection:textTestSection];
     
-    for (NSInteger i = 0; i < 8; i++) {
+    for (NSInteger i = 0; i < 5; i++) {
         DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
         rowVM.cellHeight = 50;
         rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
