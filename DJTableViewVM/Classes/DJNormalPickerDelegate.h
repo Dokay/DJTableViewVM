@@ -15,6 +15,7 @@
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray;
+- (NSArray *)selectedObjects;
 
 
 @end

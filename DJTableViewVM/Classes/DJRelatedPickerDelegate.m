@@ -59,6 +59,20 @@
     
 }
 
+- (NSArray *)selectedObjects;
+{
+    NSMutableArray *valuesArray = [NSMutableArray array];
+    
+    NSInteger componentCount = [self getComponentCount];
+    for (NSInteger i = 0; i < componentCount; i++) {
+        NSArray *currentComponentElements = [self getValuesWithConponent:i];
+        NSString *valueObject = [currentComponentElements objectAtIndex:[self.pickerView selectedRowInComponent:i]];
+        [valuesArray addObject:valueObject];
+    }
+    
+    return valuesArray;
+}
+
 - (NSInteger)getComponentCount
 {
     NSInteger tmpComponent = 0;

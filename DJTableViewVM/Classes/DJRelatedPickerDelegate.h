@@ -16,5 +16,6 @@
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray;
+- (NSArray *)selectedObjects;
 
 @end

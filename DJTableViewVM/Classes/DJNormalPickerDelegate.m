@@ -36,6 +36,11 @@
     }];
 }
 
+- (NSArray *)selectedObjects
+{
+    return [self updateCurrentValue];
+}
+
 - (NSArray *)updateCurrentValue
 {
     NSMutableArray *valuesArray = [NSMutableArray array];

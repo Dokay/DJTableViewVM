@@ -33,21 +33,25 @@
 
 - (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray *> *)optionsArray
 {
-    self = [super init];
+    self = [self initWithTitle:title value:valueArray placeholder:placeholder];
     if (self) {
-        self.title = title;
-        self.style = UITableViewCellStyleValue1;
-        self.elementEdge = UIEdgeInsetsMake(self.elementEdge.top, self.elementEdge.left, self.elementEdge.bottom, 0);
-        _valueArray = valueArray;
-        _placeholder = placeholder;
         _optionsArray = optionsArray;
-        _focusScrollPosition = UITableViewScrollPositionBottom;
         _pickerDelegate = [[DJNormalPickerDelegate alloc] initWithOptions:_optionsArray];
     }
     return self;
 }
 
 - (id)initWithTitle:(NSString *)title value:(NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder relatedOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)relatedOptionsArray
+{
+    self = [self initWithTitle:title value:valueArray placeholder:placeholder];
+    if (self) {
+        _relatedOptionsArray = relatedOptionsArray;
+        _pickerDelegate = [[DJRelatedPickerDelegate alloc] initWithOptions:_relatedOptionsArray];
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString *)title value:(NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder
 {
     self = [super init];
     if (self) {
@@ -56,9 +60,8 @@
         self.elementEdge = UIEdgeInsetsMake(self.elementEdge.top, self.elementEdge.left, self.elementEdge.bottom, 0);
         _valueArray = valueArray;
         _placeholder = placeholder;
-        _relatedOptionsArray = relatedOptionsArray;
         _focusScrollPosition = UITableViewScrollPositionBottom;
-        _pickerDelegate = [[DJRelatedPickerDelegate alloc] initWithOptions:_relatedOptionsArray];
+   
     }
     return self;
 }
@@ -73,6 +76,11 @@
         }];
     }
     return indexArray.copy;
+}
+
+- (NSArray *)selectedObjectsArray
+{
+    return [(DJRelatedPickerDelegate *)self.pickerDelegate selectedObjects];
 }
 
 

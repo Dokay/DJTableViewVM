@@ -29,7 +29,7 @@
 {
     [super cellWillAppear];
     
-    
+    self.pickerView.backgroundColor = self.rowVM.pickerBackgroundColor;
     self.pickerView.delegate = self.rowVM.pickerDelegate;
     self.pickerView.dataSource = self.rowVM.pickerDelegate;
     self.rowVM.pickerDelegate.pickerView = self.pickerView;

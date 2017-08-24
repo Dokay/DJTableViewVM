@@ -16,5 +16,6 @@
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (void)setSelectedWithValue:(NSArray *)valuesArray;
+- (NSArray *)selectedObjects;
 
 @end
