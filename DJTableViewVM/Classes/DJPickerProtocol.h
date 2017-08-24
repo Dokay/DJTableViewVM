@@ -12,6 +12,7 @@
 @protocol DJPickerProtocol <UIPickerViewDelegate,UIPickerViewDataSource>
 
 @required
+@property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (void)setSelectedWithValue:(NSArray *)valuesArray;

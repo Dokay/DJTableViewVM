@@ -12,12 +12,9 @@
 
 @interface DJRelatedPickerDelegate : NSObject<DJPickerProtocol>
 
+@property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
-- (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray pickerView:(UIPickerView *)pickerView;
-
-//- (NSArray *)getValuesWithConponent:(NSInteger)component;
-//- (NSString *)readValueObject:(NSObject *)valueObject;
-//- (NSInteger)getComponentCount;
+- (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray;
 
 @end

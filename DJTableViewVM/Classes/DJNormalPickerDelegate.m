@@ -10,18 +10,16 @@
 
 @interface DJNormalPickerDelegate()
 
-@property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, weak) NSArray<NSArray *> *optionsArray;
 
 @end
 
 @implementation DJNormalPickerDelegate
 
-- (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray pickerView:(UIPickerView *)pickerView
+- (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray
 {
     self = [super init];
     if (self) {
-        _pickerView = pickerView;
         _optionsArray = optionsArray;
     }
     return self;

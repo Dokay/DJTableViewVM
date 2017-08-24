@@ -9,6 +9,7 @@
 #import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
 #import "DJInputRowProtocol.h"
 #import "DJValueProtocol.h"
+#import "DJPickerProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,17 +20,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.it works when keyboardManageEnabled in DJTableViewVM set YES.
 @property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
-@property(nonatomic, copy) NSArray<NSArray *> *optionsArray;
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;
 @property(nonatomic, copy, nullable) NSString *placeholder;//drawn 70% gray
 @property(nonatomic, copy, nullable) NSAttributedString *attributedPlaceholder;//default is nil
 @property(nonatomic, readonly) NSArray<NSNumber *> *selectIndexArray;
-@property(nonatomic, copy) NSArray<NSArray<DJRelatedPickerValueProtocol> *> *relatedOptionsArray;
+@property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
 
 - (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray<NSString *> *> *)optionsArray;
 - (id)initWithTitle:(NSString *)title protocolValue:(nullable NSArray<DJValueProtocol> *)originalValueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray;
+
+- (id)initWithTitle:(NSString *)title value:(NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder relatedOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)relatedOptionsArray;
 
 @end
 

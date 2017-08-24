@@ -80,8 +80,6 @@
 		4E81CF4C1DB75DF900C8A458 /* DJTableViewVMFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E81CF471DB75D6700C8A458 /* DJTableViewVMFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EB32C7F1E793EF50040470D /* DJComponentTableViewVMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */; };
 		4EC4951C1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4951B1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.m */; };
-		4EC4951F1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4951E1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.m */; };
-		4EC495221F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC495211F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.m */; };
 		4EC495251F4ED3000008D6E5 /* DJNormalPickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */; };
 		4EC495281F4ED3260008D6E5 /* DJRelatedPickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC495271F4ED3260008D6E5 /* DJRelatedPickerDelegate.m */; };
 		4ECE916F1E56F3D70026F32C /* DJInputCellTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE916E1E56F3D70026F32C /* DJInputCellTestController.m */; };
@@ -201,10 +199,6 @@
 		4EB32C801E793EF50040470D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EC4951A1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMChooseBaseCell.h; sourceTree = "<group>"; };
 		4EC4951B1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMChooseBaseCell.m; sourceTree = "<group>"; };
-		4EC4951D1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMRelatedPickerCell.h; sourceTree = "<group>"; };
-		4EC4951E1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMRelatedPickerCell.m; sourceTree = "<group>"; };
-		4EC495201F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMRelatedPickerRow.h; sourceTree = "<group>"; };
-		4EC495211F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMRelatedPickerRow.m; sourceTree = "<group>"; };
 		4EC495231F4ED3000008D6E5 /* DJNormalPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJNormalPickerDelegate.h; sourceTree = "<group>"; };
 		4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJNormalPickerDelegate.m; sourceTree = "<group>"; };
 		4EC495261F4ED3260008D6E5 /* DJRelatedPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRelatedPickerDelegate.h; sourceTree = "<group>"; };
@@ -321,6 +315,7 @@
 		4E554D2F1F4ADBB2008A9933 /* AdvanceCells */ = {
 			isa = PBXGroup;
 			children = (
+				4EC4952C1F4EE0950008D6E5 /* Picker */,
 				4E554D301F4ADC29008A9933 /* DJMultipleLineTextCell.h */,
 				4E554D311F4ADC29008A9933 /* DJMultipleLineTextCell.m */,
 				4E554D361F4ADC90008A9933 /* DJMultipleLineTextRow.h */,
@@ -339,20 +334,6 @@
 				4E09F7F31F4C36D6006223AC /* DJTableViewVMSegmentedCell.m */,
 				4EC4951A1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.h */,
 				4EC4951B1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.m */,
-				4E09F7F51F4D1FE5006223AC /* DJTableViewVMPickerCell.h */,
-				4E09F7F61F4D1FE5006223AC /* DJTableViewVMPickerCell.m */,
-				4E09F7F81F4D203D006223AC /* DJTableViewVMPickerRow.h */,
-				4E09F7F91F4D203D006223AC /* DJTableViewVMPickerRow.m */,
-				4E09F7FB1F4D6557006223AC /* DJValueProtocol.h */,
-				4EC4951D1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.h */,
-				4EC4951E1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.m */,
-				4EC495201F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.h */,
-				4EC495211F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.m */,
-				4EC495231F4ED3000008D6E5 /* DJNormalPickerDelegate.h */,
-				4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */,
-				4EC495261F4ED3260008D6E5 /* DJRelatedPickerDelegate.h */,
-				4EC495271F4ED3260008D6E5 /* DJRelatedPickerDelegate.m */,
-				4EC495291F4ED36E0008D6E5 /* DJPickerProtocol.h */,
 			);
 			name = AdvanceCells;
 			sourceTree = "<group>";
@@ -442,6 +423,23 @@
 				4EB32C801E793EF50040470D /* Info.plist */,
 			);
 			path = DJComponentTableViewVMUITests;
+			sourceTree = "<group>";
+		};
+		4EC4952C1F4EE0950008D6E5 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				4EC495291F4ED36E0008D6E5 /* DJPickerProtocol.h */,
+				4E09F7FB1F4D6557006223AC /* DJValueProtocol.h */,
+				4E09F7F51F4D1FE5006223AC /* DJTableViewVMPickerCell.h */,
+				4E09F7F61F4D1FE5006223AC /* DJTableViewVMPickerCell.m */,
+				4E09F7F81F4D203D006223AC /* DJTableViewVMPickerRow.h */,
+				4E09F7F91F4D203D006223AC /* DJTableViewVMPickerRow.m */,
+				4EC495231F4ED3000008D6E5 /* DJNormalPickerDelegate.h */,
+				4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */,
+				4EC495261F4ED3260008D6E5 /* DJRelatedPickerDelegate.h */,
+				4EC495271F4ED3260008D6E5 /* DJRelatedPickerDelegate.m */,
+			);
+			name = Picker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -610,10 +608,8 @@
 				4ECE916F1E56F3D70026F32C /* DJInputCellTestController.m in Sources */,
 				4E6B039E1E6D557B003F1B91 /* DJTableViewVM+UITableViewDelegate.m in Sources */,
 				4E3AED221D0FE219000F801F /* DJTableViewVMTextTestRow.m in Sources */,
-				4EC495221F4EB7E60008D6E5 /* DJTableViewVMRelatedPickerRow.m in Sources */,
 				4E6B039D1E6D557B003F1B91 /* DJTableViewVM+UIScrollViewDelegate.m in Sources */,
 				4ED9F9031D24F8030035D288 /* DJAlertView.m in Sources */,
-				4EC4951F1F4EB7CB0008D6E5 /* DJTableViewVMRelatedPickerCell.m in Sources */,
 				4E6B03A31E6D557B003F1B91 /* DJTableViewVMTextFieldCell.m in Sources */,
 				4E6B039B1E6D557B003F1B91 /* DJTableViewVM+Keyboard.m in Sources */,
 				4E554D321F4ADC29008A9933 /* DJMultipleLineTextCell.m in Sources */,

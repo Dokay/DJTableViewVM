@@ -10,18 +10,16 @@
 
 @interface DJRelatedPickerDelegate()
 
-@property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, weak) NSArray<NSArray<DJRelatedPickerValueProtocol> *> *relatedOptionsArray;
 
 @end
 
 @implementation DJRelatedPickerDelegate
 
-- (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray pickerView:(UIPickerView *)pickerView
+- (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray
 {
     self = [super init];
     if (self) {
-        _pickerView = pickerView;
         _relatedOptionsArray = optionsArray;
     }
     return self;
@@ -59,9 +57,6 @@
     
     return valuesArray;
     
-//    self.rowVM.valueArray = [valuesArray copy];
-//    self.detailTextLabel.text = self.rowVM.valueArray ? [self.rowVM.valueArray componentsJoinedByString:@","] : @"";
-//    self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;
 }
 
 - (NSInteger)getComponentCount

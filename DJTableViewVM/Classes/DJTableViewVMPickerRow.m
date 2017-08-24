@@ -7,9 +7,13 @@
 //
 
 #import "DJTableViewVMPickerRow.h"
+#import "DJNormalPickerDelegate.h"
+#import "DJRelatedPickerDelegate.h"
 
 @interface DJTableViewVMPickerRow()
 
+@property(nonatomic, copy) NSArray<NSArray *> *optionsArray;
+@property(nonatomic, copy) NSArray<NSArray<DJRelatedPickerValueProtocol> *> *relatedOptionsArray;
 
 @end
 
@@ -38,6 +42,23 @@
         _placeholder = placeholder;
         _optionsArray = optionsArray;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        _pickerDelegate = [[DJNormalPickerDelegate alloc] initWithOptions:_optionsArray];
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString *)title value:(NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder relatedOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)relatedOptionsArray
+{
+    self = [super init];
+    if (self) {
+        self.title = title;
+        self.style = UITableViewCellStyleValue1;
+        self.elementEdge = UIEdgeInsetsMake(self.elementEdge.top, self.elementEdge.left, self.elementEdge.bottom, 0);
+        _valueArray = valueArray;
+        _placeholder = placeholder;
+        _relatedOptionsArray = relatedOptionsArray;
+        _focusScrollPosition = UITableViewScrollPositionBottom;
+        _pickerDelegate = [[DJRelatedPickerDelegate alloc] initWithOptions:_relatedOptionsArray];
     }
     return self;
 }

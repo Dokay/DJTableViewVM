@@ -11,9 +11,10 @@
 
 @interface DJNormalPickerDelegate : NSObject<DJPickerProtocol>
 
+@property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
-- (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray pickerView:(UIPickerView *)pickerView;
+- (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray;
 
 
 @end
