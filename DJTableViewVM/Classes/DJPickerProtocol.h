@@ -1,5 +1,5 @@
 //
-//  DJNormalPickerDelegate.h
+//  DJPickerProtocol.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/8/24.
@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DJPickerProtocol.h"
+@import UIKit;
 
-@interface DJNormalPickerDelegate : NSObject<DJPickerProtocol>
+@protocol DJPickerProtocol <UIPickerViewDelegate,UIPickerViewDataSource>
 
+@required
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
-- (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray pickerView:(UIPickerView *)pickerView;
-
+- (void)setSelectedWithValue:(NSArray *)valuesArray;
 
 @end

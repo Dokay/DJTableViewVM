@@ -7,11 +7,11 @@
 //
 
 #import "DJTableViewVMPickerCell.h"
-#import "DJToolBar.h"
+#import "DJNormalPickerDelegate.h"
 
-@interface DJTableViewVMPickerCell()<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface DJTableViewVMPickerCell()
 
-
+@property(nonatomic, strong) DJNormalPickerDelegate *normalPickerDelegate;
 
 @end
 
@@ -23,6 +23,8 @@
     [super cellDidLoad];
     
     self.textField.inputView = self.pickerView;
+    self.pickerView.delegate = self.normalPickerDelegate;
+    self.pickerView.dataSource = self.normalPickerDelegate;
 }
 
 - (void)cellWillAppear
@@ -41,75 +43,61 @@
     self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;
 }
 
-- (void)updateCurrentValue
+- (void)updateCurrentValue:(NSArray *)valuesArray
 {
-    NSMutableArray *valuesArray = [NSMutableArray array];
-    
-    [self.rowVM.optionsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSArray *options = [self.rowVM.optionsArray objectAtIndex:idx];
-        NSString *valueText = [options objectAtIndex:[self.pickerView selectedRowInComponent:idx]];
-        [valuesArray addObject:valueText];
-    }];
+//    NSMutableArray *valuesArray = [NSMutableArray array];
+//    
+//    [self.rowVM.optionsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        NSArray *options = [self.rowVM.optionsArray objectAtIndex:idx];
+//        NSString *valueText = [options objectAtIndex:[self.pickerView selectedRowInComponent:idx]];
+//        [valuesArray addObject:valueText];
+//    }];
     self.rowVM.valueArray = [valuesArray copy];
     self.detailTextLabel.text = self.rowVM.valueArray ? [self.rowVM.valueArray componentsJoinedByString:@","] : @"";
     self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;
+    
+    if (self.rowVM.onValueChangeHandler) {
+        self.rowVM.onValueChangeHandler(self.rowVM);
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     if (selected) {
-        [self.rowVM.valueArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull valueElement, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (self.rowVM.optionsArray.count > idx) {
-                NSArray *componentArray = self.rowVM.optionsArray[idx];
-                NSInteger destRow = [componentArray indexOfObject:valueElement];
-                [self.pickerView selectRow:destRow inComponent:idx animated:NO];
-            }
-        }];
+//        [self.rowVM.valueArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull valueElement, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if (self.rowVM.optionsArray.count > idx) {
+//                NSArray *componentArray = self.rowVM.optionsArray[idx];
+//                NSInteger destRow = [componentArray indexOfObject:valueElement];
+//                [self.pickerView selectRow:destRow inComponent:idx animated:NO];
+//            }
+//        }];
+        [self.normalPickerDelegate setSelectedWithValue:self.rowVM.valueArray];
     }
 }
 
-#pragma mark UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return self.rowVM.optionsArray.count;
-}
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    NSArray<NSString *> *titlesArray = [self.rowVM.optionsArray objectAtIndex:component];
-    NSAssert([titlesArray isKindOfClass:[NSArray class]], @"elements of optionsArray is also array");
-    return [titlesArray count];
-}
-
-#pragma mark UIPickerViewDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    NSArray<NSString *> *titlesArray = [self.rowVM.optionsArray objectAtIndex:component];
-    return [titlesArray objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    [self updateCurrentValue];
-    if (self.rowVM.onValueChangeHandler){
-        self.rowVM.onValueChangeHandler(self.rowVM);
-    }
-    
-    [pickerView reloadAllComponents];
-    [self updateCurrentValue];
-    
-}
 
 #pragma mark - getter
 - (UIPickerView *)pickerView
 {
     if (_pickerView == nil) {
         _pickerView = [[UIPickerView alloc] initWithFrame:CGRectNull];
-        _pickerView.delegate = self;
-        _pickerView.dataSource = self;
     }
     return _pickerView;
+}
+
+- (DJNormalPickerDelegate *)normalPickerDelegate
+{
+    if (_normalPickerDelegate == nil) {
+        _normalPickerDelegate = [[DJNormalPickerDelegate alloc] initWithOptions:self.rowVM.optionsArray pickerView:self.pickerView];
+        
+        __weak typeof(self) weakSelf = self;
+        [_normalPickerDelegate setValueChangeBlock:^(NSArray *valuesArray){
+            [weakSelf updateCurrentValue:valuesArray];
+        }];
+    }
+    return _normalPickerDelegate;
 }
 
 @end

@@ -209,6 +209,7 @@
 		4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJNormalPickerDelegate.m; sourceTree = "<group>"; };
 		4EC495261F4ED3260008D6E5 /* DJRelatedPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRelatedPickerDelegate.h; sourceTree = "<group>"; };
 		4EC495271F4ED3260008D6E5 /* DJRelatedPickerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRelatedPickerDelegate.m; sourceTree = "<group>"; };
+		4EC495291F4ED36E0008D6E5 /* DJPickerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJPickerProtocol.h; sourceTree = "<group>"; };
 		4ECE916D1E56F3D70026F32C /* DJInputCellTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputCellTestController.h; sourceTree = "<group>"; };
 		4ECE916E1E56F3D70026F32C /* DJInputCellTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputCellTestController.m; sourceTree = "<group>"; };
 		4ED9F9011D24F8030035D288 /* DJAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAlertView.h; sourceTree = "<group>"; };
@@ -351,6 +352,7 @@
 				4EC495241F4ED3000008D6E5 /* DJNormalPickerDelegate.m */,
 				4EC495261F4ED3260008D6E5 /* DJRelatedPickerDelegate.h */,
 				4EC495271F4ED3260008D6E5 /* DJRelatedPickerDelegate.m */,
+				4EC495291F4ED36E0008D6E5 /* DJPickerProtocol.h */,
 			);
 			name = AdvanceCells;
 			sourceTree = "<group>";
