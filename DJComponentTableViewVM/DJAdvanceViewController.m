@@ -17,6 +17,7 @@
 #import "DJTableViewVMPickerCell.h"
 #import "DJTableViewVMDateCell.h"
 #import "DJPickerValueModel.h"
+#import "DJReplatedPickerModel.h"
 
 @interface DJAdvanceViewController ()
 
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
 @property (nonatomic, strong) DJTableViewVMPickerRow *pickerRow;
 @property (nonatomic, strong) DJTableViewVMPickerRow *protocolPickerRow;
+@property (nonatomic, strong) DJTableViewVMPickerRow *relatedPickerRow;
 @property (nonatomic, strong) DJTableViewVMDateRow *dateRow;
 
 
@@ -74,6 +76,7 @@
     [testSection addRow:self.dateRow];
     [testSection addRow:self.pickerRow];
     [testSection addRow:self.protocolPickerRow];
+    [testSection addRow:self.relatedPickerRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
@@ -232,6 +235,20 @@
         }];
     }
     return _protocolPickerRow;
+}
+
+- (DJTableViewVMPickerRow *)relatedPickerRow
+{
+    if (_relatedPickerRow == nil) {
+        NSMutableArray *optionsArray = [DJReplatedPickerModel buildRelatedDeep:3 lastTag:@"0"].copy;
+        
+        _relatedPickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Related Picker" value:@[@"0 3",@"0 3 6",@"0 3 6 3"] placeholder:@"please select" relatedOptions:optionsArray.copy];
+        [_relatedPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
+            DJLog(@"values:%@",rowVM.valueArray);
+            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
+        }];
+    }
+    return _relatedPickerRow;
 }
 
 - (DJTableViewVMDateRow *)dateRow
