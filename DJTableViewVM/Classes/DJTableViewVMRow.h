@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy, nullable) void (^pasteHandler)(id rowVM);
 
 + (instancetype)row;
++ (instancetype)defaultStyleInstance;
 
 - (void)selectRowAnimated:(BOOL)animated;
 - (void)selectRowAnimated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;

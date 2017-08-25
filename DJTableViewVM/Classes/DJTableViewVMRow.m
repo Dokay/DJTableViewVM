@@ -21,24 +21,50 @@
 - (id)init
 {
     self = [super init];
-    if (!self)
-        return nil;
-    self.cellHeight = 0;
-    self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
-    self.selectionStyle = UITableViewCellSelectionStyleGray;
-    self.backgroundColor = [UIColor whiteColor];
-    self.indentationLevel = 0;
-    self.indentationWidth = 10;
-    self.titleColor = [UIColor blackColor];
-    self.titleFont = [UIFont systemFontOfSize:17];
-    self.detailTitleFont = [UIFont systemFontOfSize:17];
-    self.detailTitleColor = [UIColor grayColor];
-    self.backgroundColor = [UIColor whiteColor];
-    self.indentationLevel = 0;
-    self.indentationWidth = 10;
-    self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
-    self.enabled = YES;
-    
+    if (self != nil) {
+        self.separatorInset = [DJTableViewVMRow defaultStyleInstance].separatorInset;
+        self.selectionStyle = [DJTableViewVMRow defaultStyleInstance].selectionStyle;
+        self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
+        self.titleColor = [DJTableViewVMRow defaultStyleInstance].titleColor;
+        self.titleFont = [DJTableViewVMRow defaultStyleInstance].titleFont;
+        self.detailTitleFont = [DJTableViewVMRow defaultStyleInstance].detailTitleFont;
+        self.detailTitleColor = [DJTableViewVMRow defaultStyleInstance].detailTitleColor;
+        self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
+        self.indentationLevel = [DJTableViewVMRow defaultStyleInstance].indentationLevel;
+        self.indentationWidth = [DJTableViewVMRow defaultStyleInstance].indentationWidth;
+        self.elementEdge = [DJTableViewVMRow defaultStyleInstance].elementEdge;
+        
+        self.enabled = YES;
+    }
+    return self;
+}
+
++ (instancetype)defaultStyleInstance
+{
+    static id singleInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        singleInstance = [[self alloc] initDefaultStyle];
+    });
+    return singleInstance;
+}
+
+- (instancetype)initDefaultStyle
+{
+    self = [super init];
+    if (self != nil){
+        self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.backgroundColor = [UIColor whiteColor];
+        self.titleColor = [UIColor blackColor];
+        self.titleFont = [UIFont systemFontOfSize:17];
+        self.detailTitleFont = [UIFont systemFontOfSize:17];
+        self.detailTitleColor = [UIColor colorWithWhite:0.3 alpha:0.7];
+        self.backgroundColor = [UIColor whiteColor];
+        self.indentationLevel = 0;
+        self.indentationWidth = 10;
+        self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
+    }
     return self;
 }
 
