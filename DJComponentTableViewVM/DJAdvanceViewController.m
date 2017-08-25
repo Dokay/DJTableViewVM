@@ -66,13 +66,15 @@
     DJTableViewVMSection *testSection = [DJTableViewVMSection new];
     [self.tableViewVM addSection:testSection];
     
+    
     [testSection addRow:self.boolRow];
     [testSection addRow:self.multipleLineRow];
-    [testSection addRow:self.pickerRow];
     [testSection addRow:self.dateRow];
+    [testSection addRow:self.pickerRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
+    
     
 //
 //    for (NSInteger i = 0; i < 8; i++) {

@@ -21,6 +21,7 @@
         _placeholder = placeholder;
         _dateFormat = dateFormat;
         _datePickerMode = datePickerMode;
+        _focusScrollPosition = UITableViewScrollPositionBottom;
     }
     return self;
 }

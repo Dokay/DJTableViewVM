@@ -191,6 +191,9 @@
        void (^cacluateScrollOffset)() = ^(){
             destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
 //            destScrollOffset += self.offsetUnderResponder;
+           CGFloat scrollAvaliableMax = self.tableView.contentSize.height - tableViewScrollHeight - destContentInsets.top;
+           destScrollOffset = MIN(scrollAvaliableMax, destScrollOffset);
+           destScrollOffset = MAX(-destContentInsets.top, destScrollOffset);
         };
         switch (focusScrollPosition) {
             case UITableViewScrollPositionNone:
@@ -223,9 +226,6 @@
         
         CGPoint destContentOffset = self.tableView.contentOffset;
         //cheke destScrollOffset avaliable
-        CGFloat scrollAvaliableMax = self.tableView.contentSize.height - tableViewScrollHeight - destContentInsets.top;
-        destScrollOffset = MIN(scrollAvaliableMax, destScrollOffset);
-        destScrollOffset = MAX(-destContentInsets.top, destScrollOffset);
         destContentOffset.y = destScrollOffset;
         
         [UIView animateWithDuration:animationDuration delay:0 options:(animationOptions|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -330,7 +330,7 @@
             DJTableViewVMSection *sectionVM = self.sections[section];
             currentRowIndex = sectionVM.rows.count - 1;//another section from last row
         }
-        for (NSInteger row = currentRowIndex; row > 0; row--) {
+        for (NSInteger row = currentRowIndex; row >= 0; row--) {
             DJTableViewVMSection *sectionVMLoop = self.sections[section];
             DJTableViewVMRow *rowVM = sectionVMLoop.rows[row];
             if ([rowVM conformsToProtocol:@protocol(DJInputRowProtocol)]) {
@@ -372,9 +372,9 @@
 {
     DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
     if (inputRowVM != nil) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
         UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
-        [currentCell resignFirstResponder];
+//        [currentCell.respo resignFirstResponder];//cause animation shake
+        [currentCell setSelected:NO animated:NO];
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
@@ -390,9 +390,9 @@
 {
     DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
     if (inputRowVM != nil) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
         UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
-        [currentCell resignFirstResponder];
+//        [currentCell resignFirstResponder];////cause animation shake
+        [currentCell setSelected:NO animated:NO];
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
