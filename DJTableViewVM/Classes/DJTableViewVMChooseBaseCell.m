@@ -69,6 +69,12 @@
     return [super resignFirstResponder];
 }
 
+- (BOOL)becomeFirstResponder
+{
+    [self.textField becomeFirstResponder];
+    return [super becomeFirstResponder];
+}
+
 - (UIResponder *)responder
 {
     return self.textField;

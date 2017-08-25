@@ -313,6 +313,7 @@
             [weakSelf jumpToNextInputCellAfterIndexPath:inputRowVM.indexPath];
         }];
         [keyboardToolBar setTapDoneHandler:^{
+            [weakSelf.tableView deselectRowAtIndexPath:inputRowVM.indexPath animated:NO];
             UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
             [cell resignFirstResponder];
         }];
@@ -371,6 +372,10 @@
 {
     DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMBeforeIndexPath:indexPath];
     if (inputRowVM != nil) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [currentCell resignFirstResponder];
+        
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
            [cell becomeFirstResponder];
@@ -385,6 +390,10 @@
 {
     DJTableViewVMRow<DJInputRowProtocol> *inputRowVM = [self inputRowVMAfterIndexPath:indexPath];
     if (inputRowVM != nil) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [currentCell resignFirstResponder];
+        
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
             [cell becomeFirstResponder];

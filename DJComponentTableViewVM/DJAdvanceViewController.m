@@ -15,6 +15,7 @@
 #import "DJTableViewVMOptionsController.h"
 #import "DJTableViewVMSegmentedCell.h"
 #import "DJTableViewVMPickerCell.h"
+#import "DJTableViewVMDateCell.h"
 
 @interface DJAdvanceViewController ()
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) DJTableViewVMOptionRow *multipleChoiceRow;
 @property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
 @property (nonatomic, strong) DJTableViewVMPickerRow *pickerRow;
+@property (nonatomic, strong) DJTableViewVMDateRow *dateRow;
 
 
 @end
@@ -54,6 +56,7 @@
     DJTableViewRegister(self.tableViewVM, DJTableViewVMOptionRow, DJTableViewVMCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMSegmentedRow, DJTableViewVMSegmentedCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMPickerRow, DJTableViewVMPickerCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMDateRow, DJTableViewVMDateCell);
 }
 
 - (void)configTable
@@ -66,6 +69,7 @@
     [testSection addRow:self.boolRow];
     [testSection addRow:self.multipleLineRow];
     [testSection addRow:self.pickerRow];
+    [testSection addRow:self.dateRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
@@ -203,6 +207,14 @@
         }];
     }
     return _pickerRow;
+}
+
+- (DJTableViewVMDateRow *)dateRow
+{
+    if (_dateRow == nil) {
+        _dateRow = [[DJTableViewVMDateRow alloc] initWithTitle:@"Date Picker" date:[NSDate date] placeholder:@"请选择" format:@"yyyy-MM-dd" datePickerMode:UIDatePickerModeDate];
+    }
+    return _dateRow;
 }
 
 

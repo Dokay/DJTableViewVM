@@ -15,6 +15,6 @@
 @property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.it works when keyboardManageEnabled in DJTableViewVM set YES.
 
 @optional
-@property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
+@property (nonatomic, strong) UIColor *toolbarTintColor;
 
 @end
