@@ -25,15 +25,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UIColor *pickerBackgroundColor;
 @property(nonatomic, copy, nullable) NSString *placeholder;//drawn 70% gray
 @property(nonatomic, copy, nullable) NSAttributedString *attributedPlaceholder;//default is nil
-@property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
+
+@property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;
 @property(nonatomic, readonly) NSArray *selectedObjectsArray;
 
 #pragma mark - normal init
 
 - (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray<NSString *> *> *)optionsArray;
-- (id)initWithTitle:(NSString *)title protocolValue:(nullable NSArray<DJValueProtocol> *)originalValueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray;
+- (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray;
 
 #pragma mark - related init
 

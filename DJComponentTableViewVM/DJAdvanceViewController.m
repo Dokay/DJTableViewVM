@@ -16,6 +16,7 @@
 #import "DJTableViewVMSegmentedCell.h"
 #import "DJTableViewVMPickerCell.h"
 #import "DJTableViewVMDateCell.h"
+#import "DJPickerValueModel.h"
 
 @interface DJAdvanceViewController ()
 
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) DJTableViewVMOptionRow *multipleChoiceRow;
 @property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
 @property (nonatomic, strong) DJTableViewVMPickerRow *pickerRow;
+@property (nonatomic, strong) DJTableViewVMPickerRow *protocolPickerRow;
 @property (nonatomic, strong) DJTableViewVMDateRow *dateRow;
 
 
@@ -71,6 +73,7 @@
     [testSection addRow:self.multipleLineRow];
     [testSection addRow:self.dateRow];
     [testSection addRow:self.pickerRow];
+    [testSection addRow:self.protocolPickerRow];
     [testSection addRow:self.optionRow];
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
@@ -203,13 +206,32 @@
         for (NSInteger i = 0; i < 10; i++) {
             [options addObject:[NSString stringWithFormat:@"Picker %@",@(i)]];
         }
-        _pickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select " options:@[options.copy,options.copy]];
+        _pickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select" options:@[options.copy,options.copy]];
         [_pickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
             NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
     }
     return _pickerRow;
+}
+
+- (DJTableViewVMPickerRow *)protocolPickerRow
+{
+    if (_protocolPickerRow == nil) {
+        NSMutableArray *optionsArray = [NSMutableArray arrayWithCapacity:10];
+        for (NSInteger i = 0; i < 10; i++) {
+            DJPickerValueModel *valueModel = [DJPickerValueModel new];
+            valueModel.ID = i;
+            valueModel.pickerTitle = [NSString stringWithFormat:@"Picker %@",@(i)];
+            [optionsArray addObject:valueModel];
+        }
+        _protocolPickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Protocol Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select" protocolOptions:@[optionsArray.copy,optionsArray.copy]];
+        [_protocolPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
+            DJLog(@"values:%@",rowVM.valueArray);
+            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
+        }];
+    }
+    return _protocolPickerRow;
 }
 
 - (DJTableViewVMDateRow *)dateRow

@@ -19,16 +19,9 @@
 
 @implementation DJTableViewVMPickerRow
 
-- (id)initWithTitle:(NSString *)title protocolValue:(nullable NSArray<DJValueProtocol> *)originalValueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray
+- (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder protocolOptions:(NSArray<NSArray<DJValueProtocol> *> *)optionsArray
 {
-    NSMutableArray *values = [originalValueArray mutableArrayValueForKeyPath:@"dj_contentValue"];
-    
-    NSMutableArray *options = [NSMutableArray arrayWithCapacity:optionsArray.count];
-    [optionsArray enumerateObjectsUsingBlock:^(NSArray<DJValueProtocol> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [options addObject:[obj mutableArrayValueForKeyPath:@"dj_contentValue"]];
-    }];
-    
-    return [self initWithTitle:title value:values placeholder:placeholder options:options];
+    return [self initWithTitle:title value:valueArray placeholder:placeholder options:optionsArray];
 }
 
 - (id)initWithTitle:(NSString *)title value:(nullable NSArray<NSString *> *)valueArray placeholder:(NSString *)placeholder options:(NSArray<NSArray *> *)optionsArray

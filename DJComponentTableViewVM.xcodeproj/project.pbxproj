@@ -22,6 +22,7 @@
 		4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED1A1D0FE219000F801F /* DJTableViewVMTextTestCell.m */; };
 		4E3AED211D0FE219000F801F /* DJTableViewVMTextTestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E3AED1B1D0FE219000F801F /* DJTableViewVMTextTestCell.xib */; };
 		4E3AED221D0FE219000F801F /* DJTableViewVMTextTestRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED1D1D0FE219000F801F /* DJTableViewVMTextTestRow.m */; };
+		4E518EDE1F5011EA007EDBA2 /* DJPickerValueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E518EDD1F5011EA007EDBA2 /* DJPickerValueModel.m */; };
 		4E54488C1E77FDB900BCD8F3 /* DJInputRowProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E54488B1E77FC6500BCD8F3 /* DJInputRowProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E554D321F4ADC29008A9933 /* DJMultipleLineTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D311F4ADC29008A9933 /* DJMultipleLineTextCell.m */; };
 		4E554D381F4ADC90008A9933 /* DJMultipleLineTextRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E554D371F4ADC90008A9933 /* DJMultipleLineTextRow.m */; };
@@ -141,6 +142,8 @@
 		4E3AED1B1D0FE219000F801F /* DJTableViewVMTextTestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJTableViewVMTextTestCell.xib; sourceTree = "<group>"; };
 		4E3AED1C1D0FE219000F801F /* DJTableViewVMTextTestRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMTextTestRow.h; sourceTree = "<group>"; };
 		4E3AED1D1D0FE219000F801F /* DJTableViewVMTextTestRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMTextTestRow.m; sourceTree = "<group>"; };
+		4E518EDC1F5011EA007EDBA2 /* DJPickerValueModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJPickerValueModel.h; sourceTree = "<group>"; };
+		4E518EDD1F5011EA007EDBA2 /* DJPickerValueModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJPickerValueModel.m; sourceTree = "<group>"; };
 		4E54488B1E77FC6500BCD8F3 /* DJInputRowProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputRowProtocol.h; sourceTree = "<group>"; };
 		4E554D301F4ADC29008A9933 /* DJMultipleLineTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJMultipleLineTextCell.h; sourceTree = "<group>"; };
 		4E554D311F4ADC29008A9933 /* DJMultipleLineTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJMultipleLineTextCell.m; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 				4E3AED1D1D0FE219000F801F /* DJTableViewVMTextTestRow.m */,
 				4ED9F9011D24F8030035D288 /* DJAlertView.h */,
 				4ED9F9021D24F8030035D288 /* DJAlertView.m */,
+				4E518EDC1F5011EA007EDBA2 /* DJPickerValueModel.h */,
+				4E518EDD1F5011EA007EDBA2 /* DJPickerValueModel.m */,
 			);
 			path = TestClasses;
 			sourceTree = "<group>";
@@ -655,6 +660,7 @@
 				4E724EDC1F4C0BA000F60830 /* DJTableViewVMOptionsController.m in Sources */,
 				4E006D811C4CB59F005664D3 /* main.m in Sources */,
 				4EC4951C1F4EAFA60008D6E5 /* DJTableViewVMChooseBaseCell.m in Sources */,
+				4E518EDE1F5011EA007EDBA2 /* DJPickerValueModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

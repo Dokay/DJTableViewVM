@@ -7,6 +7,7 @@
 //
 
 #import "DJNormalPickerDelegate.h"
+#import "DJValueProtocol.h"
 
 @interface DJNormalPickerDelegate()
 
@@ -30,8 +31,12 @@
     [valuesArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull valueElement, NSUInteger idx, BOOL * _Nonnull stop) {
         if (self.optionsArray.count > idx) {
             NSArray *componentArray = self.optionsArray[idx];
-            NSInteger destRow = [componentArray indexOfObject:valueElement];
-            [self.pickerView selectRow:destRow inComponent:idx animated:NO];
+            [componentArray enumerateObjectsUsingBlock:^(id  _Nonnull titleObject, NSUInteger destRow, BOOL * _Nonnull stop) {
+                if ([[self readValueObject:titleObject] isEqualToString:valueElement]) {
+                    [self.pickerView selectRow:destRow inComponent:idx animated:NO];
+                    *stop = YES;
+                }
+            }];
         }
     }];
 }
@@ -49,17 +54,29 @@
     return valuesArray;
 }
 
-- (NSArray *)updateCurrentValue
+- (NSArray *)currentValue
 {
     NSMutableArray *valuesArray = [NSMutableArray array];
     
     [self.optionsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *options = [self.optionsArray objectAtIndex:idx];
-        NSString *valueText = [options objectAtIndex:[self.pickerView selectedRowInComponent:idx]];
-        [valuesArray addObject:valueText];
+        NSObject *valueObject = [options objectAtIndex:[self.pickerView selectedRowInComponent:idx]];
+        [valuesArray addObject:[self readValueObject:valueObject]];
     }];
     
     return valuesArray;
+}
+
+- (NSString *)readValueObject:(NSObject *)valueObject
+{
+    if ([valueObject isKindOfClass:NSString.class]) {
+        return (NSString *)valueObject;
+    }else if([valueObject conformsToProtocol:@protocol(DJValueProtocol)]){
+        return ((NSObject <DJValueProtocol> *)valueObject).dj_titleValue;
+    }else{
+        NSAssert(NO, @"element must be NSString, object implements DJValueProtocol");
+        return @"";
+    }
 }
 
 #pragma mark UIPickerViewDataSource
@@ -70,7 +87,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    NSArray<NSString *> *titlesArray = [self.optionsArray objectAtIndex:component];
+    NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
     NSAssert([titlesArray isKindOfClass:[NSArray class]], @"elements of optionsArray is also array");
     return [titlesArray count];
 }
@@ -78,13 +95,14 @@
 #pragma mark UIPickerViewDelegate
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    NSArray<NSString *> *titlesArray = [self.optionsArray objectAtIndex:component];
-    return [titlesArray objectAtIndex:row];
+    NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
+    NSObject *valueObject = [titlesArray objectAtIndex:row];
+    return [self readValueObject:valueObject];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSArray *valuesArray = [self updateCurrentValue];
+    NSArray *valuesArray = [self currentValue];
     if (self.valueChangeBlock) {
         self.valueChangeBlock(valuesArray);
     }

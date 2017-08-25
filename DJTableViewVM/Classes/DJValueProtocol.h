@@ -11,14 +11,14 @@
 @protocol DJValueProtocol <NSObject>
 
 @required
-@property(nonatomic, strong) NSString *dj_contentValue;
+@property(nonatomic, readonly) NSString *dj_titleValue;
 
 @end
 
 @protocol DJRelatedPickerValueProtocol <NSObject>
 
 @required
-@property(nonatomic, strong) NSString *dj_contentValue;
-@property(nonatomic, strong) NSArray *dj_childOptionsValues;
+@property(nonatomic, readonly) NSString *dj_titleValue;
+@property(nonatomic, readonly) NSArray *dj_childOptionsValues;
 
 @end

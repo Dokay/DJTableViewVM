@@ -109,10 +109,10 @@
     if ([valueObject isKindOfClass:NSString.class]) {
         return (NSString *)valueObject;
     }else if([valueObject conformsToProtocol:@protocol(DJValueProtocol)]){
-        return ((NSObject <DJValueProtocol> *)valueObject).dj_contentValue;
+        return ((NSObject <DJValueProtocol> *)valueObject).dj_titleValue;
     }
     else if([valueObject conformsToProtocol:@protocol(DJRelatedPickerValueProtocol)]){
-        return ((NSObject <DJRelatedPickerValueProtocol> *)valueObject).dj_contentValue;
+        return ((NSObject <DJRelatedPickerValueProtocol> *)valueObject).dj_titleValue;
     }else{
         NSAssert(NO, @"element must be NSString, object implements DJValueProtocol,object implements DJRelatedPickerValueProtocol");
         return @"";

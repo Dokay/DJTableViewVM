@@ -34,7 +34,7 @@
     self.pickerView.dataSource = self.rowVM.pickerDelegate;
     self.rowVM.pickerDelegate.pickerView = self.pickerView;
     __weak typeof(self) weakSelf = self;
-    [self.rowVM.pickerDelegate setValueChangeBlock:^(NSArray *valuesArray){
+    [self.rowVM.pickerDelegate setValueChangeBlock:^(NSArray<NSString *> *valuesArray){
         [weakSelf updateWithValue:valuesArray];
     }];
     
@@ -51,7 +51,7 @@
     
 }
 
-- (void)updateWithValue:(NSArray *)valuesArray
+- (void)updateWithValue:(NSArray<NSString *> *)valuesArray
 {
     self.rowVM.valueArray = [valuesArray copy];
     self.detailTextLabel.text = self.rowVM.valueArray ? [self.rowVM.valueArray componentsJoinedByString:@","] : @"";

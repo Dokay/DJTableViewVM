@@ -79,9 +79,9 @@
     self.datePicker.enabled = self.rowVM.enabled;
 }
 
-- (void)updateWithValue:(NSObject *)newValue
+- (void)updateWithValue:(NSDate *)newValue
 {
-    self.rowVM.date = (NSDate *)newValue;
+    self.rowVM.date = newValue;
     self.detailTextLabel.text = [self.dateFormatter stringFromDate:self.rowVM.date];
     self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;
 }
