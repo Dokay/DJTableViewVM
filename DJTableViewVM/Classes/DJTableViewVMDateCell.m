@@ -79,9 +79,9 @@
     self.datePicker.enabled = self.rowVM.enabled;
 }
 
-- (void)updateCurrentValue
+- (void)updateWithValue:(NSObject *)newValue
 {
-    self.rowVM.date = self.datePicker.date;
+    self.rowVM.date = (NSDate *)newValue;
     self.detailTextLabel.text = [self.dateFormatter stringFromDate:self.rowVM.date];
     self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;
 }
@@ -89,7 +89,7 @@
 #pragma mark - events
 - (void)onDateValueChanged:(UIPickerView *)datePicker
 {
-    [self updateCurrentValue];
+    [self updateWithValue:self.datePicker.date];
    
     if (self.rowVM.dateValueChangedHandler) {
         self.rowVM.dateValueChangedHandler(self.rowVM);

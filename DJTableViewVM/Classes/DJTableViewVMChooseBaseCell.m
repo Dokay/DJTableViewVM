@@ -81,7 +81,7 @@
 }
 
 #pragma mark - overwrite
-- (void)updateCurrentValue
+- (void)updateWithValue:(NSObject *)newValue
 {
     
 }
@@ -100,7 +100,6 @@
 {
     [self setSelected:NO animated:NO];
     [self.rowVM deselectRowAnimated:NO];
-    [self updateCurrentValue];
     return YES;
 }
 

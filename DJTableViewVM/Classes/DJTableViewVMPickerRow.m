@@ -66,18 +66,6 @@
     return self;
 }
 
-- (NSArray<NSNumber *> *)selectIndexArray
-{
-    NSMutableArray *indexArray = [NSMutableArray new];
-    if (self.valueArray.count > 0) {
-        [self.valueArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSArray *componentArray = self.optionsArray[idx];
-            [indexArray addObject:@([componentArray indexOfObject:obj])];
-        }];
-    }
-    return indexArray.copy;
-}
-
 - (NSArray *)selectedObjectsArray
 {
     return [(DJRelatedPickerDelegate *)self.pickerDelegate selectedObjects];

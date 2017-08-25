@@ -15,7 +15,7 @@
 @property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
-- (void)setSelectedWithValue:(NSArray *)valuesArray;
+- (void)refreshPickerWithValues:(NSArray *)valuesArray;
 - (NSArray *)selectedObjects;
 
 @end

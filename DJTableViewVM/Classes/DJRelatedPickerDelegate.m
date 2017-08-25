@@ -11,6 +11,7 @@
 @interface DJRelatedPickerDelegate()
 
 @property(nonatomic, weak) NSArray<NSArray<DJRelatedPickerValueProtocol> *> *relatedOptionsArray;
+@property(nonatomic, assign) NSInteger componentCount;
 
 @end
 
@@ -21,11 +22,12 @@
     self = [super init];
     if (self) {
         _relatedOptionsArray = optionsArray;
+        _componentCount = [self getComponentCount];
     }
     return self;
 }
 
-- (void)setSelectedWithValue:(NSArray *)valuesArray
+- (void)refreshPickerWithValues:(NSArray *)valuesArray
 {
     [valuesArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull valueElement, NSUInteger idx, BOOL * _Nonnull stop) {
         if (self.relatedOptionsArray.count > idx) {
@@ -47,7 +49,7 @@
 {
     NSMutableArray *valuesArray = [NSMutableArray array];
     
-    NSInteger componentCount = [self getComponentCount];
+    NSInteger componentCount = self.componentCount;
     for (NSInteger i = 0; i < componentCount; i++) {
         NSArray *currentComponentElements = [self getValuesWithConponent:i];
         NSString *valueObject = [currentComponentElements objectAtIndex:[self.pickerView selectedRowInComponent:i]];
@@ -63,10 +65,10 @@
 {
     NSMutableArray *valuesArray = [NSMutableArray array];
     
-    NSInteger componentCount = [self getComponentCount];
+    NSInteger componentCount = self.componentCount;
     for (NSInteger i = 0; i < componentCount; i++) {
         NSArray *currentComponentElements = [self getValuesWithConponent:i];
-        NSString *valueObject = [currentComponentElements objectAtIndex:[self.pickerView selectedRowInComponent:i]];
+        NSObject *valueObject = [currentComponentElements objectAtIndex:[self.pickerView selectedRowInComponent:i]];
         [valuesArray addObject:valueObject];
     }
     
@@ -120,7 +122,7 @@
 #pragma mark UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return [self getComponentCount];
+    return self.componentCount;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -147,7 +149,7 @@
     }
     
     //set row = 0 in component after current component
-    NSInteger componentCount = [self getComponentCount];
+    NSInteger componentCount = self.componentCount;
     NSInteger i = component + 1;
     while (i < componentCount) {
         i++;

@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)setSelectedWithValue:(NSArray *)valuesArray
+- (void)refreshPickerWithValues:(NSArray *)valuesArray
 {
     [valuesArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull valueElement, NSUInteger idx, BOOL * _Nonnull stop) {
         if (self.optionsArray.count > idx) {
@@ -36,9 +36,17 @@
     }];
 }
 
-- (NSArray *)selectedObjects
+- (NSArray *)selectedObjects;
 {
-    return [self updateCurrentValue];
+    NSMutableArray *valuesArray = [NSMutableArray array];
+    
+    for (NSInteger i = 0; i < self.optionsArray.count; i++) {
+        NSArray *elementArray = self.optionsArray[i];
+        NSObject *valueObject = [elementArray objectAtIndex:[self.pickerView selectedRowInComponent:i]];
+        [valuesArray addObject:valueObject];
+    }
+    
+    return valuesArray;
 }
 
 - (NSArray *)updateCurrentValue

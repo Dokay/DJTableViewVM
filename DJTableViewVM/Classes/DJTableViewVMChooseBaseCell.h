@@ -17,6 +17,6 @@
 @property(nonatomic, strong) DJToolBar *inputAccessoryView;
 @property(nonatomic, strong) UILabel *placeholderLabel;
 
-- (void)updateCurrentValue;
+- (void)updateWithValue:(NSObject *)newValue;
 
 @end

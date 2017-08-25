@@ -205,7 +205,8 @@
         }
         _pickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select " options:@[options.copy,options.copy]];
         [_pickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
-            DJLog(@"value:%@ index:%@",rowVM.valueArray,rowVM.selectIndexArray);
+            DJLog(@"values:%@",rowVM.valueArray);
+            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
     }
     return _pickerRow;

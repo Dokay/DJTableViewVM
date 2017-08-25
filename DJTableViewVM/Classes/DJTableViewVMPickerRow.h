@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;
-@property(nonatomic, readonly) NSArray<NSNumber *> *selectIndexArray;
 @property(nonatomic, readonly) NSArray *selectedObjectsArray;
 
 #pragma mark - normal init

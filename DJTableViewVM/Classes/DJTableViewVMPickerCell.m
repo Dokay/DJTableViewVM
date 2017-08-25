@@ -35,7 +35,7 @@
     self.rowVM.pickerDelegate.pickerView = self.pickerView;
     __weak typeof(self) weakSelf = self;
     [self.rowVM.pickerDelegate setValueChangeBlock:^(NSArray *valuesArray){
-        [weakSelf updateCurrentValue:valuesArray];
+        [weakSelf updateWithValue:valuesArray];
     }];
     
     self.detailTextLabel.text = self.rowVM.valueArray ? [self.rowVM.valueArray componentsJoinedByString:@","] : @"";
@@ -51,7 +51,7 @@
     
 }
 
-- (void)updateCurrentValue:(NSArray *)valuesArray
+- (void)updateWithValue:(NSArray *)valuesArray
 {
     self.rowVM.valueArray = [valuesArray copy];
     self.detailTextLabel.text = self.rowVM.valueArray ? [self.rowVM.valueArray componentsJoinedByString:@","] : @"";
@@ -66,7 +66,7 @@
 {
     [super setSelected:selected animated:animated];
     if (selected) {
-        [self.rowVM.pickerDelegate setSelectedWithValue:self.rowVM.valueArray];
+        [self.rowVM.pickerDelegate refreshPickerWithValues:self.rowVM.valueArray];
     }
 }
 
