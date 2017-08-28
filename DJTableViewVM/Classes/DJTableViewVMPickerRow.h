@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;
 
 /**
- current select Objects,it is element of options array.
+ current select Objects.it is element of options array,so it's type may not NSString.
  */
 @property(nonatomic, readonly) NSArray *selectedObjectsArray;
 

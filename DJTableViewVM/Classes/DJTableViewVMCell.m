@@ -47,8 +47,8 @@
     self.textLabel.text             = row.title;
     self.textLabel.font             = row.titleFont;
     self.textLabel.textColor        = row.titleColor;
-    self.detailTextLabel.font       = row.detailTitleFont;
-    self.detailTextLabel.textColor  = row.detailTitleColor;
+    self.detailTextLabel.font       = row.detailTextFont;
+    self.detailTextLabel.textColor  = row.detailTextColor;
     self.detailTextLabel.text       = row.detailText;
     
     if (row.titleAttributedString != nil) {
@@ -59,16 +59,14 @@
         self.detailTextLabel.attributedText = row.detailAttributedString;
     }
     
-    if (row.separatorInset.top != CGFLOAT_MAX) {
-        if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
-            [self setSeparatorInset:row.separatorInset];
-        }
-        if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
-            [self setLayoutMargins:row.separatorInset];
-        }
-        if ([self respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-            [self setPreservesSuperviewLayoutMargins:NO];
-        }
+    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self setSeparatorInset:row.separatorInset];
+    }
+    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self setLayoutMargins:row.separatorInset];
+    }
+    if ([self respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [self setPreservesSuperviewLayoutMargins:NO];
     }
     
     [self refreshCurrentSeparatorLine];

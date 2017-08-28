@@ -129,7 +129,7 @@
 {
     if (_placeholderLabel == nil) {
         _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectNull];
-        _placeholderLabel.font = self.rowVM.detailTitleFont;
+        _placeholderLabel.font = self.rowVM.detailTextFont;
         _placeholderLabel.backgroundColor = [UIColor clearColor];
         _placeholderLabel.textColor = [UIColor lightGrayColor];
         _placeholderLabel.userInteractionEnabled = NO;

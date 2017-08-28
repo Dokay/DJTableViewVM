@@ -19,9 +19,9 @@ typedef NS_ENUM(NSInteger,DJCellSeparatorLineType){
 };
 
 typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
-    DJCellHeightCaculateDefault,//default heightWithRow:tableViewVM:
-    DJCellHeightCaculateAutoFrameLayout,//layout use frame layout
-    DJCellHeightCaculateAutoLayout,//layout use autolayout
+    DJCellHeightCaculateDefault,//return from class method heightWithRow:tableViewVM: of DJTableViewVMRow,default is value of cellHeight
+    DJCellHeightCaculateAutoFrameLayout,//auto caculate with frame layout
+    DJCellHeightCaculateAutoLayout,//auto caculate with autolayout
 };
 
 @class DJTableViewVMSection;
@@ -31,63 +31,141 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic,   weak, nullable) DJTableViewVMSection *sectionVM;
 
 #pragma mark - cell propertis
+/**
+ accessoryView of cell,default is nil.
+ */
 @property (nonatomic, strong, nullable) UIView   *accessoryView;
-@property (nonatomic,   copy, nullable) NSString *cellIdentifier;
+
+/**
+ image of imageView property in cell.default is nil.
+ */
 @property (nonatomic, strong, nullable) UIImage *image;
+
+/**
+ highlightedImage of imageView property in cell.default is nil.
+ */
 @property (nonatomic, strong, nullable) UIImage *highlightedImage;
+
+/**
+ accessoryView of cell,default is white color.
+ */
 @property (nonatomic, strong, nullable) UIColor *backgroundColor;
+
+/**
+ style of cell,default is UITableViewCellStyleDefault.
+ */
 @property (nonatomic, assign) UITableViewCellStyle style;
+
+/**
+ selectionStyle of cell, default is UITableViewCellSelectionStyleNone.
+ */
 @property (nonatomic, assign) UITableViewCellSelectionStyle selectionStyle;
+
+/**
+ accessoryType of cell, default is UITableViewCellAccessoryNone.
+ */
 @property (nonatomic, assign) UITableViewCellAccessoryType  accessoryType;
 
-@property (nonatomic, assign) UITableViewCellEditingStyle   editingStyle;
-@property (nonatomic,   copy, nullable) NSArray *editActions NS_AVAILABLE_IOS(8_0);
+/**
+ edit actions for tableView: editActionsForRowAtIndexPath:
+ */
+@property (nonatomic, copy, nullable) NSArray *editActions NS_AVAILABLE_IOS(8_0);
+
+/**
+ editingStyle of cell, default is UITableViewCellEditingStyleNone.set style you want and use block actions to process user action.
+ */
+@property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
+/**
+ identifier of cell,DJTableViewVM use it to dequeue reuse cell.use DJTableViewRegister macro to regist cells.
+ */
+@property (nonatomic, copy, nullable) NSString *cellIdentifier;
 
 #pragma mark - title properties
+/**
+ text property of textLabel in cell.default is nil.
+ */
 @property (nonatomic, copy, nullable) NSString *title;
+
+/**
+  attributedText property of textLabel in cell.default is nil.
+ */
 @property (nonatomic, copy) NSAttributedString *titleAttributedString;
+
+/**
+ textColor property of textLabel in cell.default is black color.
+ */
 @property (nonatomic, strong, nullable) UIColor *titleColor;
-@property (nonatomic, strong, nullable) UIFont  *titleFont;
+
+/**
+ font property of textLabel in cell.default is system font with 17.0f.
+ */
+@property (nonatomic, strong, nullable) UIFont *titleFont;
+
+/**
+ textAlignment property of textLabel in cell.default is NSTextAlignmentLeft.
+ */
 @property (nonatomic, assign) NSTextAlignment titleTextAlignment;
 
 #pragma mark -subtitle properties
+/**
+ title property of detailTextLabel in cell.default is nil.
+ */
 @property (nonatomic, copy, nullable) NSString *detailText;
+
+/**
+ attributedText property of detailTextLabel in cell.default is nil.
+ */
 @property (nonatomic, copy, nullable) NSAttributedString *detailAttributedString;
-@property (nonatomic, strong, nullable) UIColor *detailTitleColor;
-@property (nonatomic, strong, nullable) UIFont  *detailTitleFont;
+
+/**
+ textColor property of detailTextLabel in cell.default is 70% gray.
+ */
+@property (nonatomic, strong, nullable) UIColor *detailTextColor;
+
+/**
+ font property of detailTextLabel in cell.default is system font with 17.0f.
+ */
+@property (nonatomic, strong, nullable) UIFont *detailTextFont;
 
 #pragma mark - margin control
 /**
- label edge of labels.
+ label edge of labels.detault is (10, 15, 10, 15)
  */
 @property (nonatomic, assign) UIEdgeInsets elementEdge;
 
 /**
- control separator line margin.
+ control separator line margin.default value is (0, 15, 0, 0).
  */
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
 
 /**
- cell height of current cell.
+ cell height of current cell.deffault is 0.
  */
 @property (nonatomic, assign) CGFloat cellHeight;
 
 /**
- whether cell is edit enable.
+ whether cell is edit enable.default is YES.
  */
 @property (nonatomic, assign) BOOL enabled;
 
 /**
- associated parameter object.
+ associated parameter object.default is nil.
  */
 @property (nonatomic, strong, nullable) NSObject *paramObject;
-@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
 
+/**
+ indexPath of cell in tableView.
+ */
+@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
 
 /**
  whether separator is visable.default is DJCellSeparatorLineDefault.
  */
 @property (nonatomic, assign) DJCellSeparatorLineType separatorLineType;
+
+/**
+ height caculate type of cell,default is DJCellHeightCaculateDefault.
+ */
 @property (nonatomic, assign) DJCellHeightCaculateType heightCaculateType;
 
 /**
@@ -113,6 +191,14 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy, nullable) void (^pasteHandler)(id rowVM);
 
 + (instancetype)row;
+
+/**
+ used to show a placeholder cell.
+
+ @param color placeholder color
+ @param height placeholder height
+ @return placeholder row
+ */
 + (instancetype)rowWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height;
 
 /**

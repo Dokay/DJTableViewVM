@@ -74,6 +74,10 @@ github "Dokay/DJTableViewVM"
     [self.aDJTableViewVM reloadData];
 }
 ```
+* set default style:
+```objc
+    [DJTableViewVMRow defaultStyleInstance].titleFont = [UIFont systemFontOfSize:18];
+```
 
 * API
 <table>

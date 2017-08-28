@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger,DJPrefetchScrollDirection) {
 /**
  *  check the distance with last Prefetched offset to detemine whether new offset from KVO should be updated
  *
- *  @return
+ *  @return whether need
  */
 - (BOOL)needCheckContentChangedForPrefetching
 {

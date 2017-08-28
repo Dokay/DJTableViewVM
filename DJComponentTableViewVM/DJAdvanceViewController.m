@@ -81,25 +81,6 @@
     [testSection addRow:self.multipleChoiceRow];
     [testSection addRow:self.segmentRow];
     
-    
-//
-//    for (NSInteger i = 0; i < 8; i++) {
-//        DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
-//        rowVM.cellHeight = 50;
-//        rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
-//        [testSection addRow:rowVM];
-//    }
-//
-//    [textTestSection addRow:self.textFieldRow];
-//    [textTestSection addRow:self.textViewRow];
-//    
-//    for (NSInteger i = 10; i < 13; i++) {
-//        DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
-//        rowVM.cellHeight = 50;
-//        rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
-//        [textTestSection addRow:rowVM];
-//    }
-    
     [self.tableViewVM reloadData];
 }
 
@@ -214,6 +195,7 @@
             DJLog(@"values:%@",rowVM.valueArray);
             NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
+        _pickerRow.separatorInset = UIEdgeInsetsMake(0, 40, 0, 0);
     }
     return _pickerRow;
 }

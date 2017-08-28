@@ -27,10 +27,11 @@
         self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
         self.titleColor = [DJTableViewVMRow defaultStyleInstance].titleColor;
         self.titleFont = [DJTableViewVMRow defaultStyleInstance].titleFont;
-        self.detailTitleFont = [DJTableViewVMRow defaultStyleInstance].detailTitleFont;
-        self.detailTitleColor = [DJTableViewVMRow defaultStyleInstance].detailTitleColor;
+        self.detailTextFont = [DJTableViewVMRow defaultStyleInstance].detailTextFont;
+        self.detailTextColor = [DJTableViewVMRow defaultStyleInstance].detailTextColor;
         self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
         self.elementEdge = [DJTableViewVMRow defaultStyleInstance].elementEdge;
+        self.titleTextAlignment = [DJTableViewVMRow defaultStyleInstance].titleTextAlignment;
         
         self.enabled = YES;
     }
@@ -63,15 +64,16 @@
 {
     self = [super init];
     if (self != nil){
-        self.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, 0);
+        self.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
         self.selectionStyle = UITableViewCellSelectionStyleGray;
         self.backgroundColor = [UIColor whiteColor];
         self.titleColor = [UIColor blackColor];
         self.titleFont = [UIFont systemFontOfSize:17];
-        self.detailTitleFont = [UIFont systemFontOfSize:17];
-        self.detailTitleColor = [UIColor colorWithWhite:0.3 alpha:0.7];
+        self.detailTextFont = [UIFont systemFontOfSize:17];
+        self.detailTextColor = [UIColor colorWithWhite:0.3 alpha:0.7];
         self.backgroundColor = [UIColor whiteColor];
         self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
+        self.titleTextAlignment = NSTextAlignmentLeft;
     }
     return self;
 }
