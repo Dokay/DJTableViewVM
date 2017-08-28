@@ -28,7 +28,7 @@
 - (void)cellWillAppear
 {
     [super cellWillAppear];
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textLabel.text = self.rowVM.title;
     [self.segmentedControl removeAllSegments];
    

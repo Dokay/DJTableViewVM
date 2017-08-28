@@ -6,7 +6,7 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
+#import "DJTableViewVMRow.h"
 
 @interface DJTableViewVMOptionRow : DJTableViewVMRow
 

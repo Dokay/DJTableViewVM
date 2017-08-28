@@ -8,6 +8,12 @@
 
 #import "DJTableViewVMBoolCell.h"
 
+@interface DJTableViewVMBoolCell()
+
+@property(nonatomic, strong) UISwitch *switchView;
+
+@end
+
 @implementation DJTableViewVMBoolCell
 @dynamic rowVM;
 
@@ -32,6 +38,7 @@
 
 - (void)cellWillAppear
 {
+    [super cellWillAppear];
     self.textLabel.text = self.rowVM.title;
     self.switchView.on = self.rowVM.value;
     self.switchView.enabled = self.rowVM.enabled;

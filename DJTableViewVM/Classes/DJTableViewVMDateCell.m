@@ -10,6 +10,7 @@
 
 @interface DJTableViewVMDateCell()
 
+@property(nonatomic, strong) UIDatePicker *datePicker;
 @property(nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end

@@ -12,6 +12,6 @@
 @interface DJTableViewVMDateCell : DJTableViewVMChooseBaseCell
 
 @property(nonatomic, strong) DJTableViewVMDateRow *rowVM;
-@property(nonatomic, strong) UIDatePicker *datePicker;
+@property(nonatomic, readonly) UIDatePicker *datePicker;
 
 @end

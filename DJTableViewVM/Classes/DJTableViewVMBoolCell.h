@@ -6,12 +6,12 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
+#import "DJTableViewVMCell.h"
 #import "DJTableViewVMBoolRow.h"
 
 @interface DJTableViewVMBoolCell : DJTableViewVMCell
 
 @property(nonatomic, strong) DJTableViewVMBoolRow *rowVM;
-@property(nonatomic, strong) UISwitch *switchView;
+@property(nonatomic, readonly) UISwitch *switchView;
 
 @end

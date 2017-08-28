@@ -7,6 +7,7 @@
 //
 
 #import "DJTableViewVMOptionRow.h"
+#import "DJTableViewVM.h"
 
 @implementation DJTableViewVMOptionRow
 

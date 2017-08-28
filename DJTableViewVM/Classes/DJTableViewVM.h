@@ -52,16 +52,44 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<DJTableViewDataSourcePrefetching> prefetchDataSource;
 
 #pragma mark - UITableView properties
+/**
+ separator color of current tableView
+ */
 @property (nonatomic, strong, nullable) UIColor *separatorColor;
+
+/**
+ header view of current tableView
+ */
 @property (nonatomic, strong, nullable) UIView *tableHeaderView;
+
+/**
+ footer view of current tableView
+ */
 @property (nonatomic, strong, nullable) UIView *tableFooterView;
+
+/**
+ background view of current tableView
+ */
 @property (nonatomic, strong, nullable) UIView *backgroundView;
-@property (nonatomic, assign) CGFloat rowHeight;             // will return the default value if unset
+
+
+/**
+ will return the default value if unset
+ */
+@property (nonatomic, assign) CGFloat rowHeight;
+
+/**
+ separator inset of current tableView.It is the default value for all cell, DJTableViewVMRow has a separatorInset property also,set it in Row has a high priority.
+ */
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
+
+/**
+ all sectionVMs in current DJTableViewVM.
+ */
+@property (nonatomic, strong, readonly, nullable) NSArray *sections;
 
 #pragma mark - advanced properties
 @property (nonatomic, assign) BOOL prefetchingEnabled;//whether prefetch enable. default is NO.
-@property (nonatomic, strong, readonly, nullable) NSArray *sections;
 /**
  *  whether height of cells can be caculated an cached in spare time(kCFRunLoopDefaultMode in main thread runloop).Default is NO
  */
@@ -77,6 +105,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - init methods
 - (id)initWithTableView:(UITableView *)tableView delegate:(nullable id<DJTableViewVMDelegate>)delegate;
 - (id)initWithTableView:(UITableView *)tableView;
+
+/**
+ reload current tableView,call reloadData on DJTableViewVM is suggested,nor UITableView.
+ */
 - (void)reloadData;
 
 /**

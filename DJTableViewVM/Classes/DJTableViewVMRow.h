@@ -29,44 +29,70 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @interface DJTableViewVMRow : NSObject
 
 @property (nonatomic,   weak, nullable) DJTableViewVMSection *sectionVM;
+
+#pragma mark - cell propertis
 @property (nonatomic, strong, nullable) UIView   *accessoryView;
 @property (nonatomic,   copy, nullable) NSString *cellIdentifier;
-@property (nonatomic,   copy, nullable) NSArray  *editActions NS_AVAILABLE_IOS(8_0);
-
 @property (nonatomic, strong, nullable) UIImage *image;
 @property (nonatomic, strong, nullable) UIImage *highlightedImage;
-@property (nonatomic, strong, nullable) UIColor   *backgroundColor;
-
-@property (nonatomic, strong, nullable) NSString *title;
-@property (nonatomic, strong, nullable) UIColor  *titleColor;
-@property (nonatomic, strong, nullable) UIFont   *titleFont;
-@property (nonatomic, assign) NSTextAlignment titleTextAlignment;
-
-@property (nonatomic, strong, nullable) NSString *detailText;
-@property (nonatomic, strong, nullable) UIColor  *detailTitleColor;
-@property (nonatomic, strong, nullable) UIFont   *detailTitleFont;
-
-@property (nonatomic, assign) CGFloat indentationWidth;
-@property (nonatomic, assign) CGFloat indentationLevel;
-@property (nonatomic, assign) UIEdgeInsets elementEdge;
-
-
-/**
- whether cell is edit enable
- */
-@property (nonatomic, assign) BOOL enabled;
-@property (nonatomic, strong, nullable) NSObject *paramObject;
-@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
-
-@property (nonatomic, assign) CGFloat  cellHeight;
+@property (nonatomic, strong, nullable) UIColor *backgroundColor;
 @property (nonatomic, assign) UITableViewCellStyle style;
 @property (nonatomic, assign) UITableViewCellSelectionStyle selectionStyle;
 @property (nonatomic, assign) UITableViewCellAccessoryType  accessoryType;
+
 @property (nonatomic, assign) UITableViewCellEditingStyle   editingStyle;
+@property (nonatomic,   copy, nullable) NSArray *editActions NS_AVAILABLE_IOS(8_0);
+
+#pragma mark - title properties
+@property (nonatomic, copy, nullable) NSString *title;
+@property (nonatomic, copy) NSAttributedString *titleAttributedString;
+@property (nonatomic, strong, nullable) UIColor *titleColor;
+@property (nonatomic, strong, nullable) UIFont  *titleFont;
+@property (nonatomic, assign) NSTextAlignment titleTextAlignment;
+
+#pragma mark -subtitle properties
+@property (nonatomic, copy, nullable) NSString *detailText;
+@property (nonatomic, copy, nullable) NSAttributedString *detailAttributedString;
+@property (nonatomic, strong, nullable) UIColor *detailTitleColor;
+@property (nonatomic, strong, nullable) UIFont  *detailTitleFont;
+
+#pragma mark - margin control
+/**
+ label edge of labels.
+ */
+@property (nonatomic, assign) UIEdgeInsets elementEdge;
+
+/**
+ control separator line margin.
+ */
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
 
+/**
+ cell height of current cell.
+ */
+@property (nonatomic, assign) CGFloat cellHeight;
+
+/**
+ whether cell is edit enable.
+ */
+@property (nonatomic, assign) BOOL enabled;
+
+/**
+ associated parameter object.
+ */
+@property (nonatomic, strong, nullable) NSObject *paramObject;
+@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
+
+
+/**
+ whether separator is visable.default is DJCellSeparatorLineDefault.
+ */
 @property (nonatomic, assign) DJCellSeparatorLineType separatorLineType;
 @property (nonatomic, assign) DJCellHeightCaculateType heightCaculateType;
+
+/**
+ height cache is open default , so it is caculated only once.when dj_caculateHeightForceRefresh set YES,cell's height will be recaculated when cell appears next time.default is NO.
+ */
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
 
 #pragma mark - actions
@@ -87,6 +113,13 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy, nullable) void (^pasteHandler)(id rowVM);
 
 + (instancetype)row;
++ (instancetype)rowWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height;
+
+/**
+ get default style instance,change it's property to change default value global.
+
+ @return default style instance
+ */
 + (instancetype)defaultStyleInstance;
 
 - (void)selectRowAnimated:(BOOL)animated;

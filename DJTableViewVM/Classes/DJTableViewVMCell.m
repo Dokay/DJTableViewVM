@@ -41,8 +41,6 @@
     self.backgroundColor = row.backgroundColor;
     self.accessoryView   = row.accessoryView;
     self.imageView.image = row.image;
-    self.indentationLevel = row.indentationLevel;
-    self.indentationWidth = row.indentationWidth;
     self.imageView.highlightedImage = row.highlightedImage;
     self.textLabel.textAlignment    = row.titleTextAlignment;
     self.textLabel.backgroundColor  = [UIColor clearColor];
@@ -52,6 +50,14 @@
     self.detailTextLabel.font       = row.detailTitleFont;
     self.detailTextLabel.textColor  = row.detailTitleColor;
     self.detailTextLabel.text       = row.detailText;
+    
+    if (row.titleAttributedString != nil) {
+        self.textLabel.attributedText = row.titleAttributedString;
+    }
+    
+    if (row.detailAttributedString != nil) {
+        self.detailTextLabel.attributedText = row.detailAttributedString;
+    }
     
     if (row.separatorInset.top != CGFLOAT_MAX) {
         if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -79,10 +85,6 @@
     
     DJRectSetLeft(self.textLabel,self.rowVM.elementEdge.left);
     DJRectSetRight(self.detailTextLabel,self.rowVM.elementEdge.right);
-    
-    [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView * _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
-        DJRectSetLeft(separatorLineView,self.rowVM.elementEdge.left);
-    }];
     
     [self refreshIndentationWidth];
 }
@@ -122,7 +124,7 @@
     float indentSize = self.indentationLevel * self.indentationWidth;
     
     if (indentSize > 0) {
-        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
             view.frame = CGRectMake(view.frame.origin.x+indentSize,view.frame.origin.y,view.frame.size.width,view.frame.size.height);
         }];
     }

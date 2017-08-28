@@ -6,7 +6,7 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
+#import "DJTableViewVMRow.h"
 #import "DJInputRowProtocol.h"
 #import "DJValueProtocol.h"
 #import "DJPickerProtocol.h"
@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;
+
+/**
+ current select Objects,it is element of options array.
+ */
 @property(nonatomic, readonly) NSArray *selectedObjectsArray;
 
 #pragma mark - normal init

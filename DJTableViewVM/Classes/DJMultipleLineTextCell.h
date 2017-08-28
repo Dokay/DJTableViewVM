@@ -6,11 +6,12 @@
 //  Copyright © 2017年 dj226. All rights reserved.
 //
 
-#import <DJTableViewVMFrameWork/DJTableViewVMFrameWork.h>
+#import "DJTableViewVMCell.h"
 #import "DJMultipleLineTextRow.h"
 
 @interface DJMultipleLineTextCell : DJTableViewVMCell
 
 @property(nonatomic, strong) DJMultipleLineTextRow *rowVM;
+@property(nonatomic, readonly) UILabel *multipleLinesLabel;
 
 @end

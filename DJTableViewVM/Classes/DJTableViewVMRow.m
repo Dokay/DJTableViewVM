@@ -30,13 +30,23 @@
         self.detailTitleFont = [DJTableViewVMRow defaultStyleInstance].detailTitleFont;
         self.detailTitleColor = [DJTableViewVMRow defaultStyleInstance].detailTitleColor;
         self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
-        self.indentationLevel = [DJTableViewVMRow defaultStyleInstance].indentationLevel;
-        self.indentationWidth = [DJTableViewVMRow defaultStyleInstance].indentationWidth;
         self.elementEdge = [DJTableViewVMRow defaultStyleInstance].elementEdge;
         
         self.enabled = YES;
     }
     return self;
+}
+
++ (instancetype)rowWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height
+{
+    DJTableViewVMRow *rowVM = [DJTableViewVMRow row];
+    if (rowVM) {
+        rowVM.backgroundColor = color;
+        rowVM.cellHeight = height;
+        rowVM.separatorLineType = DJCellSeparatorLineHide;
+        rowVM.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return rowVM;
 }
 
 + (instancetype)defaultStyleInstance
@@ -61,8 +71,6 @@
         self.detailTitleFont = [UIFont systemFontOfSize:17];
         self.detailTitleColor = [UIColor colorWithWhite:0.3 alpha:0.7];
         self.backgroundColor = [UIColor whiteColor];
-        self.indentationLevel = 0;
-        self.indentationWidth = 10;
         self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
     }
     return self;
