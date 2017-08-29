@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "Dokay" => "dokay.dou@gmail.com" }
   s.platform     = :ios, "6.0"
   s.source       = { :git => "https://github.com/Dokay/DJTableViewVM.git", :tag => s.version.to_s }
-  s.source_files  = "Classes", "DJTableViewVM/Classes/**/*.{h,m}"
+  s.source_files  = "DJTableViewVM/Classes", "DJTableViewVM/Classes/AdvanceCells", "DJTableViewVM/Classes/AdvanceCells/InputCells", "DJTableViewVM/Classes/AdvanceCells/OptionCells"
   s.exclude_files = "Classes/Exclude"
   s.public_header_files = "DJTableViewVM/Classes/**/*.h"
   s.resource_bundles = {'DJTableViewVM' => ['DJTableViewVM/Resources/*']}
