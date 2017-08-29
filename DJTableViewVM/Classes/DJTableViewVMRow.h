@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, copy, nullable) void(^prefetchCancelHander)(id rowVM);
 
 @property (nonatomic, copy, nullable) void(^deleteCellHandler)(id rowVM);
-@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(id rowVM,  void(^ completion)());
+@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(id rowVM,  void(^ completion)(void));
 @property (nonatomic, copy, nullable) void(^insertCellHandler)(id rowVM);
 
 @property (nonatomic, copy, nullable) void (^cutHandler)(id rowVM);

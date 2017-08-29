@@ -188,7 +188,7 @@
         __block CGFloat responderViewTopOffsetInView = 0.0f;
         __block CGFloat destScrollOffset = 0.0f;
         
-       void (^cacluateScrollOffset)() = ^(){
+       void (^cacluateScrollOffset)(void) = ^(){
             destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
 //            destScrollOffset += self.offsetUnderResponder;
            CGFloat scrollAvaliableMax = self.tableView.contentSize.height - tableViewScrollHeight - destContentInsets.top;

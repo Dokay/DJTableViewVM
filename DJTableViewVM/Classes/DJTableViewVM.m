@@ -200,7 +200,7 @@
     DJTableViewVMSection *sectionVM = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        void(^completeBlock)() = ^{
+        void(^completeBlock)(void) = ^{
             [sectionVM removeRowAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         };
