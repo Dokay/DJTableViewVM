@@ -38,16 +38,21 @@
     return self;
 }
 
+- (instancetype)initWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height
+{
+    self = [self init];
+    if (self) {
+        self.backgroundColor = color;
+        self.cellHeight = height;
+        self.separatorLineType = DJCellSeparatorLineHide;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+
 + (instancetype)rowWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height
 {
-    DJTableViewVMRow *rowVM = [DJTableViewVMRow row];
-    if (rowVM) {
-        rowVM.backgroundColor = color;
-        rowVM.cellHeight = height;
-        rowVM.separatorLineType = DJCellSeparatorLineHide;
-        rowVM.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    return rowVM;
+    return [[self alloc] initWithPlaceHolderColor:color andHeight:height];
 }
 
 + (instancetype)defaultStyleInstance

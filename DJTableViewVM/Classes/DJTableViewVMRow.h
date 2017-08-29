@@ -200,7 +200,7 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
  @return placeholder row
  */
 + (instancetype)rowWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height;
-
+- (instancetype)initWithPlaceHolderColor:(UIColor *)color andHeight:(CGFloat)height;
 /**
  get default style instance,change it's property to change default value global.
 

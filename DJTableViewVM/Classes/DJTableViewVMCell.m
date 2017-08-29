@@ -68,8 +68,6 @@
     if ([self respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
         [self setPreservesSuperviewLayoutMargins:NO];
     }
-    
-    [self refreshCurrentSeparatorLine];
 }
 
 - (void)cellDidDisappear
@@ -84,7 +82,7 @@
     DJRectSetLeft(self.textLabel,self.rowVM.elementEdge.left);
     DJRectSetRight(self.detailTextLabel,self.rowVM.elementEdge.right);
     
-    [self refreshIndentationWidth];
+    [self refreshCurrentSeparatorLine];
 }
 
 #pragma mark - private method
@@ -114,17 +112,6 @@
             default:
                 break;
         }
-    }
-}
-
-- (void)refreshIndentationWidth
-{
-    float indentSize = self.indentationLevel * self.indentationWidth;
-    
-    if (indentSize > 0) {
-        [self.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-            view.frame = CGRectMake(view.frame.origin.x+indentSize,view.frame.origin.y,view.frame.size.width,view.frame.size.height);
-        }];
     }
 }
 

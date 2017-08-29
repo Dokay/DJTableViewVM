@@ -195,7 +195,6 @@
             DJLog(@"values:%@",rowVM.valueArray);
             NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
-        _pickerRow.separatorInset = UIEdgeInsetsMake(0, 40, 0, 0);
     }
     return _pickerRow;
 }
