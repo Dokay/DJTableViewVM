@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DJViewController.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 16/1/18.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface DJViewController : UIViewController
 
 @property (nonatomic, assign) NSInteger type;
 

@@ -1,12 +1,12 @@
 //
-//  ViewController.m
+//  DJViewController.m
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 16/1/18.
 //  Copyright © 2016年 dj226 All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DJViewController.h"
 #import "DJTableViewVM.h"
 #import "DJTableViewVMTextAutoCell.h"
 #import "DJTableViewVMTextTestCell.h"
@@ -20,14 +20,14 @@ BOOL DJ_LOG_ENABLE = YES;
 
 static const NSString *kConstContent = @"There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real! Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.\n May you have enough happiness to make you sweet,enough trials to make you strong,enough sorrow to keep you human,enough hope to make you happy? Always put yourself in others’shoes.If you feel that it hurts you,it probably hurts the other person, too. \nThe happiest of people don’t necessarily have the best of everything;they just make the most of everything that comes along their way.Happiness lies for those who cry,those who hurt, those who have searched,and those who have tried,for only they can appreciate the importance of people. \n who have touched their lives.Love begins with a smile,grows with a kiss and ends with a tear.The brightest future will always be based on a forgotten past, you can’t go on well in lifeuntil you let go of your past failures and heartaches.\n When you were born,you were crying and everyone around you was smiling.Live your life so that when you die,you're the one who is smiling and everyone around you is crying.\n Please send this message to those people who mean something to you,to those who have touched your life in one way or another,to those who make you smile when you really need it,to those that make you see the brighter side of things when you are really down,to those who you want to let them know that you appreciate their friendship.And if you don’t, don’t worry,nothing bad will happen to you,you will just miss out on the opportunity to brighten someone’s day with this message.";
 
-@interface ViewController ()
+@interface DJViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *aDJTableViewVM;
 
 @end
 
-@implementation ViewController
+@implementation DJViewController
 
 #pragma mark - life
 - (void)viewDidLoad {
@@ -142,7 +142,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                                 @{@"title":@"AdvanceCellDemo",
                                   @"jumpID":@(13)},];
     
-    __weak ViewController *weakSelf = self;
+    __weak DJViewController *weakSelf = self;
     
     [self.aDJTableViewVM removeAllSections];
     DJTableViewVMSection *contenteSection = [DJTableViewVMSection sectionWithHeaderHeight:0];
@@ -161,7 +161,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                 DJAdvanceViewController *aDJAdvanceViewController = [DJAdvanceViewController new];
                 [weakSelf.navigationController pushViewController:aDJAdvanceViewController animated:YES];
             }else{
-                ViewController *aViewController = [ViewController new];
+                DJViewController *aViewController = [DJViewController new];
                 aViewController.type = [[testDic objectForKey:@"jumpID"] integerValue];
                 [weakSelf.navigationController pushViewController:aViewController animated:YES];
             }
@@ -188,7 +188,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = [kConstContent substringToIndex:random];
-            __weak ViewController *weakSelf = self;
+            __weak DJViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
@@ -215,7 +215,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoLayout;
             row.contentText = [kConstContent substringToIndex:random];
-            __weak ViewController *weakSelf = self;
+            __weak DJViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
@@ -239,7 +239,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
             row.heightCaculateType = DJCellHeightCaculateAutoFrameLayout;
             row.contentText = [NSString stringWithFormat:@"%d---%d,TextRowFrameLayout",i,j];
-            __weak ViewController *weakSelf = self;
+            __weak DJViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
@@ -264,7 +264,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                 row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
             }
             row.title = [NSString stringWithFormat:@"%d-Default-%d",j,i];
-            __weak ViewController *weakSelf = self;
+            __weak DJViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];
@@ -317,7 +317,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                 row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
             }
             row.title = [NSString stringWithFormat:@"%d--%d",j,i];
-            __weak ViewController *weakSelf = self;
+            __weak DJViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
                 [rowVM deselectRowAnimated:YES];
                 [weakSelf testTable];

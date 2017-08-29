@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E006D811C4CB59F005664D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E006D801C4CB59F005664D3 /* main.m */; };
 		4E006D841C4CB59F005664D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E006D831C4CB59F005664D3 /* AppDelegate.m */; };
-		4E006D871C4CB59F005664D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E006D861C4CB59F005664D3 /* ViewController.m */; };
+		4E006D871C4CB59F005664D3 /* DJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E006D861C4CB59F005664D3 /* DJViewController.m */; };
 		4E006D8C1C4CB59F005664D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E006D8B1C4CB59F005664D3 /* Assets.xcassets */; };
 		4E006D8F1C4CB59F005664D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E006D8D1C4CB59F005664D3 /* LaunchScreen.storyboard */; };
 		4E0528BD1C4F1A0200B9AAF5 /* test_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0528BC1C4F1A0200B9AAF5 /* test_head.png */; };
@@ -151,8 +151,8 @@
 		4E006D801C4CB59F005664D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4E006D821C4CB59F005664D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E006D831C4CB59F005664D3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4E006D851C4CB59F005664D3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4E006D861C4CB59F005664D3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4E006D851C4CB59F005664D3 /* DJViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJViewController.h; sourceTree = "<group>"; };
+		4E006D861C4CB59F005664D3 /* DJViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJViewController.m; sourceTree = "<group>"; };
 		4E006D8B1C4CB59F005664D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E006D8E1C4CB59F005664D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E006D901C4CB59F005664D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 				4E3AED141D0FE219000F801F /* TestClasses */,
 				4E006D821C4CB59F005664D3 /* AppDelegate.h */,
 				4E006D831C4CB59F005664D3 /* AppDelegate.m */,
-				4E006D851C4CB59F005664D3 /* ViewController.h */,
-				4E006D861C4CB59F005664D3 /* ViewController.m */,
+				4E006D851C4CB59F005664D3 /* DJViewController.h */,
+				4E006D861C4CB59F005664D3 /* DJViewController.m */,
 				4ECE916D1E56F3D70026F32C /* DJInputCellTestController.h */,
 				4ECE916E1E56F3D70026F32C /* DJInputCellTestController.m */,
 				4E554D391F4AE2A4008A9933 /* DJAdvanceViewController.h */,
@@ -700,7 +700,7 @@
 				4E6B03A61E6D557B003F1B91 /* DJTableViewVMTextViewRow.m in Sources */,
 				4EC495281F4ED3260008D6E5 /* DJRelatedPickerDelegate.m in Sources */,
 				4E09F7F71F4D1FE5006223AC /* DJTableViewVMPickerCell.m in Sources */,
-				4E006D871C4CB59F005664D3 /* ViewController.m in Sources */,
+				4E006D871C4CB59F005664D3 /* DJViewController.m in Sources */,
 				4EC495251F4ED3000008D6E5 /* DJNormalPickerDelegate.m in Sources */,
 				4E6B03A71E6D557B003F1B91 /* DJToolBar.m in Sources */,
 				4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */,
