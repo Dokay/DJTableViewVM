@@ -23,7 +23,6 @@
     [super cellDidLoad];
     
     self.textField.inputView = self.pickerView;
-    
 }
 
 - (void)cellWillAppear
