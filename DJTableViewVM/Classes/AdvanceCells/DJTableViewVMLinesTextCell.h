@@ -1,5 +1,5 @@
 //
-//  DJMultipleLineTextCell.h
+//  DJTableViewVMLinesTextCell.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/8/21.
@@ -7,11 +7,11 @@
 //
 
 #import "DJTableViewVMCell.h"
-#import "DJMultipleLineTextRow.h"
+#import "DJTableViewVMLinesTextRow.h"
 
-@interface DJMultipleLineTextCell : DJTableViewVMCell
+@interface DJTableViewVMLinesTextCell : DJTableViewVMCell
 
-@property(nonatomic, strong) DJMultipleLineTextRow *rowVM;
+@property(nonatomic, strong) DJTableViewVMLinesTextRow *rowVM;
 @property(nonatomic, readonly) UILabel *multipleLinesLabel;
 
 @end

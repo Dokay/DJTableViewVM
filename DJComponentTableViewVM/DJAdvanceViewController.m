@@ -8,7 +8,7 @@
 
 #import "DJAdvanceViewController.h"
 #import "DJTableViewVM.h"
-#import "DJMultipleLineTextCell.h"
+#import "DJTableViewVMLinesTextCell.h"
 #import "DJTableViewVMBoolCell.h"
 #import "DJLog.h"
 #import "DJTableViewVMOptionRow.h"
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) DJTableViewVM *tableViewVM;
 
 @property (nonatomic, strong) DJTableViewVMBoolRow *boolRow;
-@property (nonatomic, strong) DJMultipleLineTextRow *multipleLineRow;
+@property (nonatomic, strong) DJTableViewVMLinesTextRow *multipleLineRow;
 @property (nonatomic, strong) DJTableViewVMOptionRow *optionRow;
 @property (nonatomic, strong) DJTableViewVMOptionRow *multipleChoiceRow;
 @property (nonatomic, strong) DJTableViewVMSegmentedRow *segmentRow;
@@ -55,7 +55,7 @@
 
 - (void)registCells
 {
-    DJTableViewRegister(self.tableViewVM, DJMultipleLineTextRow, DJMultipleLineTextCell);
+    DJTableViewRegister(self.tableViewVM, DJTableViewVMLinesTextRow, DJTableViewVMLinesTextCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMBoolRow, DJTableViewVMBoolCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMOptionRow, DJTableViewVMCell);
     DJTableViewRegister(self.tableViewVM, DJTableViewVMSegmentedRow, DJTableViewVMSegmentedCell);
@@ -114,10 +114,10 @@
     return _boolRow;
 }
 
-- (DJMultipleLineTextRow *)multipleLineRow
+- (DJTableViewVMLinesTextRow *)multipleLineRow
 {
     if (_multipleLineRow == nil) {
-        _multipleLineRow = [DJMultipleLineTextRow new];
+        _multipleLineRow = [DJTableViewVMLinesTextRow new];
         _multipleLineRow.text = @"There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real! Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.";
         _multipleLineRow.titleFont = [UIFont systemFontOfSize:17];
     }

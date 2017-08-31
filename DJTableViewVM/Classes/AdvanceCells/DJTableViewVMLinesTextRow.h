@@ -1,5 +1,5 @@
 //
-//  DJMultipleLineTextRow.h
+//  DJTableViewVMLinesTextRow.h
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/8/21.
@@ -8,9 +8,10 @@
 
 #import "DJTableViewVMRow.h"
 
-@interface DJMultipleLineTextRow : DJTableViewVMRow
+@interface DJTableViewVMLinesTextRow : DJTableViewVMRow
 
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) NSLineBreakMode lineBreakMode;
 @property (nonatomic, assign) NSInteger numberOfLines;
 
 
