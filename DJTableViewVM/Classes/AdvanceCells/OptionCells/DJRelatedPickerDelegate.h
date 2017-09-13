@@ -15,7 +15,7 @@
 @property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
-- (instancetype)initWithOptions:(NSArray<NSArray<DJRelatedPickerValueProtocol> *> *)optionsArray;
+- (instancetype)initWithOptions:(NSArray<NSObject<DJRelatedPickerValueProtocol> *> *)optionsArray;
 - (NSArray *)selectedObjects;
 
 @end

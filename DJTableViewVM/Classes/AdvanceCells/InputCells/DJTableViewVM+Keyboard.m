@@ -315,7 +315,13 @@
         [keyboardToolBar setTapDoneHandler:^{
             [weakSelf.tableView deselectRowAtIndexPath:inputRowVM.indexPath animated:NO];
             UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
-            [cell resignFirstResponder];
+            if (cell) {
+                [cell resignFirstResponder];
+            }else{
+                DJKeyboardState *state = [self keyboardState];
+                [state.responderView resignFirstResponder];
+            }
+            
         }];
         [keyboardToolBar setNeedsLayout];
         state.toolBar = keyboardToolBar;
