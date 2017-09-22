@@ -13,6 +13,7 @@
 @interface DJRelatedPickerDelegate : NSObject<DJPickerProtocol>
 
 @property(nonatomic, weak) UIPickerView *pickerView;
+@property(nonatomic, strong) UIColor *pickerTitleColor;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (instancetype)initWithOptions:(NSArray<NSObject<DJRelatedPickerValueProtocol> *> *)optionsArray;

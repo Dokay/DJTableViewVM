@@ -22,6 +22,7 @@
 @property(nonatomic, copy) NSString *placeholder;
 @property(nonatomic, copy) NSAttributedString *attributedPlaceholder;//default is nil
 @property(nonatomic, strong) UIColor *pickerBackgroundColor;
+@property(nonatomic, strong) UIColor *pickerTitleColor;
 
 @property(nonatomic, assign) UIDatePickerMode datePickerMode;
 @property(nonatomic, strong) NSLocale *locale;                // default is [NSLocale currentLocale]. setting nil returns to default

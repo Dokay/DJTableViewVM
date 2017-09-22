@@ -13,6 +13,7 @@
 
 @required
 @property(nonatomic, weak) UIPickerView *pickerView;
+@property(nonatomic, strong) UIColor *pickerTitleColor;
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (void)refreshPickerWithValues:(NSArray *)valuesArray;

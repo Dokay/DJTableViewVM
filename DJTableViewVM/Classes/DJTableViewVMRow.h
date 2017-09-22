@@ -129,6 +129,11 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 
 #pragma mark - margin control
 /**
+ edge of contentView.detault is (0, 0, 0, 0)
+ */
+@property (nonatomic, assign) UIEdgeInsets contentEdge;
+
+/**
  label edge of labels.detault is (10, 15, 10, 15)
  */
 @property (nonatomic, assign) UIEdgeInsets elementEdge;

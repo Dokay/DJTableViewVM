@@ -40,7 +40,7 @@
             [rows addObject:@(0)];
         }
     }
-
+    
     self.componentValuesArray = [self getValuesWithSelectRows:rows];
 }
 
@@ -167,32 +167,49 @@
 }
 
 #pragma mark UIPickerViewDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    NSArray *titlesArray = [self.componentValuesArray objectAtIndex:component];
+//    NSObject *valueObject = [titlesArray objectAtIndex:row];
+//    return [self readValueObject:valueObject];
+//}
+
+- (nullable NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component NS_AVAILABLE_IOS(6_0) __TVOS_PROHIBITED
 {
     NSArray *titlesArray = [self.componentValuesArray objectAtIndex:component];
     NSObject *valueObject = [titlesArray objectAtIndex:row];
-    return [self readValueObject:valueObject];
-}
+    NSString *title = [self readValueObject:valueObject];
 
+    NSMutableDictionary *attributesDictionary = [NSMutableDictionary new];
+    if(self.pickerTitleColor){
+        [attributesDictionary setObject:self.pickerTitleColor forKey:NSForegroundColorAttributeName];
+    }
+    
+    return [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary.copy];
+}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [self recaculateTitlesWithSelectComponent:component];
     [pickerView reloadAllComponents];
     //set row = 0 in component after current component
-//    NSInteger componentCount = self.componentCount;
-//    NSInteger i = component + 1;
-//    while (i < componentCount) {
-//        [self.pickerView selectRow:0 inComponent:i animated:YES];
-//        i++;
-//    }
+    NSInteger componentCount = self.componentCount;
+    NSInteger nextComponent = component + 1;
+    while (nextComponent < componentCount) {
+        NSArray *titlesArray = [self.componentValuesArray objectAtIndex:component];
+        if (titlesArray.count == 0) {
+            break;
+        }
+        [self.pickerView selectRow:0 inComponent:nextComponent animated:NO];
+        nextComponent++;
+    }
     
     NSArray *valuesArray = [self updateCurrentValue];
     if (self.valueChangeBlock) {
         self.valueChangeBlock(valuesArray);
     }
-
-//    [self updateCurrentValue];
+    
+    //    [self updateCurrentValue];
     
 }
 

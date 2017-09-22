@@ -93,11 +93,25 @@
 }
 
 #pragma mark UIPickerViewDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
+//    NSObject *valueObject = [titlesArray objectAtIndex:row];
+//    return [self readValueObject:valueObject];
+//}
+
+- (nullable NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component NS_AVAILABLE_IOS(6_0) __TVOS_PROHIBITED
 {
     NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
     NSObject *valueObject = [titlesArray objectAtIndex:row];
-    return [self readValueObject:valueObject];
+    NSString *title = [self readValueObject:valueObject];
+    
+    NSMutableDictionary *attributesDictionary = [NSMutableDictionary new];
+    if(self.pickerTitleColor){
+        [attributesDictionary setObject:self.pickerTitleColor forKey:NSForegroundColorAttributeName];
+    }
+    
+    return [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary.copy];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

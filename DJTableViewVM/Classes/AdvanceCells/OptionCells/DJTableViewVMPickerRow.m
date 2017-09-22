@@ -54,6 +54,7 @@
         _valueArray = valueArray;
         _placeholder = placeholder;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        _pickerTitleColor = [UIColor blackColor];
    
     }
     return self;
@@ -64,5 +65,11 @@
     return [(DJRelatedPickerDelegate *)self.pickerDelegate selectedObjects];
 }
 
+#pragma mark - seter
+- (void)setPickerTitleColor:(UIColor *)pickerTitleColor
+{
+    _pickerTitleColor = pickerTitleColor;
+    self.pickerDelegate.pickerTitleColor = pickerTitleColor;
+}
 
 @end

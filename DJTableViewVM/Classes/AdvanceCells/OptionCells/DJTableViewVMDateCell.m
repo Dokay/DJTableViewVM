@@ -40,6 +40,9 @@
     }
     
     self.datePicker.backgroundColor = self.rowVM.pickerBackgroundColor;
+    if (self.rowVM.pickerTitleColor) {
+        [self.datePicker setValue:self.rowVM.pickerTitleColor forKey:@"textColor"];
+    }
     self.datePicker.date = self.rowVM.date ? self.rowVM.date : (self.rowVM.startDate ? self.rowVM.startDate : [NSDate date]);
     if (self.datePicker.datePickerMode != self.rowVM.datePickerMode) {
         self.datePicker.datePickerMode = self.rowVM.datePickerMode;
