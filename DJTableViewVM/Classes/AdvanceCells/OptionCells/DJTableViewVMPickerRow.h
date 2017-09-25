@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *placeholder;//drawn 70% gray
 @property(nonatomic, copy, nullable) NSAttributedString *attributedPlaceholder;//default is nil
 @property(nonatomic, strong) UIColor *pickerTitleColor;
+@property(nonatomic, strong) UIFont *pickerTitleFont;
+@property(nonatomic, copy) CGFloat(^widthForComponent)(NSInteger component);
+@property(nonatomic, copy) CGFloat(^heightForComponent)(NSInteger component);
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
 
 @property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;

@@ -13,6 +13,9 @@
 
 @property(nonatomic, weak) UIPickerView *pickerView;
 @property(nonatomic, strong) UIColor *pickerTitleColor;
+@property(nonatomic, strong) UIFont *pickerTitleFont;
+@property(nonatomic, copy) CGFloat(^widthForComponent)(NSInteger component);
+@property(nonatomic, copy) CGFloat(^heightForComponent)(NSInteger component);
 @property(nonatomic, copy) void(^valueChangeBlock)(NSArray *valuesArray);
 
 - (instancetype)initWithOptions:(NSArray<NSArray *> *)optionsArray;

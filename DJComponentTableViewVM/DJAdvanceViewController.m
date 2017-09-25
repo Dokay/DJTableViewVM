@@ -210,6 +210,9 @@
             [optionsArray addObject:valueModel];
         }
         _protocolPickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Protocol Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select" protocolOptions:@[optionsArray.copy,optionsArray.copy]];
+        [_protocolPickerRow setHeightForComponent:^CGFloat(NSInteger component){
+            return 50;
+        }];
         [_protocolPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
             NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
@@ -224,6 +227,18 @@
         NSMutableArray *optionsArray = [DJReplatedPickerModel buildRelatedDeep:3 lastTag:@"0"].copy;
         
         _relatedPickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Related Picker" value:@[@"0 3",@"0 3 6",@"0 3 6 3"] placeholder:@"please select" relatedOptions:optionsArray.copy];
+        _relatedPickerRow.pickerTitleColor = [UIColor purpleColor];
+        _relatedPickerRow.pickerTitleFont = [UIFont systemFontOfSize:30];
+        [_relatedPickerRow setWidthForComponent:^CGFloat(NSInteger component){
+            if (component == 2) {
+                return 140;
+            }else{
+                return ([UIScreen mainScreen].bounds.size.width - 140)/2;
+            }
+        }];
+        [_relatedPickerRow setHeightForComponent:^CGFloat(NSInteger component){
+            return 50;
+        }];
         [_relatedPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
             NSLog(@"select obj:%@",rowVM.selectedObjectsArray);

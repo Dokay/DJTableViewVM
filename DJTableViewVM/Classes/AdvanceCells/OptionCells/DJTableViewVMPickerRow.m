@@ -30,6 +30,8 @@
     if (self) {
         _optionsArray = optionsArray;
         _pickerDelegate = [[DJNormalPickerDelegate alloc] initWithOptions:_optionsArray];
+        _pickerDelegate.pickerTitleColor = _pickerTitleColor;
+        _pickerDelegate.pickerTitleFont = _pickerTitleFont;
     }
     return self;
 }
@@ -40,6 +42,8 @@
     if (self) {
         _relatedOptionsArray = relatedOptionsArray;
         _pickerDelegate = [[DJRelatedPickerDelegate alloc] initWithOptions:_relatedOptionsArray];
+        _pickerDelegate.pickerTitleColor = _pickerTitleColor;
+        _pickerDelegate.pickerTitleFont = _pickerTitleFont;
     }
     return self;
 }
@@ -55,7 +59,7 @@
         _placeholder = placeholder;
         _focusScrollPosition = UITableViewScrollPositionBottom;
         _pickerTitleColor = [UIColor blackColor];
-   
+        _pickerTitleFont = [UIFont systemFontOfSize:21];
     }
     return self;
 }
@@ -70,6 +74,24 @@
 {
     _pickerTitleColor = pickerTitleColor;
     self.pickerDelegate.pickerTitleColor = pickerTitleColor;
+}
+
+- (void)setPickerTitleFont:(UIFont *)pickerTitleFont
+{
+    _pickerTitleFont = pickerTitleFont;
+    self.pickerDelegate.pickerTitleFont = pickerTitleFont;
+}
+
+- (void)setWidthForComponent:(CGFloat (^)(NSInteger))widthForComponent
+{
+    _widthForComponent = widthForComponent;
+    self.pickerDelegate.widthForComponent = widthForComponent;
+}
+
+- (void)setHeightForComponent:(CGFloat (^)(NSInteger))heightForComponent
+{
+    _heightForComponent = heightForComponent;
+    self.pickerDelegate.heightForComponent = heightForComponent;
 }
 
 @end

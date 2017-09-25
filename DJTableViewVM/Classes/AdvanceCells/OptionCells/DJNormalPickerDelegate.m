@@ -93,25 +93,45 @@
 }
 
 #pragma mark UIPickerViewDelegate
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
-//    NSObject *valueObject = [titlesArray objectAtIndex:row];
-//    return [self readValueObject:valueObject];
-//}
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component __TVOS_PROHIBITED
+{
+    if (self.optionsArray.count > 0) {
+        if (self.widthForComponent) {
+            return self.widthForComponent(component);
+        }else{
+            return pickerView.frame.size.width/self.optionsArray.count;
+        }
+    }else{
+        return 0;
+    }
+}
 
-- (nullable NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component NS_AVAILABLE_IOS(6_0) __TVOS_PROHIBITED
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component __TVOS_PROHIBITED
+{
+    if (self.heightForComponent) {
+        return self.heightForComponent(component);
+    }else{
+        return 32;
+    }
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view __TVOS_PROHIBITED
 {
     NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
     NSObject *valueObject = [titlesArray objectAtIndex:row];
     NSString *title = [self readValueObject:valueObject];
-    
-    NSMutableDictionary *attributesDictionary = [NSMutableDictionary new];
-    if(self.pickerTitleColor){
-        [attributesDictionary setObject:self.pickerTitleColor forKey:NSForegroundColorAttributeName];
+    NSLog(@"%@",title);
+    if (view == nil) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectNull];
+        label.font = self.pickerTitleFont;
+        label.textColor = self.pickerTitleColor;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = title;
+        return label;
+    }else{
+        ((UILabel *)view).text = title;
+        return view;
     }
-    
-    return [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary.copy];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
