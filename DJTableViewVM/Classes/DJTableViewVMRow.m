@@ -32,7 +32,6 @@
         self.backgroundColor = [DJTableViewVMRow defaultStyleInstance].backgroundColor;
         self.elementEdge = [DJTableViewVMRow defaultStyleInstance].elementEdge;
         self.titleTextAlignment = [DJTableViewVMRow defaultStyleInstance].titleTextAlignment;
-        self.contentEdge = [DJTableViewVMRow defaultStyleInstance].contentEdge;
         self.enabled = YES;
     }
     return self;
@@ -78,7 +77,6 @@
         self.detailTextColor = [UIColor colorWithWhite:0.3 alpha:0.7];
         self.backgroundColor = [UIColor whiteColor];
         self.elementEdge = UIEdgeInsetsMake(10, 15, 10, 15);
-        self.contentEdge = UIEdgeInsetsMake(0, 0, 0, 0);
         self.titleTextAlignment = NSTextAlignmentLeft;
     }
     return self;

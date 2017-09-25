@@ -84,12 +84,9 @@
         DJRectSetRight(self.detailTextLabel,self.rowVM.elementEdge.right);
     }else{
         DJRectSetLeft(self.imageView,self.rowVM.elementEdge.left);
-        DJRectSetLeft(self.textLabel,self.rowVM.elementEdge.left + self.imageView.frame.size.width + self.rowVM.elementEdge.left);
+        DJRectSetLeft(self.textLabel,self.rowVM.elementEdge.left + self.imageView.frame.size.width + 15);
         DJRectSetRight(self.detailTextLabel,self.rowVM.elementEdge.right);
     }
-    
-    UIEdgeInsets contentEdge = self.rowVM.contentEdge;
-    self.contentView.frame = CGRectMake(contentEdge.left, contentEdge.top, self.frame.size.width - contentEdge.left - contentEdge.right, self.frame.size.height - contentEdge.top - contentEdge.bottom);
     
     [self refreshCurrentSeparatorLine];
 }
