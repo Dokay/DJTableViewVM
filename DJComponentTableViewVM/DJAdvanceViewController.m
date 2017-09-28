@@ -193,7 +193,7 @@
         _pickerRow = [[DJTableViewVMPickerRow alloc] initWithTitle:@"Picker" value:@[@"Picker 1",@"Picker 3"] placeholder:@"please select" options:@[options.copy,options.copy]];
         [_pickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
-            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
+            DJLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
     }
     return _pickerRow;
@@ -215,7 +215,7 @@
         }];
         [_protocolPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
-            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
+            DJLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
     }
     return _protocolPickerRow;
@@ -241,7 +241,7 @@
         }];
         [_relatedPickerRow setOnValueChangeHandler:^(DJTableViewVMPickerRow *rowVM){
             DJLog(@"values:%@",rowVM.valueArray);
-            NSLog(@"select obj:%@",rowVM.selectedObjectsArray);
+            DJLog(@"select obj:%@",rowVM.selectedObjectsArray);
         }];
     }
     return _relatedPickerRow;

@@ -15,6 +15,6 @@
 @property(nonatomic, strong) NSString *pickerTitle;
 
 #pragma mark - DJValueProtocol
-@property(nonatomic, readonly) NSString *dj_titleValue;
+@property(nonatomic, copy, readonly) NSString *dj_titleValue;
 
 @end

@@ -11,6 +11,7 @@
 #import "DJTableViewVMTextFieldCell.h"
 #import "DJTableViewVMTextViewCell.h"
 #import "DJTableViewVM+Keyboard.h"
+#import "DJLog.h"
 
 @interface DJInputCellTestController ()
 
@@ -100,10 +101,10 @@
         _textFieldRow.placeholder = @"Please input your name";
         _textFieldRow.charactersMaxCount = 8;
         [_textFieldRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
-            NSLog(@"input->message:%@",rowVM.text);
+            DJLog(@"input->message:%@",rowVM.text);
         }];
         [_textFieldRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
-            NSLog(@"more than 8");
+            DJLog(@"more than 8");
         }];
         _textFieldRow.title = @"Name: ";
     }

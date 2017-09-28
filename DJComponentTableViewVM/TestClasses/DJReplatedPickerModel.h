@@ -18,7 +18,7 @@
 + (NSArray *)buildRelatedDeep:(NSInteger)deep lastTag:(NSString *)lastTag;
 
 #pragma mark - DJRelatedPickerValueProtocol
-@property(nonatomic, readonly) NSString *dj_titleValue;
-@property(nonatomic, readonly) NSArray *dj_childOptionsValues;
+@property(nonatomic, copy, readonly) NSString *dj_titleValue;
+@property(nonatomic, copy, readonly) NSArray *dj_childOptionsValues;
 
 @end

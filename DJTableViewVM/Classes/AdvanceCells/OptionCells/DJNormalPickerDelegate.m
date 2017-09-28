@@ -120,7 +120,6 @@
     NSArray *titlesArray = [self.optionsArray objectAtIndex:component];
     NSObject *valueObject = [titlesArray objectAtIndex:row];
     NSString *title = [self readValueObject:valueObject];
-    NSLog(@"%@",title);
     if (view == nil) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectNull];
         label.font = self.pickerTitleFont;
