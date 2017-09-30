@@ -52,22 +52,18 @@ github "Dokay/DJTableViewVM"
     DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextTestCell);
 
     [self.aDJTableViewVM removeAllSections];
-    self.aDJTableViewVM.preCaculateHeightEnable = YES;
 
     for (int j = 0; j < 20; j++) {
         DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"AutoLayoutWithNib"];
         [self.aDJTableViewVM addSection:section];
         for (int i  = 0; i < 100; i ++) {
-        NSInteger random = arc4random() % kConstContent.length;
-        random = MAX(10, random);
-        DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
-        row.heightCaculateType = DJCellHeightCaculateAutoLayout;
-        row.contentText = [kConstContent substringToIndex:random];
-        __weak ViewController *weakSelf = self;
+            DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
+            row.contentText = @"This is a test content";
+            __weak ViewController *weakSelf = self;
             [row setSelectionHandler:^(DJTableViewVMRow *rowVM) {
-            [rowVM deselectRowAnimated:YES];
-            [weakSelf testTable];
-        }];
+                [rowVM deselectRowAnimated:YES];
+                [weakSelf testTable];
+            }];
         [section addRow:row];
         }
     }

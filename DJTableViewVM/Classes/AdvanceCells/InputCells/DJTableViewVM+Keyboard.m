@@ -381,7 +381,9 @@
     if (inputRowVM != nil) {
         UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
 //        [currentCell.respo resignFirstResponder];//cause animation shake
-        [currentCell setSelected:NO animated:NO];
+        if (currentCell.isSelected) {
+            [currentCell setSelected:NO animated:NO];
+        }
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
@@ -399,7 +401,9 @@
     if (inputRowVM != nil) {
         UITableViewCell *currentCell = [self.tableView cellForRowAtIndexPath:indexPath];
 //        [currentCell resignFirstResponder];////cause animation shake
-        [currentCell setSelected:NO animated:NO];
+        if (currentCell.isSelected) {
+            [currentCell setSelected:NO animated:NO];
+        }
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:inputRowVM.indexPath];
         if (cell) {
