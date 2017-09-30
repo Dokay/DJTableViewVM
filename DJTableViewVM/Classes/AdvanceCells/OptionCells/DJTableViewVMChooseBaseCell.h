@@ -10,8 +10,6 @@
 #import "DJTableViewVMRow.h"
 #import "DJToolBar.h"
 
-#define DJInputViewHeight 216 //default height must set in iOS 11,if CGRectNull will crash for "'CALayerInvalidGeometry', reason: 'CALayer position contains NaN: [nan -inf]'"
-
 @interface DJTableViewVMChooseBaseCell : DJTableViewVMCell
 
 @property(nonatomic, strong) DJTableViewVMRow *rowVM;

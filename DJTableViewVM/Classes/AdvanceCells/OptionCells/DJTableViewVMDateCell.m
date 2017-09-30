@@ -104,8 +104,9 @@
 - (UIDatePicker *)datePicker
 {
     if (_datePicker == nil) {
-        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), DJInputViewHeight)];
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
         [_datePicker addTarget:self action:@selector(onDateValueChanged:) forControlEvents:UIControlEventValueChanged];
+        _datePicker.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _datePicker;
 }
