@@ -45,7 +45,7 @@
         self.placeholderLabel.attributedText = self.rowVM.attributedPlaceholder;
     }
     if (self.rowVM.toolbarTintColor) {
-        self.accessoryView.tintColor = self.rowVM.toolbarTintColor;
+        self.textField.inputAccessoryView.tintColor = self.rowVM.toolbarTintColor;
     }
     
     self.placeholderLabel.hidden = self.detailTextLabel.text.length > 0;

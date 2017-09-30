@@ -75,11 +75,6 @@
     return [super becomeFirstResponder];
 }
 
-- (UIResponder *)responder
-{
-    return self.textField;
-}
-
 #pragma mark - overwrite
 - (void)updateWithValue:(NSObject *)newValue
 {
