@@ -11,6 +11,7 @@
 
 @interface DJTableViewVMPickerCell()
 
+@property(nonatomic, strong) UIView *holderView;
 @property(nonatomic, strong) UIPickerView *pickerView;
 
 @end
@@ -21,8 +22,8 @@
 - (void)cellDidLoad
 {
     [super cellDidLoad];
-    
-    self.textField.inputView = self.pickerView;
+
+    self.textField.inputView = self.holderView;
 }
 
 - (void)cellWillAppear
@@ -75,10 +76,22 @@
 - (UIPickerView *)pickerView
 {
     if (_pickerView == nil) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-        _pickerView.translatesAutoresizingMaskIntoConstraints = NO;
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
     }
     return _pickerView;
+}
+
+- (UIView *)holderView
+{
+    if (_holderView == nil) {
+        _holderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, self.pickerView.frame.size.height)];
+        [_holderView addSubview:self.pickerView];
+        
+        _pickerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_holderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_pickerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_pickerView)]];
+        [_holderView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_pickerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_pickerView)]];
+    }
+    return _holderView;
 }
 
 @end
