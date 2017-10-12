@@ -75,7 +75,7 @@
 - (UIPickerView *)pickerView
 {
     if (_pickerView == nil) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
         _pickerView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _pickerView;
