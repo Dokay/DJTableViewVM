@@ -308,7 +308,7 @@
         return [self.delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
     }
     
-    return NSLocalizedString(@"删除", @"Delete");
+    return NSLocalizedString(@"Delete", @"Delete");
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
@@ -337,11 +337,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     if ([self checkAvaliableForIndexPath:sourceIndexPath] == NO) {
-        return proposedDestinationIndexPath;
-    }
-    
-    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]){
-        return [self.delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
+        return sourceIndexPath;
     }
     
     DJTableViewVMSection *sourceSection = [self.sections objectAtIndex:sourceIndexPath.section];
@@ -351,6 +347,10 @@
         if (!allowed){
             return sourceIndexPath;
         }
+    }
+    
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]){
+        return [self.delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
     }
     
     return proposedDestinationIndexPath;

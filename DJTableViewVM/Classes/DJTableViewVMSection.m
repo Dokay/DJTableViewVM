@@ -141,18 +141,22 @@
 
 - (id)initWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
-    UIView *headerView = [self holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
-    DJTableViewVMSection *sevtionVM = [self initWithHeaderView:headerView];
-    sevtionVM.headerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
-    return sevtionVM;
+    UIView *headerView = [DJTableViewVMSection holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
+    self = [self initWithFooterView:headerView];
+    if (self) {
+        self.headerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
+    }
+    return self;
 }
 
 - (id)initWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
-    UIView *footerView = [self holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
-    DJTableViewVMSection *sevtionVM = [self initWithFooterView:footerView];
-    sevtionVM.footerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
-    return sevtionVM;
+    UIView *footerView = [DJTableViewVMSection holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
+    self = [self initWithFooterView:footerView];
+    if (self) {
+        self.footerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
+    }
+    return self;
 }
 
 - (id)init
@@ -176,7 +180,7 @@
     [self.tableViewVM.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.index] withRowAnimation:animation];
 }
 
-- (UIView *)holderViewWithAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
++ (UIView *)holderViewWithAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
     UIView *holderView = [[UIView alloc] initWithFrame:CGRectZero];
     holderView.backgroundColor = [UIColor whiteColor];

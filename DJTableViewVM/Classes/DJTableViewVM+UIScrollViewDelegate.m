@@ -107,4 +107,11 @@
     }
 }
 
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView
+{
+    if ([self.delegate conformsToProtocol:@protocol(UIScrollViewDelegate)] && [self.delegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]){
+        [self.delegate performSelector:@selector(scrollViewDidChangeAdjustedContentInset:) withObject:self.tableView];
+    }
+}
+
 @end
