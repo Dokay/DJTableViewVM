@@ -16,7 +16,7 @@ __DJTableViewVM is a lightweight ViewModel implementation for UITableView.__
 * prefetch for iOS under iOS 10;
 * cell height dynamic caculate;
 * cell height pre caculate.
-* keyboard shows and input view scroll automatically.
+* keyboard management and input view switch automatically.
 
 ## Requirements
 * Xcode 7 or higher
