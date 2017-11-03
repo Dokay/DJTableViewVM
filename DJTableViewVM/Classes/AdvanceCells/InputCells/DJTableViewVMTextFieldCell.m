@@ -182,6 +182,7 @@
     if (self.rowVM.didEndEditing) {
         self.rowVM.didEndEditing(self.rowVM);
     }
+    [textField layoutIfNeeded];
 }
 
 //note:called in place of textFieldDidEndEditing:
@@ -194,6 +195,7 @@
     if (self.rowVM.didEndEditing) {
         self.rowVM.didEndEditing(self.rowVM);
     }
+    [textField layoutIfNeeded];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
