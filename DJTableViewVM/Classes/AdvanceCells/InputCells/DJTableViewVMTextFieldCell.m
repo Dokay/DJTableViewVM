@@ -10,7 +10,7 @@
 #import "DJTableViewVM.h"
 #import "DJToolBar.h"
 
-@interface DJTableViewVMTextFieldCell()<UITextFieldDelegate>
+@interface DJTableViewVMTextFieldCell()
 
 
 @end

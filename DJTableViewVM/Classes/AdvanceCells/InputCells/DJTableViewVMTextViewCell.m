@@ -12,7 +12,7 @@
 
 #define MagicMarginNumber DJTableViewVMTextViewRowMagicMarginNumber
 
-@interface DJTableViewVMTextViewCell()<UITextViewDelegate>
+@interface DJTableViewVMTextViewCell()
 
 @property(nonatomic, strong) UITextView *textView;
 @property(nonatomic, strong) UILabel *placeholderLabel;

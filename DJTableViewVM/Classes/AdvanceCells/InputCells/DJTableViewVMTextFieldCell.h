@@ -12,10 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DJTableViewVMTextFieldCell : DJTableViewVMCell
+@interface DJTableViewVMTextFieldCell : DJTableViewVMCell<UITextFieldDelegate>
 
 @property (nonatomic, strong) DJTableViewVMTextFieldRow *rowVM;
 @property (nonatomic, readonly) UITextField *textField;
+
+- (void)textFieldDidChange:(UITextField *)textField;
 
 @end
 
