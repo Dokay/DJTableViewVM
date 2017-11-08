@@ -80,6 +80,12 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
  */
 @property (nonatomic, copy, nullable) NSString *cellIdentifier;
 
+/**
+ bundle for cell nib, if nil mainBundle will be used.
+ */
+@property (nonatomic, strong) NSBundle *cellBundle;
+
+
 #pragma mark - title properties
 /**
  text property of textLabel in cell.default is nil.

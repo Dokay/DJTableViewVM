@@ -279,6 +279,31 @@
 }
 
 #pragma mark - public methods
+- (void)registerRowClass:(id)rowClass forCellClass:(id)cellClass bundle:(NSBundle *)bundle
+{
+    Class _rowClass = [rowClass isKindOfClass:[NSString class]] ? NSClassFromString(rowClass) : rowClass;
+    Class _cellClass = [cellClass isKindOfClass:[NSString class]] ? NSClassFromString(cellClass) : cellClass;
+    
+    NSAssert(_rowClass, ([NSString stringWithFormat:@"Row class '%@' does not exist.", rowClass]));
+    NSAssert(_cellClass, ([NSString stringWithFormat:@"Cell class '%@' does not exist.", cellClass]));
+    
+    NSString *rowClassString = NSStringFromClass(_rowClass);
+    NSString *cellClassString = NSStringFromClass(_cellClass);
+    
+    self.registeredClasses[rowClassString] = cellClassString;
+    
+    if (!bundle){
+        bundle = [NSBundle mainBundle];
+    }
+    
+    if ([bundle pathForResource:cellClassString ofType:@"nib"]) {
+        self.registeredXIBs[cellClassString] = rowClassString;
+        [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:rowClassString];
+    }else{
+        [self.tableView registerClass:_cellClass forCellReuseIdentifier:rowClassString];
+    }
+}
+
 - (CGFloat)heightWithAutoLayoutCellForIndexPath:(NSIndexPath *)indexPath
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
@@ -382,32 +407,7 @@
 
 - (void)p_registerRowClass:(id)rowClass forCellClass:(id)cellClass
 {
-    [self p_registerRowClass:rowClass forCellClass:cellClass bundle:nil];
-}
-
-- (void)p_registerRowClass:(id)rowClass forCellClass:(id)cellClass bundle:(NSBundle *)bundle
-{
-    Class _rowClass = [rowClass isKindOfClass:[NSString class]] ? NSClassFromString(rowClass) : rowClass;
-    Class _cellClass = [cellClass isKindOfClass:[NSString class]] ? NSClassFromString(cellClass) : cellClass;
-    
-    NSAssert(_rowClass, ([NSString stringWithFormat:@"Row class '%@' does not exist.", rowClass]));
-    NSAssert(_cellClass, ([NSString stringWithFormat:@"Cell class '%@' does not exist.", cellClass]));
-    
-    NSString *rowClassString = NSStringFromClass(_rowClass);
-    NSString *cellClassString = NSStringFromClass(_cellClass);
-    
-    self.registeredClasses[rowClassString] = cellClassString;
-    
-    if (!bundle){
-        bundle = [NSBundle mainBundle];
-    }
-    
-    if ([bundle pathForResource:cellClassString ofType:@"nib"]) {
-        self.registeredXIBs[cellClassString] = rowClassString;
-        [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:rowClassString];
-    }else{
-        [self.tableView registerClass:_cellClass forCellReuseIdentifier:rowClassString];
-    }
+    [self registerRowClass:rowClass forCellClass:cellClass bundle:nil];
 }
 
 - (NSString *)p_classNameForCellAtIndexPath:(NSIndexPath *)indexPath

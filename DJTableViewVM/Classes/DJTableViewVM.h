@@ -120,6 +120,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)heightWithAutoLayoutCellForIndexPath:(NSIndexPath *)indexPath;
 
+/**
+ regist cell that int other bundle
+
+ @param rowClass rowVM class name
+ @param cellClass cell class name
+ @param bundle which bundle contains cell nib.if nil mainBundle will be used
+ */
+- (void)registerRowClass:(id)rowClass forCellClass:(id)cellClass bundle:(nullable NSBundle *)bundle;
+
 #pragma mark - implement dictionary key value style
 - (id)objectAtKeyedSubscript:(id<NSCopying>)key;
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
