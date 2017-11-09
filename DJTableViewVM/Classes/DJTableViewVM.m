@@ -298,9 +298,9 @@
     
     if ([bundle pathForResource:cellClassString ofType:@"nib"]) {
         self.registeredXIBs[cellClassString] = rowClassString;
-        [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:rowClassString];
+        [self.tableView registerNib:[UINib nibWithNibName:cellClassString bundle:bundle] forCellReuseIdentifier:cellClassString];
     }else{
-        [self.tableView registerClass:_cellClass forCellReuseIdentifier:rowClassString];
+        [self.tableView registerClass:_cellClass forCellReuseIdentifier:cellClassString];
     }
 }
 
@@ -410,39 +410,21 @@
     [self registerRowClass:rowClass forCellClass:cellClass bundle:nil];
 }
 
-- (NSString *)p_classNameForCellAtIndexPath:(NSIndexPath *)indexPath
-{
-    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
-    NSObject *row = [section.rows objectAtIndex:indexPath.row];
-    return [self.registeredClasses objectForKey:NSStringFromClass(row.class)];
-}
-
 - (UITableViewCell<DJTableViewVMCellDelegate> *)p_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCalculateHeight:(BOOL)forCaculateHeight
 {
-    DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
-    DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
+    DJTableViewVMSection *sectionVM = [self.mutableSections objectAtIndex:indexPath.section];
+    DJTableViewVMRow *rowVM = [sectionVM.rows objectAtIndex:indexPath.row];
     
-    UITableViewCellStyle cellStyle = UITableViewCellStyleDefault;
-    if ([row isKindOfClass:[DJTableViewVMRow class]])
-    {
-        cellStyle = ((DJTableViewVMRow *)row).style;
-    }
-    NSString *cellIdentifier = [NSString stringWithFormat:@"DJTableViewVMDefaultIdentifier_%@_%li", [row class], (long) cellStyle];
-    NSString *cellClassName = [self p_classNameForCellAtIndexPath:indexPath];
-    
-    if (self.registeredXIBs[cellClassName]) {
-        cellIdentifier = self.registeredXIBs[cellClassName];
-    }
-    
-    if (row.cellIdentifier) {
-        cellIdentifier = row.cellIdentifier;
-    }
+    NSString *rowClassName = NSStringFromClass(rowVM.class);
+    NSString *cellClassName = [self objectAtKeyedSubscript:rowClassName];
+    NSString *cellIdentifier = cellClassName;
+    NSAssert(cellClassName, @"rowVM:%@ does not regist correctly.",rowClassName);
     
     UITableViewCell<DJTableViewVMCellDelegate> *cell;
     if (forCaculateHeight == NO) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+            cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:rowVM.style reuseIdentifier:cellIdentifier];
         }
     }else{
         //cell with dequeueReusableCellWithIdentifier: is not resuable.
@@ -451,17 +433,17 @@
             if (self.registeredXIBs[cellClassName]) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:cellClassName owner:nil options:nil] lastObject];
             }else{
-                cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
+                cell = [[NSClassFromString(cellClassName) alloc] initWithStyle:rowVM.style reuseIdentifier:cellIdentifier];
             }
             [self.resuableCalculateCells setObject:cell forKey:cellIdentifier];
         }
     }
     
     cell.parentTableView = tableView;
-    cell.rowVM = row;
+    cell.rowVM = rowVM;
     
     if (cell == nil) {
-        NSString *crashReason = [NSString stringWithFormat:@"cellForRowAtIndexPath: (section:%@ row:%@) returns nil,make sure you have resisted %@ corectly.",@(indexPath.section),@(indexPath.row),row.class];
+        NSString *crashReason = [NSString stringWithFormat:@"cellForRowAtIndexPath: (section:%@ row:%@) returns nil,make sure you have resisted %@ corectly.",@(indexPath.section),@(indexPath.row),rowVM.class];
         @throw([NSException exceptionWithName: @"DJTableViewVM Exception" reason:crashReason userInfo:nil]);
     }
     
