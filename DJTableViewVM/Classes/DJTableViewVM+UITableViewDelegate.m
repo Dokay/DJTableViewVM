@@ -93,13 +93,15 @@
         return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
     }
     
-    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
-    if (sectionVM.headerView){
-        return sectionVM.headerView.frame.size.height;
-    }
-    
-    if (sectionVM.headerTitle){
-        return 28;// default height for header
+    if (section < self.sections.count){
+        DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
+        if (sectionVM.headerView){
+            return sectionVM.headerView.frame.size.height;
+        }
+        
+        if (sectionVM.headerTitle){
+            return 28;// default height for header
+        }
     }
 
     return self.tableView.estimatedSectionHeaderHeight;
@@ -111,13 +113,15 @@
         return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
     }
 
-    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
-    if (sectionVM.footerView){
-        return sectionVM.footerView.frame.size.height;
-    }
-    
-    if (sectionVM.footerTitle){
-        return 28;// default height for footer
+    if (section < self.sections.count){
+        DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
+        if (sectionVM.footerView){
+            return sectionVM.footerView.frame.size.height;
+        }
+        
+        if (sectionVM.footerTitle){
+            return 28;// default height for footer
+        }
     }
     
     return self.tableView.estimatedSectionFooterHeight;
