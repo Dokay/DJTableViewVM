@@ -87,31 +87,41 @@
     return height ? height : UITableViewAutomaticDimension;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
-//{
-//    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]){
-//        return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
-//    }
-//
-//    if (self.estimatedSectionHeaderHeight > 0.0f) {
-//        return self.estimatedSectionHeaderHeight;
-//    }
-//
-//    return UITableViewAutomaticDimension;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
-//{
-//    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]){
-//        return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
-//    }
-//
-//    if (self.estimatedSectionFooterHeight > 0.0f) {
-//        return self.estimatedSectionFooterHeight;
-//    }
-//
-//    return UITableViewAutomaticDimension;
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+{
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]){
+        return [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
+    }
+    
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
+    if (sectionVM.headerView){
+        return sectionVM.headerView.frame.size.height;
+    }
+    
+    if (sectionVM.headerTitle){
+        return 28;// default height for header
+    }
+
+    return self.tableView.estimatedSectionHeaderHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0)
+{
+    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]){
+        return [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
+    }
+
+    DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:section];
+    if (sectionVM.footerView){
+        return sectionVM.footerView.frame.size.height;
+    }
+    
+    if (sectionVM.footerTitle){
+        return 28;// default height for footer
+    }
+    
+    return self.tableView.estimatedSectionFooterHeight;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
 {

@@ -57,7 +57,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             break;
         case 3:
         {
-            [self testTextRowAutoLayoutWithOutNib];
+            [self testTextRowAutoLayoutWithoutNib];
         }
             break;
         case 4:
@@ -119,7 +119,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                                   @"jumpID":@(1)},
                                 @{@"title":@"AutoLayoutWithNibDemo",
                                   @"jumpID":@(2)},
-                                @{@"title":@"AutoLayoutWithOutNibNibDemo",
+                                @{@"title":@"AutoLayoutWithoutNibDemo",
                                   @"jumpID":@(3)},
                                 @{@"title":@"FrameLayoutDemo",
                                   @"jumpID":@(4)},
@@ -172,14 +172,14 @@ static const NSString *kConstContent = @"There are moments in life when you miss
     [self.aDJTableViewVM reloadData];
 }
 
-- (void)testTextRowAutoLayoutWithOutNib
+- (void)testTextRowAutoLayoutWithoutNib
 {
     DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextAutoCell);
     
     [self.aDJTableViewVM removeAllSections];
     
     for (int j = 0; j < 10; j++) {
-        NSAttributedString *headerAttributedString = [[NSAttributedString alloc] initWithString:@"AutoLayoutWithOutNib" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+        NSAttributedString *headerAttributedString = [[NSAttributedString alloc] initWithString:@"AutoLayoutWithoutNib" attributes:@{NSForegroundColorAttributeName:[UIColor purpleColor]}];
         DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderAttributedText:headerAttributedString edgeInsets:UIEdgeInsetsMake(10, 15, 10, 15)];
         [self.aDJTableViewVM addSection:section];
         for (int i  = 0; i < 40; i ++) {

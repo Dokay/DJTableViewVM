@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) NSMutableArray *mutableRows;
 @property (nonatomic, strong) NSMutableDictionary *automaticHeightCache;
+@property (nonatomic, assign) DJSectionHeightCaculateType headerHeightCaculateType;
+@property (nonatomic, assign) DJSectionHeightCaculateType footerHeightCaculateType;
 
 @end
 
@@ -142,7 +144,7 @@
 - (id)initWithHeaderAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
     UIView *headerView = [DJTableViewVMSection holderViewWithAttributedText:attributedString edgeInsets:edgeInsets];
-    self = [self initWithFooterView:headerView];
+    self = [self initWithHeaderView:headerView];
     if (self) {
         self.headerHeightCaculateType = DJSectionHeightCaculateTypeAutomatic;
     }
@@ -182,7 +184,8 @@
 
 + (UIView *)holderViewWithAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
-    UIView *holderView = [[UIView alloc] initWithFrame:CGRectZero];
+    NSAssert(attributedString, @"attributedString can not be nil");
+    UIView *holderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 28)];//28 is estimated hight
     holderView.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     titleLabel.attributedText = attributedString;

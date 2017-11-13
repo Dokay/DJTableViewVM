@@ -29,8 +29,8 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 @property (nonatomic, copy, nullable) NSString *sectionIndexTitle;
 @property (nonatomic, readonly, assign) NSUInteger index;
 
-@property (nonatomic, assign) DJSectionHeightCaculateType headerHeightCaculateType;
-@property (nonatomic, assign) DJSectionHeightCaculateType footerHeightCaculateType;
+@property (nonatomic, readonly,assign) DJSectionHeightCaculateType headerHeightCaculateType;
+@property (nonatomic, readonly,assign) DJSectionHeightCaculateType footerHeightCaculateType;
 @property (nonatomic, strong, readonly) NSMutableDictionary *automaticHeightCache;
 @property (nonatomic, assign) BOOL isSectionHeightNeedRefresh;
 
