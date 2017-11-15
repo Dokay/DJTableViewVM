@@ -319,7 +319,7 @@
             if (cell) {
                 [cell resignFirstResponder];
             }else{
-                DJKeyboardState *state = [self keyboardState];
+                DJKeyboardState *state = [weakSelf keyboardState];
                 [state.responderView resignFirstResponder];
             }
             
