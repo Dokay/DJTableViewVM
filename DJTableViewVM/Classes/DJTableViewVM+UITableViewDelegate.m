@@ -460,7 +460,6 @@
     
     DJTableViewVMSection *sectionVM = [self.sections objectAtIndex:sectionIndex];
     UIView *sectionView = isHeader ? sectionVM.headerView : sectionVM.footerView;
-    NSString *sectionTitle = isHeader ? sectionVM.headerTitle : sectionVM.footerTitle;
     DJSectionHeightCaculateType caculateType = isHeader ? sectionVM.headerHeightCaculateType : sectionVM.footerHeightCaculateType;
     NSString *heightCacheKey = isHeader ? @"DJSectionVMHeaderHeightKey" : @"DJSectionVMFooterHeightKey";
     
@@ -494,11 +493,7 @@
         }
     }
     
-    if (sectionTitle.length > 0) {
-        return UITableViewAutomaticDimension;
-    }
-    
-    return 0;
+    return UITableViewAutomaticDimension;
 }
 
 @end
