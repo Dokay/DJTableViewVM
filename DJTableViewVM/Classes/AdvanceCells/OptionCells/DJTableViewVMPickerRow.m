@@ -9,6 +9,7 @@
 #import "DJTableViewVMPickerRow.h"
 #import "DJNormalPickerDelegate.h"
 #import "DJRelatedPickerDelegate.h"
+#import "DJToolBar.h"
 
 @interface DJTableViewVMPickerRow()
 
@@ -32,6 +33,8 @@
         _pickerDelegate = [[DJNormalPickerDelegate alloc] initWithOptions:_optionsArray];
         _pickerDelegate.pickerTitleColor = _pickerTitleColor;
         _pickerDelegate.pickerTitleFont = _pickerTitleFont;
+        _showInputAccessoryView = YES;
+        _inputAccessoryView = [DJToolBar new];
     }
     return self;
 }
@@ -44,6 +47,8 @@
         _pickerDelegate = [[DJRelatedPickerDelegate alloc] initWithOptions:_relatedOptionsArray];
         _pickerDelegate.pickerTitleColor = _pickerTitleColor;
         _pickerDelegate.pickerTitleFont = _pickerTitleFont;
+        _showInputAccessoryView = YES;
+        _inputAccessoryView = [DJToolBar new];
     }
     return self;
 }
@@ -60,6 +65,8 @@
         _focusScrollPosition = UITableViewScrollPositionBottom;
         _pickerTitleColor = [UIColor blackColor];
         _pickerTitleFont = [UIFont systemFontOfSize:21];
+        _showInputAccessoryView = YES;
+        _inputAccessoryView = [DJToolBar new];
     }
     return self;
 }

@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.it works when keyboardManageEnabled in DJTableViewVM set YES.
 @property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
+@property (nullable, nonatomic, strong) UIView *inputAccessoryView;
+@property (nonatomic, assign) BOOL showInputAccessoryView;
+
 #pragma mark - common properties
 @property(nonatomic, assign) BOOL showsSelectionIndicator;   // default is NO
 @property(nonatomic, strong) UIColor *pickerBackgroundColor;

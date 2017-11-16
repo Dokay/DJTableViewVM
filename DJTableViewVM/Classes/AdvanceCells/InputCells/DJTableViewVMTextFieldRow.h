@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
 @property (nullable, nonatomic, strong) UIView *inputAccessoryView;
+@property (nonatomic, assign) BOOL showInputAccessoryView;
 
 @property(nonatomic) BOOL clearsOnInsertion NS_AVAILABLE_IOS(6_0); // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
 

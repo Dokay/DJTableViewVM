@@ -16,6 +16,9 @@
 @property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.it works when keyboardManageEnabled in DJTableViewVM set YES.
 @property (nonatomic, strong) UIColor *toolbarTintColor;
 
+@property (nonatomic, strong) UIView *inputAccessoryView;
+@property (nonatomic, assign) BOOL showInputAccessoryView;
+
 @property(nonatomic, strong) NSDate *date;
 @property(nonatomic, strong) NSDate *startDate;
 @property(nonatomic, strong) NSString *dateFormat;

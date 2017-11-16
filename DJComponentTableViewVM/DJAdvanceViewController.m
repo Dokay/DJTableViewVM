@@ -250,7 +250,7 @@
 - (DJTableViewVMDateRow *)dateRow
 {
     if (_dateRow == nil) {
-        _dateRow = [[DJTableViewVMDateRow alloc] initWithTitle:@"Date Picker" date:[NSDate date] placeholder:@"请选择" format:@"yyyy-MM-dd" datePickerMode:UIDatePickerModeDate];
+        _dateRow = [[DJTableViewVMDateRow alloc] initWithTitle:@"Date Picker" date:[NSDate date] placeholder:@"please select" format:@"yyyy-MM-dd" datePickerMode:UIDatePickerModeDate];
     }
     return _dateRow;
 }

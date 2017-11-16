@@ -23,6 +23,8 @@
         _minimumFontSize = 0.0f;
         _clearButtonMode = UITextFieldViewModeNever;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        _showInputAccessoryView = YES;
+        _inputAccessoryView = [DJToolBar new];
         self.enabled = YES;
     }
     return self;

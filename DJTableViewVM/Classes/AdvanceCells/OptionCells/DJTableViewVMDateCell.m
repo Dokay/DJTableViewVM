@@ -23,6 +23,7 @@
     [super cellDidLoad];
     
     self.textField.inputView = self.datePicker;
+    
 }
 
 - (void)cellWillAppear
@@ -31,12 +32,18 @@
     
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
+    if (self.rowVM.showInputAccessoryView) {
+        self.textField.inputAccessoryView = self.rowVM.inputAccessoryView;
+        
+        if ([self.rowVM.inputAccessoryView isKindOfClass:[DJToolBar class]]
+            && [self.rowVM respondsToSelector:@selector(toolbarTintColor)]) {
+            ((DJToolBar *)self.rowVM.inputAccessoryView).tintColor = self.rowVM.toolbarTintColor;
+        }
+    }
+    
     self.placeholderLabel.text = self.rowVM.placeholder;
     if (self.rowVM.attributedPlaceholder) {
         self.placeholderLabel.attributedText = self.rowVM.attributedPlaceholder;
-    }
-    if (self.rowVM.toolbarTintColor) {
-        self.textField.inputAccessoryView.tintColor = self.rowVM.toolbarTintColor;
     }
     
     self.datePicker.backgroundColor = self.rowVM.pickerBackgroundColor;

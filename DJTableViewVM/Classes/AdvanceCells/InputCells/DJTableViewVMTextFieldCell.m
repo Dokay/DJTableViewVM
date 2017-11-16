@@ -39,6 +39,17 @@
     
     DJTableViewVMTextFieldRow *textRow = self.rowVM;
     
+    self.textField.inputView = textRow.inputView;
+    
+    if (textRow.showInputAccessoryView) {
+        self.textField.inputAccessoryView = textRow.inputAccessoryView;
+        
+        if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
+            && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
+            ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
+        }
+    }
+    
     self.textField.placeholder = textRow.placeholder;
     self.textField.text = textRow.text;
     self.textField.textAlignment = textRow.textAlignment;
@@ -67,17 +78,6 @@
     self.textField.keyboardAppearance = textRow.keyboardAppearance;
     self.textField.enablesReturnKeyAutomatically = textRow.enablesReturnKeyAutomatically;
     self.textField.secureTextEntry = textRow.secureTextEntry;
-    
-    self.textField.inputView = textRow.inputView;
-    
-    if (self.rowVM.sectionVM.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
-        textRow.inputAccessoryView = [DJToolBar new];
-    }
-    if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
-        && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
-        ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
-    }
-    self.textField.inputAccessoryView = textRow.inputAccessoryView;
     
     if (textRow.attributedPlaceholder) {
         self.textField.attributedPlaceholder = textRow.attributedPlaceholder;

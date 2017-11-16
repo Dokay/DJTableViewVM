@@ -30,6 +30,8 @@
         self.cellHeight = 128;
         isEditable = YES;
         _focusScrollPosition = UITableViewScrollPositionBottom;
+        _showInputAccessoryView = YES;
+        _inputAccessoryView = [DJToolBar new];
     }
     return self;
 }

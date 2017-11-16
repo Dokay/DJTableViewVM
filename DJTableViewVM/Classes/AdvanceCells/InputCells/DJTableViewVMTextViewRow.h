@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 // set while first responder, will not take effect until reloadInputViews is called.
 @property (nullable, readwrite, strong) UIView *inputView;
 @property (nullable, nonatomic, strong) UIView *inputAccessoryView;
+@property (nonatomic, assign) BOOL showInputAccessoryView;
 
 @property(nullable,nonatomic,copy) NSString *text;
 @property(nullable,nonatomic,strong) UIFont *font;

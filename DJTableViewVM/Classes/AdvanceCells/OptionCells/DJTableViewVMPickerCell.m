@@ -30,6 +30,15 @@
 {
     [super cellWillAppear];
     
+    if (self.rowVM.showInputAccessoryView) {
+        self.textField.inputAccessoryView = self.rowVM.inputAccessoryView;
+        
+        if ([self.rowVM.inputAccessoryView isKindOfClass:[DJToolBar class]]
+            && [self.rowVM respondsToSelector:@selector(toolbarTintColor)]) {
+            ((DJToolBar *)self.rowVM.inputAccessoryView).tintColor = self.rowVM.toolbarTintColor;
+        }
+    }
+    
     self.pickerView.backgroundColor = self.rowVM.pickerBackgroundColor;
     self.pickerView.showsSelectionIndicator = self.rowVM.showsSelectionIndicator;
     self.pickerView.delegate = self.rowVM.pickerDelegate;

@@ -64,14 +64,14 @@
     self.textView.textContainerInset = textRow.textContainerInset;
     self.textView.inputView = textRow.inputView;
     
-    if (self.rowVM.sectionVM.tableViewVM.keyboardManageEnabled && textRow.inputAccessoryView == nil) {
-        textRow.inputAccessoryView = [DJToolBar new];
+    if (textRow.showInputAccessoryView) {
+        self.textView.inputAccessoryView = textRow.inputAccessoryView;
+        
+        if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
+            && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
+            ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
+        }
     }
-    if ([textRow.inputAccessoryView isKindOfClass:[DJToolBar class]]
-        && [textRow respondsToSelector:@selector(toolbarTintColor)]) {
-        ((DJToolBar *)textRow.inputAccessoryView).tintColor = textRow.toolbarTintColor;
-    }
-    self.textView.inputAccessoryView = textRow.inputAccessoryView;
     
     self.userInteractionEnabled = textRow.enabled;
     

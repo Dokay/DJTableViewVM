@@ -112,14 +112,6 @@
     return _textField;
 }
 
-- (DJToolBar *)inputAccessoryView
-{
-    if (_inputAccessoryView == nil) {
-        _inputAccessoryView = [DJToolBar new];
-    }
-    return _inputAccessoryView;
-}
-
 - (UILabel *)placeholderLabel
 {
     if (_placeholderLabel == nil) {
