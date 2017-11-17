@@ -22,9 +22,7 @@
         _placeholder = placeholder;
         _dateFormat = dateFormat;
         _datePickerMode = datePickerMode;
-        _focusScrollPosition = UITableViewScrollPositionBottom;
-        _showInputAccessoryView = YES;
-        _inputAccessoryView = [DJToolBar new];
+        
     }
     return self;
 }

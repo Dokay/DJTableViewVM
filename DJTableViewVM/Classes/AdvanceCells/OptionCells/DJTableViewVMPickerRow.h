@@ -7,21 +7,13 @@
 //
 
 #import "DJTableViewVMRow.h"
-#import "DJInputRowProtocol.h"
+#import "DJTableViewVMChooseBaseRow.h"
 #import "DJValueProtocol.h"
 #import "DJPickerProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DJTableViewVMPickerRow : DJTableViewVMRow<DJInputRowProtocol>
-
-#pragma mark DJInputRowProtocol
-//@property (nonatomic, assign) BOOL enabled;//whether cell is edit enable
-@property (nonatomic, assign) UITableViewScrollPosition focusScrollPosition;//scrollPosition for cell be focus while input.it works when keyboardManageEnabled in DJTableViewVM set YES.
-@property (nullable, nonatomic, strong) UIColor *toolbarTintColor;
-
-@property (nullable, nonatomic, strong) UIView *inputAccessoryView;
-@property (nonatomic, assign) BOOL showInputAccessoryView;
+@interface DJTableViewVMPickerRow : DJTableViewVMChooseBaseRow
 
 #pragma mark - common properties
 @property(nonatomic, assign) BOOL showsSelectionIndicator;   // default is NO
@@ -33,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) CGFloat(^widthForComponent)(NSInteger component);
 @property(nonatomic, copy) CGFloat(^heightForComponent)(NSInteger component);
 @property(nonatomic, copy) void(^onValueChangeHandler)(DJTableViewVMPickerRow *rowVM);
+@property(nonatomic, assign) CGFloat pickerViewHight; // default is 216
 
 @property(nonatomic, strong) NSObject<DJPickerProtocol> *pickerDelegate;
 @property(nonatomic, copy) NSArray<NSString *> *valueArray;

@@ -85,7 +85,7 @@
 - (UIPickerView *)pickerView
 {
     if (_pickerView == nil) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, self.rowVM.pickerViewHight)];
     }
     return _pickerView;
 }
@@ -93,7 +93,7 @@
 - (UIView *)holderView
 {
     if (_holderView == nil) {
-        _holderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, self.pickerView.frame.size.height)];
+        _holderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, self.rowVM.pickerViewHight)];
         [_holderView addSubview:self.pickerView];
         
         _pickerView.translatesAutoresizingMaskIntoConstraints = NO;
