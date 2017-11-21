@@ -75,6 +75,10 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
  editingStyle of cell, default is UITableViewCellEditingStyleNone.set style you want and use block actions to process user action.
  */
 @property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
+/**
+ identifier of cell,DJTableViewVM use it to dequeue reuse cell.use DJTableViewRegister macro to regist cells.
+ */
+@property (nonatomic, copy, nullable) NSString *cellIdentifier;
 
 /**
  bundle for cell nib, if nil mainBundle will be used.
