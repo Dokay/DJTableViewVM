@@ -105,6 +105,7 @@
             {
                 [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
                     separatorLineView.hidden = YES;
+                    separatorLineView.alpha = 0.0f;
                 }];
             }
                 break;
@@ -112,6 +113,7 @@
             {
                 [self.separatorLineViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull separatorLineView, NSUInteger idx, BOOL * _Nonnull stop) {
                     separatorLineView.hidden = NO;
+                    separatorLineView.alpha = 1.0f;
                 }];
             }
                 break;
