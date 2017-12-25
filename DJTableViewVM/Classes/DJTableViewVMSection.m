@@ -240,6 +240,16 @@
     [self.mutableRows insertObject:row atIndex:index];
 }
 
+- (void)sortRowsUsingComparator:(NSComparator NS_NOESCAPE)cmptr
+{
+    [self.mutableRows sortUsingComparator:cmptr];
+}
+
+- (void)sortRowsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr
+{
+    [self.mutableRows sortWithOptions:opts usingComparator:cmptr];
+}
+
 - (void)removeRowAtIndex:(NSUInteger)index
 {
     [self.mutableRows removeObjectAtIndex:index];

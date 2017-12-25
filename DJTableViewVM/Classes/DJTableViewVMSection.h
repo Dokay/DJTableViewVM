@@ -64,6 +64,8 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 - (void)addRow:(id)row;
 - (void)addRowsFromArray:(NSArray *)array;
 - (void)insertRow:(id)row atIndex:(NSUInteger)index;
+- (void)sortRowsUsingComparator:(NSComparator NS_NOESCAPE)cmptr;
+- (void)sortRowsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr;
 - (void)removeRow:(id)row;
 - (void)removeRowAtIndex:(NSUInteger)index;
 - (void)removeAllRows;
