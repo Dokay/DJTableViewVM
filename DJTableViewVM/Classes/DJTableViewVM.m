@@ -27,9 +27,11 @@
 @property (nonatomic, strong) NSMutableArray *mutableSections;
 
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
-@property (nonatomic, strong) DJLazyTaskManager *lazyTaskManager;
+@property (nonatomic, strong) DJLazyTaskManager *precaculateHeightManager;
+@property (nonatomic, strong) DJLazyTaskManager *reloadCompletionManager;
 
 @property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, copy) void (^ reloadCompletion)(void);
 
 @end
 
@@ -58,7 +60,8 @@
         self.registeredXIBs         = [[NSMutableDictionary alloc] init];
         self.resuableCalculateCells = [[NSMutableDictionary alloc] init];
         
-        self.lazyTaskManager = [[DJLazyTaskManager alloc] init];
+        self.precaculateHeightManager = [[DJLazyTaskManager alloc] init];
+        self.reloadCompletionManager  = [[DJLazyTaskManager alloc] init];
         
         [self p_registerDefaultCells];
     }
@@ -129,7 +132,7 @@
     }
     
     if (self.preCaculateHeightEnable) {
-        if (self.lazyTaskManager.state == DJLazyTaskManagerStateDefault) {
+        if (self.precaculateHeightManager.state == DJLazyTaskManagerStateDefault) {
             [self p_startPreCaculateHeight];
         }
     }
@@ -386,6 +389,23 @@
     }
 }
 
+- (void)reloadDataWithCompletion:(void (^ __nullable)(void))completion
+{
+    self.reloadCompletion = completion;
+    [self reloadData];
+    if (completion) {
+        [self.reloadCompletionManager stop];
+        [self.reloadCompletionManager addLazyTarget:self selector:@selector(reloadCompletionCallBack) param:nil];
+        [self.reloadCompletionManager start];
+    }
+}
+
+- (void)reloadCompletionCallBack
+{
+    self.reloadCompletion();
+    self.reloadCompletion = nil;
+}
+
 #pragma mark - implement dictionary key value style
 - (id)objectAtKeyedSubscript:(id<NSCopying>)key
 {
@@ -475,17 +495,17 @@
         return;
     }
     
-    [self.lazyTaskManager stop];
+    [self.precaculateHeightManager stop];
     
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection *  _Nonnull sectionVM, NSUInteger section_idx, BOOL * _Nonnull section_stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
             if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
-                [self.lazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:rowVM.indexPath];
+                [self.precaculateHeightManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:rowVM.indexPath];
             }
         }];
     }];
     
-    [self.lazyTaskManager start];
+    [self.precaculateHeightManager start];
 }
 
 - (void)p_preLoadForIndexPath:(NSIndexPath *)indexPath
@@ -573,7 +593,7 @@
     if (_preCaculateHeightEnable) {
         [self p_startPreCaculateHeight];
     }else{
-        [self.lazyTaskManager stop];
+        [self.precaculateHeightManager stop];
     }
 }
 

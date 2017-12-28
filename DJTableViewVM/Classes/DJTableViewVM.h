@@ -110,6 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
  reload current tableView,call reloadData on DJTableViewVM is suggested,nor UITableView.
  */
 - (void)reloadData;
+- (void)reloadDataWithCompletion:(void (^ __nullable)(void))completion;
 
 /**
  *  cacultate height auto
