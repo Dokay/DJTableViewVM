@@ -142,6 +142,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeSectionAtIndex:(NSUInteger)index;
 - (void)removeSectionsInArray:(NSArray *)otherArray;
 - (void)removeAllSections;
+- (void)sortSectionsUsingComparator:(NSComparator NS_NOESCAPE)cmptr;
+- (void)sortSectionsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr;
 
 @property (nonatomic, assign) CGFloat sectionHeaderHeight __deprecated_msg("sectionHeaderHeight deprecated. Use sectionWithHeaderHeight in DJTableViewVMSection instead");   // will return the default value if unset
 @property (nonatomic, assign) CGFloat sectionFooterHeight __deprecated_msg("sectionFooterHeight deprecated. Use sectionWithFooterHeight in DJTableViewVMSection instead");   // will return the default value if unset

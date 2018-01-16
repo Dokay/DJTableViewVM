@@ -572,6 +572,16 @@
     [self.mutableSections removeObjectAtIndex:index];
 }
 
+- (void)sortSectionsUsingComparator:(NSComparator NS_NOESCAPE)cmptr
+{
+    [self.mutableSections sortUsingComparator:cmptr];
+}
+
+- (void)sortSectionsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr
+{
+    [self.mutableSections sortWithOptions:opts usingComparator:cmptr];
+}
+
 #pragma mark - setter
 - (void)setPrefetchingEnabled:(BOOL)prefetchingEnabled
 {
