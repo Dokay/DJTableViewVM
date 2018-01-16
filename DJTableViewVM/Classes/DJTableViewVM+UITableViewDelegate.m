@@ -26,7 +26,7 @@
     }
     DJTableViewVMSection *section = [self.sections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
-    if (row.cellHeight == 0 || row.dj_caculateHeightForceRefresh) {
+    if (row.cellHeight == 0 || row.heightForceRefreshEnable) {
         if (row.heightCaculateType == DJCellHeightCaculateDefault) {
             NSString *cellClassName = [self objectAtKeyedSubscript:NSStringFromClass(row.class)];
             row.cellHeight = [NSClassFromString(cellClassName) heightWithRow:row tableViewVM:self];

@@ -175,9 +175,10 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) DJCellHeightCaculateType heightCaculateType;
 
 /**
- height cache is open default , so it is caculated only once.when dj_caculateHeightForceRefresh set YES,cell's height will be recaculated when cell appears next time.default is NO.
+ height cache is open default , so cell's height will be caculated only once.when heightForceRefreshEnable set YES,cell's height will be recaculated when cell appears next time.default is NO.
  */
-@property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh;
+@property (nonatomic, assign) BOOL heightForceRefreshEnable;
+@property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh __deprecated_msg("dj_caculateHeightForceRefresh deprecated. Use sectionWithHeaderHeight in DJTableViewVMSection instead");
 
 #pragma mark - actions
 @property (nonatomic, copy, nullable) void (^selectionHandler)(id rowVM);
