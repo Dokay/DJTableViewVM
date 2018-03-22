@@ -70,11 +70,6 @@
     }
 }
 
-- (void)cellDidDisappear
-{
-    //to be overwrite
-}
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];

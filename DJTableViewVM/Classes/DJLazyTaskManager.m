@@ -39,10 +39,26 @@
 {
     //add source0 task to runloop to fire kCFRunLoopBeforeWaiting.many small tasks excute influences mode changes(ex.UITrackingRunLoopMode).
     [self.target performSelector:self.selector
-                       onThread:[NSThread mainThread]
-                     withObject:self.param
-                  waitUntilDone:NO
-                          modes:@[NSDefaultRunLoopMode]];
+                        onThread:[NSThread mainThread]
+                      withObject:self.param
+                   waitUntilDone:NO
+                           modes:@[NSDefaultRunLoopMode]];
+}
+
+- (BOOL)isEqual:(DJLazyTask *)object
+{
+    if (object == nil) {
+        return NO;
+    }
+    if (![object isMemberOfClass:DJLazyTask.class]) {
+        return NO;
+    }
+    return _target == object.target && [NSStringFromSelector(_selector) isEqualToString:NSStringFromSelector(object.selector)] && _param == object.param;
+}
+
+- (NSUInteger)hash
+{
+    return [_target hash] ^ [NSStringFromSelector(_selector) hash] ^ [_param hash];
 }
 
 @end
@@ -75,6 +91,13 @@
     
     DJLazyTask *lazyTask = [[DJLazyTask alloc] initWithTarget:target selector:selector param:param];
     [self.taskQueue addObject:lazyTask];
+}
+
+- (void)cancelLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param
+{
+    DJMainThreadAssert;
+    DJLazyTask *lazyTask = [[DJLazyTask alloc] initWithTarget:target selector:selector param:param];
+    [self.taskQueue removeObject:lazyTask];
 }
 
 - (void)start

@@ -27,8 +27,9 @@
 @property (nonatomic, strong) NSMutableArray *mutableSections;
 
 @property (nonatomic, strong) DJTableViewPrefetchManager *prefetchManager;
-@property (nonatomic, strong) DJLazyTaskManager *precaculateHeightManager;
-@property (nonatomic, strong) DJLazyTaskManager *reloadCompletionManager;
+@property (nonatomic, strong) DJLazyTaskManager *precaculateHeightLazyTaskManager;
+@property (nonatomic, strong) DJLazyTaskManager *reloadCompletionLazyTaskManager;
+@property (nonatomic, strong) DJLazyTaskManager *cellLazyTaskManager;
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, copy) void (^ reloadCompletion)(void);
@@ -60,8 +61,9 @@
         self.registeredXIBs         = [[NSMutableDictionary alloc] init];
         self.resuableCalculateCells = [[NSMutableDictionary alloc] init];
         
-        self.precaculateHeightManager = [[DJLazyTaskManager alloc] init];
-        self.reloadCompletionManager  = [[DJLazyTaskManager alloc] init];
+        self.precaculateHeightLazyTaskManager = [[DJLazyTaskManager alloc] init];
+        self.reloadCompletionLazyTaskManager  = [[DJLazyTaskManager alloc] init];
+        self.cellLazyTaskManager      = [[DJLazyTaskManager alloc] init];
         
         [self p_registerDefaultCells];
     }
@@ -132,11 +134,16 @@
     }
     
     if (self.preCaculateHeightEnable) {
-        if (self.precaculateHeightManager.state == DJLazyTaskManagerStateDefault) {
+        if (self.precaculateHeightLazyTaskManager.state == DJLazyTaskManagerStateDefault) {
             [self p_startPreCaculateHeight];
         }
     }
     
+    if ([cell respondsToSelector:@selector(cellLazyTask)]) {
+        [self.cellLazyTaskManager cancelLazyTarget:cell selector:@selector(cellLazyTask) param:nil];
+        [self.cellLazyTaskManager addLazyTarget:cell selector:@selector(cellLazyTask) param:nil];
+        [self.cellLazyTaskManager start];
+    }
     return cell;
 }
 
@@ -394,9 +401,9 @@
     self.reloadCompletion = completion;
     [self reloadData];
     if (completion) {
-        [self.reloadCompletionManager stop];
-        [self.reloadCompletionManager addLazyTarget:self selector:@selector(reloadCompletionCallBack) param:nil];
-        [self.reloadCompletionManager start];
+        [self.reloadCompletionLazyTaskManager cancelLazyTarget:self selector:@selector(reloadCompletionCallBack) param:nil];
+        [self.reloadCompletionLazyTaskManager addLazyTarget:self selector:@selector(reloadCompletionCallBack) param:nil];
+        [self.reloadCompletionLazyTaskManager start];
     }
 }
 
@@ -495,17 +502,17 @@
         return;
     }
     
-    [self.precaculateHeightManager stop];
+    [self.precaculateHeightLazyTaskManager stop];
     
     [self.sections enumerateObjectsUsingBlock:^(DJTableViewVMSection *  _Nonnull sectionVM, NSUInteger section_idx, BOOL * _Nonnull section_stop) {
         [sectionVM.rows enumerateObjectsUsingBlock:^(DJTableViewVMRow *  _Nonnull rowVM, NSUInteger row_idx, BOOL * _Nonnull row_stop) {
             if (rowVM.cellHeight == 0 && rowVM.heightCaculateType != DJCellHeightCaculateDefault) {
-                [self.precaculateHeightManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:rowVM.indexPath];
+                [self.precaculateHeightLazyTaskManager addLazyTarget:self selector:@selector(p_preLoadForIndexPath:) param:rowVM.indexPath];
             }
         }];
     }];
     
-    [self.precaculateHeightManager start];
+    [self.precaculateHeightLazyTaskManager start];
 }
 
 - (void)p_preLoadForIndexPath:(NSIndexPath *)indexPath
@@ -603,7 +610,7 @@
     if (_preCaculateHeightEnable) {
         [self p_startPreCaculateHeight];
     }else{
-        [self.precaculateHeightManager stop];
+        [self.precaculateHeightLazyTaskManager stop];
     }
 }
 

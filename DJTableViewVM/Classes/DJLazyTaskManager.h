@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger,DJLazyTaskManagerState){
 @property (nonatomic, assign) DJLazyTaskManagerState state;
 
 - (void)addLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param;
+- (void)cancelLazyTarget:(NSObject *)target selector:(SEL)selector param:(NSObject *)param;
 - (void)start;
 - (void)stop;
 
