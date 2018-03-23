@@ -380,7 +380,7 @@
         if (self.tableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
             fittingSize.height += 1.0 / [UIScreen mainScreen].scale;
         }
-        return fittingSize.height;
+        return ceil(fittingSize.height);// with decimal part(like .33333) will cause autolayout warning in iPhoneX(iOS 11.2).
     }else{
         NSAssert(FALSE, @"heightCaculateType is no ,please set it yes and implement cell height auto");
         return 0;
