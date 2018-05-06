@@ -36,6 +36,7 @@
 		4E6B03A91E6D557B003F1B91 /* DJArrowLeft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B03951E6D557B003F1B91 /* DJArrowLeft@3x.png */; };
 		4E6B03AA1E6D557B003F1B91 /* DJArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B03961E6D557B003F1B91 /* DJArrowRight@2x.png */; };
 		4E6B03AB1E6D557B003F1B91 /* DJArrowRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B03971E6D557B003F1B91 /* DJArrowRight@3x.png */; };
+		4E77BD4F209F44DB00C0080F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E77BD4E209F44DB00C0080F /* README.md */; };
 		4E81EC021F5541BC0078C9EC /* DJTableViewVMFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E81EC011F5541BC0078C9EC /* DJTableViewVMFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E9BB03D1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BB03C1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m */; };
 		4EB32C7F1E793EF50040470D /* DJComponentTableViewVMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */; };
@@ -203,6 +204,7 @@
 		4E6B03951E6D557B003F1B91 /* DJArrowLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowLeft@3x.png"; sourceTree = "<group>"; };
 		4E6B03961E6D557B003F1B91 /* DJArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowRight@2x.png"; sourceTree = "<group>"; };
 		4E6B03971E6D557B003F1B91 /* DJArrowRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DJArrowRight@3x.png"; sourceTree = "<group>"; };
+		4E77BD4E209F44DB00C0080F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4E81EC011F5541BC0078C9EC /* DJTableViewVMFrameWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMFrameWork.h; sourceTree = "<group>"; };
 		4E9BB03B1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMChooseBaseRow.h; sourceTree = "<group>"; };
 		4E9BB03C1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMChooseBaseRow.m; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6B02D71E6D53BA003F1B91 /* DJTableViewVM.podspec */,
+				4E77BD4E209F44DB00C0080F /* README.md */,
 				4E6B03701E6D557B003F1B91 /* DJTableViewVM */,
 				4E006D7E1C4CB59F005664D3 /* DJComponentTableViewVM */,
 				4EB32C7D1E793EF50040470D /* DJComponentTableViewVMUITests */,
@@ -658,6 +661,7 @@
 			files = (
 				4E6B02D81E6D53BA003F1B91 /* DJTableViewVM.podspec in Resources */,
 				4E6B03A91E6D557B003F1B91 /* DJArrowLeft@3x.png in Resources */,
+				4E77BD4F209F44DB00C0080F /* README.md in Resources */,
 				4E6B03A81E6D557B003F1B91 /* DJArrowLeft@2x.png in Resources */,
 				4E6B03AB1E6D557B003F1B91 /* DJArrowRight@3x.png in Resources */,
 				4E0528BD1C4F1A0200B9AAF5 /* test_head.png in Resources */,
