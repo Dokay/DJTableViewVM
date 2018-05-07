@@ -134,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)objectAtKeyedSubscript:(id<NSCopying>)key;
 - (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
-#pragma mark - VM manage
+#pragma mark - section VM manage
 - (void)addSection:(DJTableViewVMSection *)section;
 - (void)addSectionsFromArray:(NSArray *)array;
 - (void)insertSection:(DJTableViewVMSection *)section atIndex:(NSUInteger)index;

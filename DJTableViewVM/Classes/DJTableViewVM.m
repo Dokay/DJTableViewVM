@@ -107,7 +107,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell<DJTableViewVMCellDelegate> *cell = [self p_tableView:tableView cellForRowAtIndexPath:indexPath forCalculateHeight:NO];
+    UITableViewCell<DJTableViewVMCellProtocol> *cell = [self p_tableView:tableView cellForRowAtIndexPath:indexPath forCalculateHeight:NO];
     
     if ([cell isKindOfClass:[DJTableViewVMCell class]] && [cell respondsToSelector:@selector(loaded)] && !cell.loaded) {
         if (!cell.loaded) {
@@ -320,7 +320,7 @@
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
     if (row.heightCaculateType == DJCellHeightCaculateAutoFrameLayout
         || row.heightCaculateType == DJCellHeightCaculateAutoLayout) {
-        UITableViewCell<DJTableViewVMCellDelegate> *templateLayoutCell = [self p_tableView:self.tableView cellForRowAtIndexPath:indexPath forCalculateHeight:YES];
+        UITableViewCell<DJTableViewVMCellProtocol> *templateLayoutCell = [self p_tableView:self.tableView cellForRowAtIndexPath:indexPath forCalculateHeight:YES];
         
         // Manually calls to ensure consistent behavior with actual cells (that are displayed on screen).
         [templateLayoutCell prepareForReuse];
@@ -382,7 +382,7 @@
         }
         return ceil(fittingSize.height);// with decimal part(like .33333) will cause autolayout warning in iPhoneX(iOS 11.2).
     }else{
-        NSAssert(FALSE, @"heightCaculateType is no ,please set it yes and implement cell height auto");
+        NSAssert(NO, @"heightCaculateType is no ,please set it yes and implement cell height auto");
         return 0;
     }
 }
@@ -444,7 +444,7 @@
     return [self.registeredClasses objectForKey:NSStringFromClass(row.class)];
 }
 
-- (UITableViewCell<DJTableViewVMCellDelegate> *)p_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCalculateHeight:(BOOL)forCaculateHeight
+- (UITableViewCell<DJTableViewVMCellProtocol> *)p_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forCalculateHeight:(BOOL)forCaculateHeight
 {
     DJTableViewVMSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     DJTableViewVMRow *row = [section.rows objectAtIndex:indexPath.row];
@@ -465,7 +465,7 @@
         cellIdentifier = row.cellIdentifier;
     }
     
-    UITableViewCell<DJTableViewVMCellDelegate> *cell;
+    UITableViewCell<DJTableViewVMCellProtocol> *cell;
     if (forCaculateHeight == NO) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {

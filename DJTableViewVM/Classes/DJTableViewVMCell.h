@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DJTableViewVMRow;
 @class DJTableViewVMSection;
 
-@protocol DJTableViewVMCellDelegate <NSObject>
+@protocol DJTableViewVMCellProtocol <NSObject>
 
 @required
 /**
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface DJTableViewVMCell : UITableViewCell<DJTableViewVMCellDelegate>
+@interface DJTableViewVMCell : UITableViewCell<DJTableViewVMCellProtocol>
 
 @property (weak, nonatomic, nullable) UITableView *parentTableView;
 @property (strong, nonatomic) DJTableViewVMRow *rowVM;

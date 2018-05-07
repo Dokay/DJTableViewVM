@@ -80,7 +80,7 @@ github "Dokay/DJTableViewVM"
 * DJTableViewVMSection: ViewModel for sections in DJTableViewVM,each section has multiple DJTableViewVMRow rows.
 * DJTableViewVMRow: ViewModel for rows in sections,it has properties relate to cells.
 * DJTableViewVMCell: Cell(View) for DJTableViewVMRow(ViewModel),it defines the attributes and behavior that appear in UITableView.
-* DJTableViewVMCellDelegate: Protocol for cell releate to DJTableViewVMRow,DJTableViewVMCell implemented it,if you do not want or can not inherit DJTableViewVMCell, just implement the protocol.
+* DJTableViewVMCellProtocol: Protocol for cell releate to DJTableViewVMRow,DJTableViewVMCell implemented it,if you do not want or can not inherit DJTableViewVMCell, just implement the protocol.
 * DJInputRowProtocol: Protocol that all Input Cells (such as cell with UITextField/UITextView/UIDataPicker) implement.DJTableViewVMTextFieldRow and DJTableViewVMTextViewRow implement it.You can implement it for your input view in cells.
 * DJPickerProtocol: Protocol that all Picker Cells (such as cell with UIDatePicker/UIPickerView) implemente.DJNormalPickerDelegate and DJRelatedPickerDelegate implement it.You can implement it for your picker view in cells.
 

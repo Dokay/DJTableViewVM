@@ -197,7 +197,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if ([cell respondsToSelector:@selector(cellDidDisappear)]){
-        [(UITableViewCell<DJTableViewVMCellDelegate> *)cell cellDidDisappear];
+        [(UITableViewCell<DJTableViewVMCellProtocol> *)cell cellDidDisappear];
     }
     
     
