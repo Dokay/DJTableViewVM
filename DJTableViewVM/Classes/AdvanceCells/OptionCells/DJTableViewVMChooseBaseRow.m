@@ -3,7 +3,7 @@
 //  DJComponentTableViewVM
 //
 //  Created by Dokay on 2017/11/17.
-//Copyright © 2017年 dj226. All rights reserved.
+//  Copyright © 2017年 dj226. All rights reserved.
 //
 
 #import "DJTableViewVMChooseBaseRow.h"

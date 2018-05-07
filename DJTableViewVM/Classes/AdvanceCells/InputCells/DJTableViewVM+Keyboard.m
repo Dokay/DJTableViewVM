@@ -14,6 +14,7 @@
 @interface DJKeyboardState : NSObject
 
 @property(nonatomic, assign) UIEdgeInsets contentInset;//original contentInset
+@property(nonatomic, assign) UIEdgeInsets adjustedContentInset;//original adjustedContentInset
 @property(nonatomic, assign) UIEdgeInsets scrollIndicatorInsets;//original scrollIndicatorInsets
 @property(nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property(nonatomic, assign) BOOL isKeyboardRegist;//whether keyborad notification has resigted.
@@ -67,6 +68,8 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
         
         state.isKeyboardRegist = NO;
+        state.responderView = nil;
+        state.notification = nil;
     }
 }
 
@@ -76,6 +79,9 @@
         state.isInfoSaved = YES;
         state.scrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
         state.contentInset = self.tableView.contentInset;
+        if (@available(iOS 11, *)) {
+            state.adjustedContentInset = self.tableView.adjustedContentInset;
+        }
     }
     state.notification = notification;
     
@@ -85,7 +91,7 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     DJKeyboardState *state = [self keyboardState];
-    if (state.responderView == nil || state.isInfoSaved == NO) {
+    if (state.isInfoSaved == NO) {
         return;
     }
     
@@ -107,10 +113,10 @@
     [UIView animateWithDuration:animationDuration delay:0
                         options:(animationOptions|UIViewAnimationOptionBeginFromCurrentState)
                      animations:^{
-        self.tableView.contentInset = destContentInsets;
-        self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
-        [self.tableView layoutIfNeeded];
-    } completion:NULL];
+                         self.tableView.contentInset = destContentInsets;
+                         self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
+                         [self.tableView layoutIfNeeded];
+                     } completion:NULL];
 }
 
 - (void)inputDidBeginEditingNotification:(NSNotification *)notification
@@ -149,33 +155,34 @@
     if (self.tapHideKeyboardEnable) {
         [self addTapGestureToHideKeyboard];
     }
-
+    
     UITableViewScrollPosition focusScrollPosition = ((DJTableViewVMRow<DJInputRowProtocol> *)inputRowVM).focusScrollPosition;
     UIView *responderView = state.responderView;
     NSNotification *notification = state.notification;
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (animationDuration == 0.0f) {
         animationDuration = 0.25f;
+        return;
     }
     UIViewAnimationOptions animationOptions = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
     CGRect keyboardRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
     {
         //caculate content inset
         CGRect tableViewRectInWindow = [self.tableView.superview convertRect:self.tableView.frame toView:self.tableView.window];
-        CGFloat bottomInsetFixHeight = keyboardRect.size.height - (self.tableView.window.bounds.size.height - tableViewRectInWindow.size.height - tableViewRectInWindow.origin.y);
-        bottomInsetFixHeight = MAX(0, bottomInsetFixHeight);
+        CGFloat bottomToWindowBottom = self.tableView.window.bounds.size.height - tableViewRectInWindow.size.height - tableViewRectInWindow.origin.y;
+        CGFloat bottomInsetHeightToFix = keyboardRect.size.height - bottomToWindowBottom;
+        bottomInsetHeightToFix = MAX(0, bottomInsetHeightToFix);
         
         UIEdgeInsets destContentInsets = state.contentInset;
-        destContentInsets.bottom += bottomInsetFixHeight;
         UIEdgeInsets destScrollIndicatorInsets = state.scrollIndicatorInsets;
-        destScrollIndicatorInsets.bottom += bottomInsetFixHeight;
+        destContentInsets.bottom += bottomInsetHeightToFix;
+        destScrollIndicatorInsets.bottom += bottomInsetHeightToFix;
         
         //caculate content offset
         CGRect responderViewInTableView = [responderView.superview convertRect:responderView.frame toView:self.tableView];
-        CGFloat tableViewScrollHeight = self.tableView.bounds.size.height - destContentInsets.top - destContentInsets.bottom;
+        CGFloat tableViewScrollableHeight = self.tableView.bounds.size.height - destContentInsets.top - destContentInsets.bottom;
         
-        if (responderViewInTableView.size.height > tableViewScrollHeight) {
+        if (responderViewInTableView.size.height > tableViewScrollableHeight) {
             //tableview can not show responderView wholly
             if ([responderView conformsToProtocol:@protocol(UITextInput)]) {
                 UIView <UITextInput> *textInputView = (UIView <UITextInput>*)responderView;
@@ -186,15 +193,19 @@
                 }
             }
         }
-        __block CGFloat responderViewTopOffsetInView = 0.0f;
+        __block CGFloat responderViewTopHeightLeft = 0.0f;
         __block CGFloat destScrollOffset = 0.0f;
         
-       void (^cacluateScrollOffset)(void) = ^(){
-            destScrollOffset = responderViewInTableView.origin.y - responderViewTopOffsetInView - destContentInsets.top;
-//            destScrollOffset += self.offsetUnderResponder;
-           CGFloat scrollAvaliableMax = self.tableView.contentSize.height - tableViewScrollHeight - destContentInsets.top;
-           destScrollOffset = MIN(scrollAvaliableMax, destScrollOffset);
-           destScrollOffset = MAX(-destContentInsets.top, destScrollOffset);
+        void (^caculateScrollOffset)(void) = ^(){
+            destScrollOffset = responderViewInTableView.origin.y - responderViewTopHeightLeft - destContentInsets.top;
+            CGFloat scrollAvaliableMax = self.tableView.contentSize.height - tableViewScrollableHeight - destContentInsets.top;
+            destScrollOffset = MIN(scrollAvaliableMax, destScrollOffset);
+            if (@available(iOS 11, *)) {
+                destScrollOffset = MAX(-self.tableView.adjustedContentInset.top, destScrollOffset);
+            }else{
+                destScrollOffset = MAX(-destContentInsets.top, destScrollOffset);
+            }
+            
         };
         switch (focusScrollPosition) {
             case UITableViewScrollPositionNone:
@@ -205,20 +216,20 @@
                 break;
             case UITableViewScrollPositionTop:
             {
-                responderViewTopOffsetInView = 0.0f;
-                cacluateScrollOffset();
+                responderViewTopHeightLeft = 0.0f;
+                caculateScrollOffset();
             }
                 break;
             case UITableViewScrollPositionMiddle:
             {
-                responderViewTopOffsetInView = (tableViewScrollHeight - responderViewInTableView.size.height)/2;
-                cacluateScrollOffset();
+                responderViewTopHeightLeft = (tableViewScrollableHeight - responderViewInTableView.size.height)/2;
+                caculateScrollOffset();
             }
                 break;
             case UITableViewScrollPositionBottom:
             {
-                responderViewTopOffsetInView = tableViewScrollHeight - responderViewInTableView.size.height - self.offsetUnderResponder;
-                cacluateScrollOffset();
+                responderViewTopHeightLeft = tableViewScrollableHeight - responderViewInTableView.size.height - self.offsetUnderResponder;
+                caculateScrollOffset();
             }
                 break;
             default:
@@ -229,12 +240,18 @@
         //cheke destScrollOffset avaliable
         destContentOffset.y = destScrollOffset;
         
+        if (@available(iOS 11, *)) {
+            destContentInsets = UIEdgeInsetsMake(destContentInsets.top, destContentInsets.left,destContentInsets.bottom -state.adjustedContentInset.bottom, destContentInsets.right);
+            destScrollIndicatorInsets = UIEdgeInsetsMake(destScrollIndicatorInsets.top, destScrollIndicatorInsets.left,destScrollIndicatorInsets.bottom - state.adjustedContentInset.bottom, destScrollIndicatorInsets.right);
+        }
+        
         [UIView animateWithDuration:animationDuration delay:0 options:(animationOptions|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.tableView.contentInset = destContentInsets;
             self.tableView.scrollIndicatorInsets = destScrollIndicatorInsets;
             self.tableView.contentOffset = destContentOffset;
-            [self.tableView layoutIfNeeded];
         } completion:NULL];
+        
+        state.responderView = nil;
     }
 }
 

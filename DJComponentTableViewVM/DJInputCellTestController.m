@@ -18,8 +18,12 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DJTableViewVM *tableViewVM;
 
-@property (nonatomic, strong) DJTableViewVMTextFieldRow *textFieldRow;
-@property (nonatomic, strong) DJTableViewVMTextViewRow *textViewRow;
+@property (nonatomic, strong) DJTableViewVMTextFieldRow *textFieldHeaderRow;
+@property (nonatomic, strong) DJTableViewVMTextViewRow *textViewHeaderRow;
+@property (nonatomic, strong) DJTableViewVMTextFieldRow *textFieldMiddleRow;
+@property (nonatomic, strong) DJTableViewVMTextViewRow *textViewMiddleRow;
+@property (nonatomic, strong) DJTableViewVMTextFieldRow *textFieldFooterRow;
+@property (nonatomic, strong) DJTableViewVMTextViewRow *textViewFooterRow;
 
 @end
 
@@ -49,25 +53,31 @@
 {
     [self.tableViewVM removeAllSections];
     
-    DJTableViewVMSection *textTestSection = [DJTableViewVMSection new];
-    [self.tableViewVM addSection:textTestSection];
+    DJTableViewVMSection *inputTestSection = [DJTableViewVMSection new];
+    [self.tableViewVM addSection:inputTestSection];
+    
+    [inputTestSection addRow:self.textViewHeaderRow];
+    [inputTestSection addRow:self.textFieldHeaderRow];
     
     for (NSInteger i = 0; i < 5; i++) {
         DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
         rowVM.cellHeight = 50;
         rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
-        [textTestSection addRow:rowVM];
+        [inputTestSection addRow:rowVM];
     }
     
-    [textTestSection addRow:self.textFieldRow];
-    [textTestSection addRow:self.textViewRow];
+    [inputTestSection addRow:self.textFieldMiddleRow];
+    [inputTestSection addRow:self.textViewMiddleRow];
     
     for (NSInteger i = 10; i < 13; i++) {
         DJTableViewVMRow *rowVM = [DJTableViewVMRow new];
         rowVM.cellHeight = 50;
         rowVM.title = [NSString stringWithFormat:@"%@",@(i)];
-        [textTestSection addRow:rowVM];
+        [inputTestSection addRow:rowVM];
     }
+    
+    [inputTestSection addRow:self.textFieldFooterRow];
+    [inputTestSection addRow:self.textViewFooterRow];
     
     [self.tableViewVM reloadData];
 }
@@ -93,34 +103,95 @@
     return _tableViewVM;
 }
 
-- (DJTableViewVMTextFieldRow *)textFieldRow
+- (DJTableViewVMTextFieldRow *)textFieldHeaderRow
 {
-    if (_textFieldRow == nil) {
-        _textFieldRow = [DJTableViewVMTextFieldRow new];
-        _textFieldRow.font = [UIFont systemFontOfSize:20];
-        _textFieldRow.placeholder = @"Please input your name";
-        _textFieldRow.charactersMaxCount = 8;
-        [_textFieldRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+    if (_textFieldHeaderRow == nil) {
+        _textFieldHeaderRow = [DJTableViewVMTextFieldRow new];
+        _textFieldHeaderRow.font = [UIFont systemFontOfSize:20];
+        _textFieldHeaderRow.placeholder = @"Please input your name";
+        _textFieldHeaderRow.charactersMaxCount = 8;
+        [_textFieldHeaderRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
             DJLog(@"input->message:%@",rowVM.text);
         }];
-        [_textFieldRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+        [_textFieldHeaderRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
             DJLog(@"more than 8");
         }];
-        _textFieldRow.title = @"Name: ";
+        _textFieldHeaderRow.title = @"Name: ";
     }
-    return _textFieldRow;
+    return _textFieldHeaderRow;
 }
 
-- (DJTableViewVMTextViewRow *)textViewRow
+- (DJTableViewVMTextViewRow *)textViewHeaderRow
 {
-    if (_textViewRow == nil) {
-        _textViewRow = [DJTableViewVMTextViewRow new];
-        _textViewRow.placeholder = @"Please input your address";
-        _textViewRow.showCharactersCount = YES;
-        _textViewRow.focusScrollPosition = UITableViewScrollPositionBottom;
-        _textViewRow.charactersMaxCount = 200;
+    if (_textViewHeaderRow == nil) {
+        _textViewHeaderRow = [DJTableViewVMTextViewRow new];
+        _textViewHeaderRow.placeholder = @"Please input your address";
+        _textViewHeaderRow.showCharactersCount = YES;
+        _textViewHeaderRow.focusScrollPosition = UITableViewScrollPositionBottom;
+        _textViewHeaderRow.charactersMaxCount = 200;
     }
-    return _textViewRow;
+    return _textViewHeaderRow;
+}
+
+- (DJTableViewVMTextFieldRow *)textFieldMiddleRow
+{
+    if (_textFieldMiddleRow == nil) {
+        _textFieldMiddleRow = [DJTableViewVMTextFieldRow new];
+        _textFieldMiddleRow.font = [UIFont systemFontOfSize:20];
+        _textFieldMiddleRow.placeholder = @"Please input your name";
+        _textFieldMiddleRow.charactersMaxCount = 8;
+        [_textFieldMiddleRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+            DJLog(@"input->message:%@",rowVM.text);
+        }];
+        [_textFieldMiddleRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+            DJLog(@"more than 8");
+        }];
+        _textFieldMiddleRow.title = @"Name: ";
+    }
+    return _textFieldMiddleRow;
+}
+
+- (DJTableViewVMTextViewRow *)textViewMiddleRow
+{
+    if (_textViewMiddleRow == nil) {
+        _textViewMiddleRow = [DJTableViewVMTextViewRow new];
+        _textViewMiddleRow.placeholder = @"Please input your address";
+        _textViewMiddleRow.showCharactersCount = YES;
+        _textViewMiddleRow.focusScrollPosition = UITableViewScrollPositionBottom;
+        _textViewMiddleRow.charactersMaxCount = 200;
+        _textViewMiddleRow.cellHeight = 80;
+    }
+    return _textViewMiddleRow;
+}
+
+- (DJTableViewVMTextFieldRow *)textFieldFooterRow
+{
+    if (_textFieldFooterRow == nil) {
+        _textFieldFooterRow = [DJTableViewVMTextFieldRow new];
+        _textFieldFooterRow.font = [UIFont systemFontOfSize:20];
+        _textFieldFooterRow.placeholder = @"Please input your name";
+        _textFieldFooterRow.charactersMaxCount = 8;
+        [_textFieldFooterRow setTextChanged:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+            DJLog(@"input->message:%@",rowVM.text);
+        }];
+        [_textFieldFooterRow setMaxCountInputMore:^(DJTableViewVMTextFieldRow * _Nonnull rowVM) {
+            DJLog(@"more than 8");
+        }];
+        _textFieldFooterRow.title = @"Name: ";
+    }
+    return _textFieldFooterRow;
+}
+
+- (DJTableViewVMTextViewRow *)textViewFooterRow
+{
+    if (_textViewFooterRow == nil) {
+        _textViewFooterRow = [DJTableViewVMTextViewRow new];
+        _textViewFooterRow.placeholder = @"Please input your address";
+        _textViewFooterRow.showCharactersCount = YES;
+        _textViewFooterRow.focusScrollPosition = UITableViewScrollPositionBottom;
+        _textViewFooterRow.charactersMaxCount = 200;
+    }
+    return _textViewFooterRow;
 }
 
 @end

@@ -37,6 +37,9 @@
 		4E6B03AA1E6D557B003F1B91 /* DJArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B03961E6D557B003F1B91 /* DJArrowRight@2x.png */; };
 		4E6B03AB1E6D557B003F1B91 /* DJArrowRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6B03971E6D557B003F1B91 /* DJArrowRight@3x.png */; };
 		4E77BD4F209F44DB00C0080F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E77BD4E209F44DB00C0080F /* README.md */; };
+		4E77BD5020A09EF800C0080F /* DJTableViewVMChooseBaseRow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9BB03B1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E77BD5120A0A12900C0080F /* DJTableViewVMChooseBaseRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BB03C1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m */; };
+		4E77BD5220A0A2F600C0080F /* DJTableViewVMChooseBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76BD1F553976001B63E2 /* DJTableViewVMChooseBaseCell.m */; };
 		4E81EC021F5541BC0078C9EC /* DJTableViewVMFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E81EC011F5541BC0078C9EC /* DJTableViewVMFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E9BB03D1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BB03C1FBEACA40079D06F /* DJTableViewVMChooseBaseRow.m */; };
 		4EB32C7F1E793EF50040470D /* DJComponentTableViewVMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32C7E1E793EF50040470D /* DJComponentTableViewVMUITests.m */; };
@@ -69,7 +72,6 @@
 		4ECC77071F553D4B001B63E2 /* DJToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76B51F553976001B63E2 /* DJToolBar.m */; };
 		4ECC77081F553D4B001B63E2 /* DJNormalPickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76B81F553976001B63E2 /* DJNormalPickerDelegate.m */; };
 		4ECC77091F553D4B001B63E2 /* DJRelatedPickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76BB1F553976001B63E2 /* DJRelatedPickerDelegate.m */; };
-		4ECC770A1F553D4B001B63E2 /* DJTableViewVMChooseBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76BD1F553976001B63E2 /* DJTableViewVMChooseBaseCell.m */; };
 		4ECC770B1F553D4B001B63E2 /* DJTableViewVMDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76BF1F553976001B63E2 /* DJTableViewVMDateCell.m */; };
 		4ECC770C1F553D4B001B63E2 /* DJTableViewVMDateRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76C11F553976001B63E2 /* DJTableViewVMDateRow.m */; };
 		4ECC770D1F553D4B001B63E2 /* DJTableViewVMOptionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC76C31F553976001B63E2 /* DJTableViewVMOptionRow.m */; };
@@ -549,6 +551,7 @@
 				4ECC77411F553D7D001B63E2 /* DJTableViewVM+UIScrollViewDelegate.h in Headers */,
 				4E81EC021F5541BC0078C9EC /* DJTableViewVMFrameWork.h in Headers */,
 				4ECC77421F553D7D001B63E2 /* DJTableViewVM+UITableViewDelegate.h in Headers */,
+				4E77BD5020A09EF800C0080F /* DJTableViewVMChooseBaseRow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +755,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E77BD5220A0A2F600C0080F /* DJTableViewVMChooseBaseCell.m in Sources */,
+				4E77BD5120A0A12900C0080F /* DJTableViewVMChooseBaseRow.m in Sources */,
 				4ECC77021F553D4B001B63E2 /* DJTableViewVM+Keyboard.m in Sources */,
 				4ECC77031F553D4B001B63E2 /* DJTableViewVMTextFieldCell.m in Sources */,
 				4ECC77041F553D4B001B63E2 /* DJTableViewVMTextFieldRow.m in Sources */,
@@ -760,7 +765,6 @@
 				4ECC77071F553D4B001B63E2 /* DJToolBar.m in Sources */,
 				4ECC77081F553D4B001B63E2 /* DJNormalPickerDelegate.m in Sources */,
 				4ECC77091F553D4B001B63E2 /* DJRelatedPickerDelegate.m in Sources */,
-				4ECC770A1F553D4B001B63E2 /* DJTableViewVMChooseBaseCell.m in Sources */,
 				4ECC770B1F553D4B001B63E2 /* DJTableViewVMDateCell.m in Sources */,
 				4ECC770C1F553D4B001B63E2 /* DJTableViewVMDateRow.m in Sources */,
 				4ECC770D1F553D4B001B63E2 /* DJTableViewVMOptionRow.m in Sources */,

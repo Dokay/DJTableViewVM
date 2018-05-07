@@ -32,8 +32,8 @@
     [self.contentView addSubview:self.placeholderLabel];
     [self.contentView addSubview:self.textCountLabel];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_textCountLabel(>=10)]-(15)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textCountLabel]-(10)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(15)-[_textCountLabel]-(15)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textCountLabel]-(8)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textCountLabel)]];
 }
 
 - (void)cellWillAppear
