@@ -44,7 +44,7 @@
         self.backgroundColor = color;
         self.cellHeight = height;
         self.separatorLineType = DJCellSeparatorLineHide;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return self;
 }

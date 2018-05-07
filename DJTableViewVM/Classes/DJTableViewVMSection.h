@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 
 @interface DJTableViewVMSection : NSObject
 
+#pragma mark - properties
 @property (nonatomic, weak, nullable) DJTableViewVM *tableViewVM;
 @property (nonatomic, strong, readonly,nullable) NSArray *rows;
 @property (nonatomic, strong, nullable) UIView *headerView;
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 @property (nonatomic, strong, readonly) NSMutableDictionary *automaticHeightCache;
 @property (nonatomic, assign) BOOL isSectionHeightNeedRefresh;
 
+#pragma mark - init methods
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle;
 + (instancetype)sectionWithFooterTitle:(NSString *)footerTitle;
 + (instancetype)sectionWithHeaderTitle:(nullable NSString *)headerTitle footerTitle:(nullable NSString *)footerTitle;
@@ -61,15 +63,23 @@ typedef NS_ENUM(NSInteger,DJSectionHeightCaculateType){
 ///init a instance with attributedString and edgeInsets for label in footer view
 - (id)initWithFooterAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets;
 
+#pragma mark - manage rows without reload data
 - (void)addRow:(id)row;
 - (void)addRowsFromArray:(NSArray *)array;
 - (void)insertRow:(id)row atIndex:(NSUInteger)index;
-- (void)sortRowsUsingComparator:(NSComparator NS_NOESCAPE)cmptr;
-- (void)sortRowsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr;
 - (void)removeRow:(id)row;
 - (void)removeRowAtIndex:(NSUInteger)index;
 - (void)removeAllRows;
+- (void)sortRowsUsingComparator:(NSComparator NS_NOESCAPE)cmptr;
+- (void)sortRowsWithOptions:(NSSortOptions)opts usingComparator:(NSComparator NS_NOESCAPE)cmptr;
 
+#pragma mark - manage rows with animation
+- (void)addRow:(id)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addRowsFromArray:(NSArray *)array withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(id)row atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRow:(id)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRowAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeAllRowsWithRowAnimation:(UITableViewRowAnimation)animation;
 - (void)reloadSectionWithAnimation:(UITableViewRowAnimation)animation;
 
 @end

@@ -177,11 +177,6 @@
     return [tableViewVM.sections indexOfObject:self];
 }
 
-- (void)reloadSectionWithAnimation:(UITableViewRowAnimation)animation
-{
-    [self.tableViewVM.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.index] withRowAnimation:animation];
-}
-
 + (UIView *)holderViewWithAttributedText:(NSAttributedString *)attributedString edgeInsets:(UIEdgeInsets)edgeInsets
 {
     NSAssert(attributedString, @"attributedString can not be nil");
@@ -263,6 +258,81 @@
 - (void)removeAllRows
 {
     [self.mutableRows removeAllObjects];
+}
+
+#pragma mark - manage rows with animation
+- (void)addRow:(id)row withRowAnimation:(UITableViewRowAnimation)animation
+{
+    if (!row) {
+        return;
+    }
+    
+    [self addRow:row];
+    
+    [self.tableViewVM.tableView insertRowsAtIndexPaths:@[[row indexPath]] withRowAnimation:animation];
+}
+
+- (void)addRowsFromArray:(NSArray *)array withRowAnimation:(UITableViewRowAnimation)animation
+{
+    if (array.count == 0) {
+        return;
+    }
+    
+    [self addRowsFromArray:array];
+    
+    NSMutableArray *indexPaths = [array mutableArrayValueForKey:@"indexPath"];
+    [self.tableViewVM.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+}
+
+- (void)insertRow:(id)row atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation
+{
+    if (!row || index > self.rows.count) {
+        return;
+    }
+    
+    [self insertRow:row atIndex:index];
+    
+    [self.tableViewVM.tableView insertRowsAtIndexPaths:@[[row indexPath]] withRowAnimation:animation];
+}
+
+- (void)removeRow:(id)row withRowAnimation:(UITableViewRowAnimation)animation
+{
+    if (!row) {
+        return;
+    }
+    
+    NSIndexPath *destIndexPath = [row indexPath];
+    [self removeRow:row];
+    
+    [self.tableViewVM.tableView deleteRowsAtIndexPaths:@[destIndexPath] withRowAnimation:animation];
+}
+
+- (void)removeRowAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation
+{
+    if (index >= self.rows.count) {
+        return;
+    }
+    
+    [self removeRowAtIndex:index];
+    
+    [self.tableViewVM.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:self.index]] withRowAnimation:animation];
+}
+
+- (void)removeAllRowsWithRowAnimation:(UITableViewRowAnimation)animation
+{
+    NSMutableArray *indexPathArray = [NSMutableArray new];
+    for(NSInteger i = 0; i < self.rows.count; i++){
+        [indexPathArray addObject:[NSIndexPath indexPathForRow:i inSection:self.index]];
+    }
+    
+    [self removeAllRows];
+    
+    [self.tableViewVM.tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:animation];
+}
+
+- (void)reloadSectionWithAnimation:(UITableViewRowAnimation)animation
+{
+    [self.tableViewVM.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.index] withRowAnimation:animation];
 }
 
 #pragma mark - getter

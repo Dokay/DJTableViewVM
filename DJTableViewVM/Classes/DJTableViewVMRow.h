@@ -181,16 +181,50 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 @property (nonatomic, assign) BOOL dj_caculateHeightForceRefresh __deprecated_msg("dj_caculateHeightForceRefresh deprecated. Use sectionWithHeaderHeight in DJTableViewVMSection instead");
 
 #pragma mark - actions
+
+/**
+ cell selection block
+ */
 @property (nonatomic, copy, nullable) void (^selectionHandler)(id rowVM);
+
+/**
+ accessory button click block
+ */
 @property (nonatomic, copy, nullable) void (^accessoryButtonTapHandler)(id rowVM);
+
+/**
+ move cell block, it is a confirm block has a bool return value to detemine whether current move is avaliable or not.
+ */
 @property (nonatomic, copy, nullable) BOOL (^moveCellHandler)(id rowVM,  NSIndexPath * sourceIndexPath, NSIndexPath * destinationIndexPath);
+
+/**
+ move cell block after current move finish.
+ */
 @property (nonatomic, copy, nullable) void (^moveCellCompletionHandler)(id rowVM, NSIndexPath * sourceIndexPath, NSIndexPath * destinationIndexPath);
 
+/**
+ pretch cell block.
+ */
 @property (nonatomic, copy, nullable) void(^prefetchHander)(id rowVM);
+
+/**
+ pretch cell cancel block.
+ */
 @property (nonatomic, copy, nullable) void(^prefetchCancelHander)(id rowVM);
 
+/**
+ delete action block, delete cell and invoke block.
+ */
 @property (nonatomic, copy, nullable) void(^deleteCellHandler)(id rowVM);
-@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(id rowVM,  void(^ completion)(void));
+
+/**
+ delete action block, invoke block not delete cell,use completion to delete cell really.use completion after cell delete confirmed by user or confirmed by server.
+ */
+@property (nonatomic, copy, nullable) void(^deleteCellCompleteHandler)(id rowVM, void(^ completion)(void));
+
+/**
+ insert action block
+ */
 @property (nonatomic, copy, nullable) void(^insertCellHandler)(id rowVM);
 
 @property (nonatomic, copy, nullable) void (^cutHandler)(id rowVM);

@@ -88,7 +88,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             break;
         case 9:
         {
-            [self testInsert];
+            [self testEdit];
             [self.tableView setEditing:YES animated:YES];
         }
             break;
@@ -131,7 +131,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                                   @"jumpID":@(7)},
                                 @{@"title":@"SlideAction",
                                   @"jumpID":@(8)},
-                                @{@"title":@"InsertDemo",
+                                @{@"title":@"EditDemo",
                                   @"jumpID":@(9)},
                                 @{@"title":@"IndexTitle",
                                   @"jumpID":@(10)},
@@ -410,10 +410,34 @@ static const NSString *kConstContent = @"There are moments in life when you miss
     }
 }
 
-- (void)testInsert
+- (void)testEdit
 {
-    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"Insert"];
-    [self.aDJTableViewVM addSection:section];
+    DJTableViewVMSection *insertSection = [DJTableViewVMSection sectionWithHeaderTitle:@"Insert"];
+    [self.aDJTableViewVM addSection:insertSection];
+    for (int i  = 0; i < 5; i ++) {
+        DJTableViewVMRow *row = [DJTableViewVMRow new];
+        row.cellHeight = 70;
+        if (i == 0) {
+            row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
+        }
+        row.title = [NSString stringWithFormat:@"InsertCell--%d",i];
+        row.editingStyle = UITableViewCellEditingStyleInsert;
+        __weak typeof(insertSection) weakSection = insertSection;
+        [row setInsertCellHandler:^(DJTableViewVMRow *rowVM) {
+            DJLog(@"tap insert");
+            __strong typeof(insertSection) strongSection = weakSection;
+            
+            DJTableViewVMRow *insertRow = [DJTableViewVMRow new];
+            insertRow.title = [NSString stringWithFormat:@"new cell with index:%@",@(0)];
+            
+            [strongSection insertRow:insertRow atIndex:0 withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+        
+        [insertSection addRow:row];
+    }
+    
+    DJTableViewVMSection *deleteSection = [DJTableViewVMSection sectionWithHeaderTitle:@"Delete"];
+    [self.aDJTableViewVM addSection:deleteSection];
     for (int i  = 0; i < 5; i ++) {
         DJTableViewVMRow *row = [DJTableViewVMRow new];
         row.cellHeight = 70;
@@ -421,12 +445,13 @@ static const NSString *kConstContent = @"There are moments in life when you miss
             row.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
         }
         row.title = [NSString stringWithFormat:@"DeleteCell--%d",i];
-        row.editingStyle = UITableViewCellEditingStyleInsert;
-        [row setInsertCellHandler:^(DJTableViewVMRow *rowVM) {
-            DJLog(@"tap insert");
+        row.editingStyle = UITableViewCellEditingStyleDelete;
+        [row setDeleteCellHandler:^(id  _Nonnull rowVM) {
+            
         }];
-        [section addRow:row];
+        [deleteSection addRow:row];
     }
+    
     [self.aDJTableViewVM reloadData];
 }
 
@@ -459,7 +484,6 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         DJTableViewVMRow *row = [DJTableViewVMRow new];
         row.cellHeight = 70;
         row.title = [NSString stringWithFormat:@"LongTapActions--%d",i];
-        row.editingStyle = UITableViewCellEditingStyleInsert;
         [row setCopyHandler:^(DJTableViewVMRow *rowVM) {
             DJLog(@"tap copy with row:%zd",rowVM.indexPath.row);
         }];
@@ -471,6 +495,9 @@ static const NSString *kConstContent = @"There are moments in life when you miss
         }];
         [section addRow:row];
     }
+ 
+    
+    [self.aDJTableViewVM reloadData];
 }
 
 #pragma mark - getter
