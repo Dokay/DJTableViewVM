@@ -8,4 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
+__attribute__((weak)) BOOL DJ_LOG_ENABLE;
+
 void DJLog(NSString *format, ...);

@@ -11,6 +11,7 @@
 #import "DJTableViewVMSection.h"
 #import "DJTableViewVMRow.h"
 #import "DJLog.h"
+#import "DJRevealViewController.h"
 
 @implementation DJTableViewVM(UITableViewDelegate)
 
@@ -169,6 +170,20 @@
         DJTableViewVMRow *actionRow = (DJTableViewVMRow *)row;
         if (actionRow.selectionHandler) {
             actionRow.selectionHandler(actionRow);
+        }else{
+            if (DJ_LOG_ENABLE) {
+                static int tapCount = 0;
+                tapCount ++;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    tapCount = 0;
+                });
+                if (tapCount == 3){
+                    //tap three times in 1 second
+                    DJRevealViewController *aDJRevealViewController = [DJRevealViewController new];
+                    aDJRevealViewController.tableViewVM = self;
+                    [[UIApplication sharedApplication].keyWindow.rootViewController showViewController:aDJRevealViewController sender:nil];
+                }
+            }
         }
     }
 }

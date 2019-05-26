@@ -13,6 +13,7 @@
 		4E006D8C1C4CB59F005664D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E006D8B1C4CB59F005664D3 /* Assets.xcassets */; };
 		4E006D8F1C4CB59F005664D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E006D8D1C4CB59F005664D3 /* LaunchScreen.storyboard */; };
 		4E0528BD1C4F1A0200B9AAF5 /* test_head.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0528BC1C4F1A0200B9AAF5 /* test_head.png */; };
+		4E2EFA9B229AE6580084CB45 /* DJRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EFA9A229AE6580084CB45 /* DJRevealViewController.m */; };
 		4E3AED1E1D0FE219000F801F /* DJTableViewVMTextAutoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED161D0FE219000F801F /* DJTableViewVMTextAutoCell.m */; };
 		4E3AED1F1D0FE219000F801F /* DJTableViewVMTextFrameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED181D0FE219000F801F /* DJTableViewVMTextFrameCell.m */; };
 		4E3AED201D0FE219000F801F /* DJTableViewVMTextTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3AED1A1D0FE219000F801F /* DJTableViewVMTextTestCell.m */; };
@@ -166,6 +167,8 @@
 		4E006D8E1C4CB59F005664D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E006D901C4CB59F005664D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0528BC1C4F1A0200B9AAF5 /* test_head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_head.png; sourceTree = "<group>"; };
+		4E2EFA99229AE6580084CB45 /* DJRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DJRevealViewController.h; path = DJTableViewVM/Classes/Debug/DJRevealViewController.h; sourceTree = SOURCE_ROOT; };
+		4E2EFA9A229AE6580084CB45 /* DJRevealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DJRevealViewController.m; path = DJTableViewVM/Classes/Debug/DJRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		4E3AED151D0FE219000F801F /* DJTableViewVMTextAutoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMTextAutoCell.h; sourceTree = "<group>"; };
 		4E3AED161D0FE219000F801F /* DJTableViewVMTextAutoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJTableViewVMTextAutoCell.m; sourceTree = "<group>"; };
 		4E3AED171D0FE219000F801F /* DJTableViewVMTextFrameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJTableViewVMTextFrameCell.h; sourceTree = "<group>"; };
@@ -351,6 +354,15 @@
 			name = Resource;
 			sourceTree = "<group>";
 		};
+		4E2EFA9C229AE66F0084CB45 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				4E2EFA99229AE6580084CB45 /* DJRevealViewController.h */,
+				4E2EFA9A229AE6580084CB45 /* DJRevealViewController.m */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		4E3AED141D0FE219000F801F /* TestClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				4ECC769B1F553976001B63E2 /* AdvanceCells */,
+				4E2EFA9C229AE66F0084CB45 /* Debug */,
 				4E6B03811E6D557B003F1B91 /* DJTableViewVM.h */,
 				4E6B03821E6D557B003F1B91 /* DJTableViewVM.m */,
 				4E6B03831E6D557B003F1B91 /* DJTableViewVMCell.h */,
@@ -642,6 +655,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -705,6 +719,7 @@
 				4ECC76CB1F553AF0001B63E2 /* DJTableViewVM+Keyboard.m in Sources */,
 				4ECC76CC1F553AF0001B63E2 /* DJTableViewVMTextFieldCell.m in Sources */,
 				4ECC76CD1F553AF0001B63E2 /* DJTableViewVMTextFieldRow.m in Sources */,
+				4E2EFA9B229AE6580084CB45 /* DJRevealViewController.m in Sources */,
 				4ECC76CE1F553AF0001B63E2 /* DJTableViewVMTextViewCell.m in Sources */,
 				4ECC76CF1F553AF0001B63E2 /* DJTableViewVMTextViewRow.m in Sources */,
 				4ECC76D01F553AF0001B63E2 /* DJToolBar.m in Sources */,

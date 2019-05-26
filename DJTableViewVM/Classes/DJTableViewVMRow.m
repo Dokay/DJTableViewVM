@@ -122,4 +122,10 @@
     [section.tableViewVM.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section.index]] withRowAnimation:animation];
 }
 
+#pragma mark - Debug
+- (nullable NSString *)rowDebugInfo
+{
+    return [NSString stringWithFormat:@"c:%@,h:%.1f,p:%@-%@",NSStringFromClass(self.class),self.cellHeight,@(self.indexPath.section),@(self.indexPath.row)];
+}
+
 @end

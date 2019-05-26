@@ -255,6 +255,9 @@ typedef NS_ENUM(NSInteger,DJCellHeightCaculateType){
 - (void)reloadRowWithAnimation:(UITableViewRowAnimation)animation;
 - (void)deleteRowWithAnimation:(UITableViewRowAnimation)animation;
 
+#pragma mark - Debug
+- (nullable NSString *)rowDebugInfo;
+
 NS_ASSUME_NONNULL_END
 
 
