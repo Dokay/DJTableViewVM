@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DJTableViewVM"
-  s.version      = "1.5.0"
+  s.version      = "1.6.0"
   s.summary      = "DJTableViewVM is a ViewModel implementation for UITableView"
   s.description  = <<-DESC
                    only for private use,DJTableViewVM is a ViewModel implementation for UITableView.
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "Dokay" => "dokay.dou@gmail.com" }
   s.platform     = :ios, "6.0"
   s.source       = { :git => "https://github.com/Dokay/DJTableViewVM.git", :tag => s.version.to_s }
-  s.source_files  = "DJTableViewVM/Classes", "DJTableViewVM/Classes/AdvanceCells", "DJTableViewVM/Classes/AdvanceCells/InputCells", "DJTableViewVM/Classes/AdvanceCells/OptionCells"
+  s.source_files  = "DJTableViewVM/Classes", "DJTableViewVM/Classes/AdvanceCells", "DJTableViewVM/Classes/AdvanceCells/InputCells", "DJTableViewVM/Classes/AdvanceCells/OptionCells","DJTableViewVM/Classes/Debug"
   s.exclude_files = "Classes/Exclude"
   s.public_header_files = "DJTableViewVM/Classes/**/*.h"
   s.resource_bundles = {'DJTableViewVM' => ['DJTableViewVM/Resources/*']}
