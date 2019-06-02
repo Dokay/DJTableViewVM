@@ -61,13 +61,13 @@
             revealSection.footerView = [self customViewWithPosition:[NSString stringWithFormat:@"Section footer,%@ %@",kDJDebugClass,NSStringFromClass(originalSectionVM.footerView.class)] frame:originalSectionVM.footerView.frame];
         }
         
-        if (revealSection.headerTitle.length > 0){
-            NSString *postionInfo = [NSString stringWithFormat:@"Sectin header title:%@",originalSectionVM.headerTitle];
+        if (originalSectionVM.headerTitle.length > 0){
+            NSString *postionInfo = [NSString stringWithFormat:@"Section header title:%@",originalSectionVM.headerTitle];
             revealSection.headerTitle = postionInfo;
         }
         
         if (revealSection.footerTitle.length > 0){
-            NSString *postionInfo = [NSString stringWithFormat:@"Sectin footer title:%@",originalSectionVM.footerTitle];
+            NSString *postionInfo = [NSString stringWithFormat:@"Section footer title:%@",originalSectionVM.footerTitle];
             revealSection.footerTitle = postionInfo;
         }
         

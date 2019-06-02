@@ -522,14 +522,14 @@ static const NSString *kConstContent = @"There are moments in life when you miss
     }
     
     
-    DJTableViewVMSection *cutoomViewSection = [DJTableViewVMSection sectionWithHeaderView:[self headerView:@"this is a setction header"]];
-    [self.aDJTableViewVM addSection:cutoomViewSection];
+    DJTableViewVMSection *customViewSection = [DJTableViewVMSection sectionWithHeaderView:[self headerView:@"this is a section header"]];
+    [self.aDJTableViewVM addSection:customViewSection];
     for (int i  = 0; i < 5; i ++) {
         DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
         row.heightCaculateType = DJCellHeightCaculateAutoLayout;
         row.selectionStyle = UITableViewCellSelectionStyleNone;
         row.contentText = [NSString stringWithFormat:@"%d---,TextRowFrameLayout",i];
-        [cutoomViewSection addRow:row];
+        [customViewSection addRow:row];
     }
     
     [self.aDJTableViewVM reloadData];
