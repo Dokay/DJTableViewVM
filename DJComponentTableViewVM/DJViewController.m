@@ -141,7 +141,7 @@ static const NSString *kConstContent = @"There are moments in life when you miss
                                   @"jumpID":@(12)},
                                 @{@"title":@"AdvanceCellDemo",
                                   @"jumpID":@(13)},
-                                @{@"title":@"MultipleClickToShowRevealView",
+                                @{@"title":@"VMRevealView",
                                   @"jumpID":@(14)},];
     
     __weak DJViewController *weakSelf = self;
@@ -506,23 +506,42 @@ static const NSString *kConstContent = @"There are moments in life when you miss
 {
     DJTableViewRegister(self.aDJTableViewVM, DJTableViewVMTextTestRow, DJTableViewVMTextTestCell);
     
-    DJTableViewVMSection *section = [DJTableViewVMSection sectionWithHeaderTitle:@"reveal view"];
-    [self.aDJTableViewVM addSection:section];
+    self.title = @"reveal view";
+    
+    self.aDJTableViewVM.tableHeaderView = [self headerView:@"this is a table header"];
+    self.aDJTableViewVM.tableFooterView = [self headerView:@"this is a table footer"];
+    
+    DJTableViewVMSection *titlesection = [DJTableViewVMSection sectionWithHeaderTitle:@"tap cell three times quickly to open reveal vc"];
+    [self.aDJTableViewVM addSection:titlesection];
     for (int i  = 0; i < 5; i ++) {
         DJTableViewVMRow *row = [DJTableViewVMRow new];
         row.cellHeight = 70;
+        row.selectionStyle = UITableViewCellSelectionStyleNone;
         row.title = [NSString stringWithFormat:@"row--%d",i];
-        [section addRow:row];
+        [titlesection addRow:row];
     }
     
+    
+    DJTableViewVMSection *cutoomViewSection = [DJTableViewVMSection sectionWithHeaderView:[self headerView:@"this is a setction header"]];
+    [self.aDJTableViewVM addSection:cutoomViewSection];
     for (int i  = 0; i < 5; i ++) {
         DJTableViewVMTextTestRow *row = [DJTableViewVMTextTestRow new];
         row.heightCaculateType = DJCellHeightCaculateAutoLayout;
+        row.selectionStyle = UITableViewCellSelectionStyleNone;
         row.contentText = [NSString stringWithFormat:@"%d---,TextRowFrameLayout",i];
-        [section addRow:row];
+        [cutoomViewSection addRow:row];
     }
     
     [self.aDJTableViewVM reloadData];
+}
+
+- (UIView *)headerView:(NSString *)header{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
+    UILabel *label = [[UILabel alloc] initWithFrame:headerView.frame];
+    label.text = header;
+    label.textAlignment = NSTextAlignmentCenter;
+    [headerView addSubview:label];
+    return headerView;
 }
 
 #pragma mark - getter

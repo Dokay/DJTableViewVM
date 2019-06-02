@@ -7,6 +7,7 @@
 //
 
 #import "DJRevealViewController.h"
+#import "DJLog.h"
 
 @interface DJRevealViewController ()
 
@@ -38,34 +39,47 @@
 - (void)showRevealView{
     
     if (self.tableViewVM.tableHeaderView) {
-        self.revealTableViewVM.tableHeaderView = [self customViewWithPosition:[NSString stringWithFormat:@"TableView Header: %@",NSStringFromClass(self.tableViewVM.tableHeaderView.class)] frame:self.tableViewVM.tableHeaderView.frame];
+        NSString *postionInfo = [NSString stringWithFormat:@"Table header,%@%@,%@%@",kDJDebugClass,NSStringFromClass(self.tableViewVM.tableHeaderView.class),kDJDebugHeitht,@(self.tableViewVM.tableHeaderView.frame.size.height)];
+        self.revealTableViewVM.tableHeaderView = [self customViewWithPosition:postionInfo frame:self.tableViewVM.tableHeaderView.frame];
     }
     
     if (self.tableViewVM.tableFooterView) {
-        self.revealTableViewVM.tableFooterView = [self customViewWithPosition:[NSString stringWithFormat:@"TableView Footer: %@",NSStringFromClass(self.tableViewVM.tableFooterView.class)] frame:self.tableViewVM.tableFooterView.frame];
+        NSString *postionInfo = [NSString stringWithFormat:@"Table footer,%@%@,%@%@",kDJDebugClass,NSStringFromClass(self.tableViewVM.tableFooterView.class),kDJDebugHeitht,@(self.tableViewVM.tableFooterView.frame.size.height)];
+        self.revealTableViewVM.tableFooterView = [self customViewWithPosition:postionInfo frame:self.tableViewVM.tableFooterView.frame];
     }
     
     [self.revealTableViewVM removeAllSections];
     
-    for (DJTableViewVMSection *sectionVM in self.tableViewVM.sections) {
+    for (DJTableViewVMSection *originalSectionVM in self.tableViewVM.sections) {
         DJTableViewVMSection *revealSection = [DJTableViewVMSection new];
         
-        if (sectionVM.headerView) {
-            self.revealTableViewVM.tableHeaderView = [self customViewWithPosition:[NSString stringWithFormat:@"Section Header: %@",NSStringFromClass(sectionVM.headerView.class)] frame:sectionVM.headerView.frame];
+        if (originalSectionVM.headerView) {
+            revealSection.headerView = [self customViewWithPosition:[NSString stringWithFormat:@"Section header,%@ %@",kDJDebugClass,NSStringFromClass(originalSectionVM.headerView.class)] frame:originalSectionVM.headerView.frame];
         }
         
-        if (sectionVM.footerView) {
-            self.revealTableViewVM.tableFooterView = [self customViewWithPosition:[NSString stringWithFormat:@"Section Footer: %@",NSStringFromClass(sectionVM.footerView.class)] frame:sectionVM.footerView.frame];
+        if (originalSectionVM.footerView) {
+            revealSection.footerView = [self customViewWithPosition:[NSString stringWithFormat:@"Section footer,%@ %@",kDJDebugClass,NSStringFromClass(originalSectionVM.footerView.class)] frame:originalSectionVM.footerView.frame];
         }
         
-        for (DJTableViewVMRow *rowVM in sectionVM.rows) {
+        if (revealSection.headerTitle.length > 0){
+            NSString *postionInfo = [NSString stringWithFormat:@"Sectin header title:%@",originalSectionVM.headerTitle];
+            revealSection.headerTitle = postionInfo;
+        }
+        
+        if (revealSection.footerTitle.length > 0){
+            NSString *postionInfo = [NSString stringWithFormat:@"Sectin footer title:%@",originalSectionVM.footerTitle];
+            revealSection.footerTitle = postionInfo;
+        }
+        
+        for (DJTableViewVMRow *rowVM in originalSectionVM.rows) {
             DJTableViewVMRow *revealRow = [DJTableViewVMRow new];
             revealRow.title = [rowVM rowDebugInfo];
             revealRow.cellHeight = rowVM.cellHeight;
+            revealRow.selectionStyle = UITableViewRowAnimationNone;
             revealRow.separatorLineType = rowVM.separatorLineType;
             revealRow.separatorInset = UIEdgeInsetsMake(0, 10, 0, 0);
             [revealRow setSelectionHandler:^(id  _Nonnull rowVM) {
-                //just to avoid reveal recursive
+                //avoid reveal recursive
             }];
             [revealSection addRow:revealRow];
         }
@@ -75,12 +89,12 @@
     [self.revealTableViewVM reloadData];
 }
 
-- (UIView *)customViewWithPosition:(NSString *)position frame:(CGRect)frame{
+- (UIView *)customViewWithPosition:(NSString *)positionInfo frame:(CGRect)frame{
     UIView *positionView = [[UIView alloc] initWithFrame:frame];
     
     CGFloat fontSize = 16;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, (frame.size.height-fontSize)/2, frame.size.width, fontSize)];
-    label.text = position;
+    label.text = positionInfo;
     label.font = [UIFont systemFontOfSize:fontSize];
     
     [positionView addSubview:label];

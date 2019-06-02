@@ -9,6 +9,7 @@
 #import "DJTableViewVMRow.h"
 #import "DJTableViewVM.h"
 #import "DJTableViewVMSection.h"
+#import "DJLog.h"
 
 @interface DJTableViewVMRow()
 
@@ -125,7 +126,7 @@
 #pragma mark - Debug
 - (nullable NSString *)rowDebugInfo
 {
-    return [NSString stringWithFormat:@"c:%@,h:%.1f,p:%@-%@",NSStringFromClass(self.class),self.cellHeight,@(self.indexPath.section),@(self.indexPath.row)];
+    return [NSString stringWithFormat:@"%@%@,%@%.1f,%@%@-%@",kDJDebugClass,NSStringFromClass(self.class),kDJDebugHeitht,self.cellHeight,kDJDebugPostion,@(self.indexPath.section),@(self.indexPath.row)];
 }
 
 @end

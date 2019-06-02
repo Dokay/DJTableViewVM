@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define kDJDebugClass @"c:"
+#define kDJDebugHeitht @"h:"
+#define kDJDebugPostion @"p:"
+
 __attribute__((weak)) BOOL DJ_LOG_ENABLE;
 
 void DJLog(NSString *format, ...);
