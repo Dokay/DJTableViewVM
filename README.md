@@ -15,8 +15,9 @@ __DJTableViewVM is a lightweight MVVM solution for finsih your pages using UITab
 * easy to control cell lines;
 * prefetch for iOS under iOS 10;
 * cell height dynamic caculate;
-* cell height pre caculate.
-* auto scroll while keyboard showing and hiding.
+* cell height pre caculate;
+* auto scroll while keyboard showing and hiding;
+* tableViewVM reveal;
 
 ## Requirements
 * Xcode 9 or higher
